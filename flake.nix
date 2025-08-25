@@ -32,95 +32,124 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Nix WSL (for Windows machines)
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+    # Extras
+
+    opencode = {
+      url = "github:sst/opencode/v0.3.58";
+      flake = false;
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+      # to have it up-to-date or simply don't specify the nixpkgs input
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Neovim
+
+    nixCats = {
+      url = "github:BirdeeHub/nixCats-nvim";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    plugins-debugmaster = {
+      url = "github:miroshQa/debugmaster.nvim";
+      flake = false;
+    };
+
+    plugins-nui = {
+      url = "github:MunifTanjim/nui.nvim";
+      flake = false;
+    };
+
+    plugins-opencode = {
+      url = "github:NickvanDyke/opencode.nvim";
+      flake = false;
+    };
   };
 
-  outputs =
-    {
-      self,
-      catppuccin,
-      darwin,
-      home-manager,
-      nixpkgs,
-      ...
-    }@inputs:
-    let
-      inherit (self) outputs;
+  outputs = {
+    self,
+    catppuccin,
+    darwin,
+    home-manager,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
 
-      # Define user configurations
-      users = {
-        "alexander.nabokikh" = {
-          avatar = ./files/avatar/face;
-          email = "alexander.nabokikh@olx.pl";
-          fullName = "Alexander Nabokikh";
-          gitKey = "C5810093";
-          name = "alexander.nabokikh";
-        };
-        nabokikh = {
-          avatar = ./files/avatar/face;
-          email = "alexander.nabokikh@olx.pl";
-          fullName = "Alexander Nabokikh";
-          gitKey = "C5810093";
-          name = "nabokikh";
-        };
+    # Define user configurations
+    users = {
+      "yhattori" = {
+        avatar = ./files/avatar/face;
+        # email = "";
+        fullName = "Yushi Hattori";
+        gitKey = "";
+        name = "yhattori";
       };
-
-      # Function for NixOS system configuration
-      mkNixosConfiguration =
-        hostname: username:
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = users.${username};
-            nixosModules = "${self}/modules/nixos";
-          };
-          modules = [ ./hosts/${hostname} ];
-        };
-
-      # Function for nix-darwin system configuration
-      mkDarwinConfiguration =
-        hostname: username:
-        darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = users.${username};
-            darwinModules = "${self}/modules/darwin";
-          };
-          modules = [ ./hosts/${hostname} ];
-        };
-
-      # Function for Home Manager configuration
-      mkHomeConfiguration =
-        system: username: hostname:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
-          extraSpecialArgs = {
-            inherit inputs outputs;
-            userConfig = users.${username};
-            nhModules = "${self}/modules/home-manager";
-          };
-          modules = [
-            ./home/${username}/${hostname}
-            catppuccin.homeModules.catppuccin
-          ];
-        };
-    in
-    {
-      nixosConfigurations = {
-        energy = mkNixosConfiguration "energy" "nabokikh";
-      };
-
-      darwinConfigurations = {
-        "PL-OLX-KCGXHGK3PY" = mkDarwinConfiguration "PL-OLX-KCGXHGK3PY" "alexander.nabokikh";
-      };
-
-      homeConfigurations = {
-        "alexander.nabokikh@PL-OLX-KCGXHGK3PY" =
-          mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh"
-            "PL-OLX-KCGXHGK3PY";
-        "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
-      };
-
-      overlays = import ./overlays { inherit inputs; };
     };
+
+    # Function for NixOS system configuration
+    mkNixosConfiguration = hostname: username:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs hostname;
+          userConfig = users.${username};
+          nixosModules = "${self}/modules/nixos";
+        };
+        modules = [./hosts/${hostname}];
+      };
+
+    # Function for nix-darwin system configuration
+    mkDarwinConfiguration = hostname: username:
+      darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs outputs hostname;
+          userConfig = users.${username};
+          darwinModules = "${self}/modules/darwin";
+        };
+        modules = [./hosts/${hostname}];
+      };
+
+    # Function for Home Manager configuration
+    mkHomeConfiguration = system: username: hostname:
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {inherit system;};
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          userConfig = users.${username};
+          nhModules = "${self}/modules/home-manager";
+        };
+        modules = [
+          ./home/${username}/${hostname}
+          catppuccin.homeModules.catppuccin
+        ];
+      };
+  in {
+    nixosConfigurations = {
+      framework13 = mkNixosConfiguration "framework13" "yhattori";
+    };
+
+    # darwinConfigurations = {
+    #   "some.random.hostname" = mkDarwinConfiguration "some.random.hostname" "yhattori";
+    # };
+
+    homeConfigurations = {
+      # "yhattori@some.random.hostname" =
+      #   mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh"
+      #   "PL-OLX-KCGXHGK3PY";
+      "yhattori@framework13" = mkHomeConfiguration "x86_64-linux" "yhattori" "framework13";
+      "yhattori@wsl" = mkHomeConfiguration "x86_64-linux" "yhattori" "wsl";
+    };
+
+    overlays = import ./overlays {inherit inputs;};
+  };
 }
