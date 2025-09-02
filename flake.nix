@@ -75,81 +75,87 @@
     };
   };
 
-  outputs = {
-    self,
-    catppuccin,
-    darwin,
-    home-manager,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
+  outputs =
+    {
+      self,
+      catppuccin,
+      darwin,
+      home-manager,
+      nixpkgs,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
 
-    # Define user configurations
-    users = {
-      "yhattori" = {
-        avatar = ./files/avatar/face;
-        # email = "";
-        fullName = "Yushi Hattori";
-        gitKey = "";
-        name = "yhattori";
-      };
-    };
-
-    # Function for NixOS system configuration
-    mkNixosConfiguration = hostname: username:
-      nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs hostname;
-          userConfig = users.${username};
-          nixosModules = "${self}/modules/nixos";
+      # Define user configurations
+      users = {
+        "yhattori" = {
+          avatar = ./files/avatar/Apollo.jpg;
+          email = "yushi.t.hattori@gmail.com";
+          fullName = "Yushi Hattori";
+          gitKey = "0x6333B18ED1EDED4D";
+          name = "yhattori";
         };
-        modules = [./hosts/${hostname}];
       };
 
-    # Function for nix-darwin system configuration
-    mkDarwinConfiguration = hostname: username:
-      darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {
-          inherit inputs outputs hostname;
-          userConfig = users.${username};
-          darwinModules = "${self}/modules/darwin";
+      # Function for NixOS system configuration
+      mkNixosConfiguration =
+        hostname: username:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs hostname;
+            userConfig = users.${username};
+            nixosModules = "${self}/modules/nixos";
+          };
+          modules = [ ./hosts/${hostname} ];
         };
-        modules = [./hosts/${hostname}];
-      };
 
-    # Function for Home Manager configuration
-    mkHomeConfiguration = system: username: hostname:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {inherit system;};
-        extraSpecialArgs = {
-          inherit inputs outputs;
-          userConfig = users.${username};
-          nhModules = "${self}/modules/home-manager";
+      # Function for nix-darwin system configuration
+      mkDarwinConfiguration =
+        hostname: username:
+        darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = {
+            inherit inputs outputs hostname;
+            userConfig = users.${username};
+            darwinModules = "${self}/modules/darwin";
+          };
+          modules = [ ./hosts/${hostname} ];
         };
-        modules = [
-          ./home/${username}/${hostname}
-          catppuccin.homeModules.catppuccin
-        ];
+
+      # Function for Home Manager configuration
+      mkHomeConfiguration =
+        system: username: hostname:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            userConfig = users.${username};
+            nhModules = "${self}/modules/home-manager";
+          };
+          modules = [
+            ./home/${username}/${hostname}
+            catppuccin.homeModules.catppuccin
+          ];
+        };
+    in
+    {
+      nixosConfigurations = {
+        framework13 = mkNixosConfiguration "framework13" "yhattori";
       };
-  in {
-    nixosConfigurations = {
-      framework13 = mkNixosConfiguration "framework13" "yhattori";
+
+      # darwinConfigurations = {
+      #   "some.random.hostname" = mkDarwinConfiguration "some.random.hostname" "yhattori";
+      # };
+
+      homeConfigurations = {
+        # "yhattori@some.random.hostname" =
+        #   mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh"
+        #   "PL-OLX-KCGXHGK3PY";
+        "yhattori@framework13" = mkHomeConfiguration "x86_64-linux" "yhattori" "framework13";
+        "yhattori@wsl" = mkHomeConfiguration "x86_64-linux" "yhattori" "wsl";
+      };
+
+      overlays = import ./overlays { inherit inputs; };
     };
-
-    # darwinConfigurations = {
-    #   "some.random.hostname" = mkDarwinConfiguration "some.random.hostname" "yhattori";
-    # };
-
-    homeConfigurations = {
-      # "yhattori@some.random.hostname" =
-      #   mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh"
-      #   "PL-OLX-KCGXHGK3PY";
-      "yhattori@framework13" = mkHomeConfiguration "x86_64-linux" "yhattori" "framework13";
-      "yhattori@wsl" = mkHomeConfiguration "x86_64-linux" "yhattori" "wsl";
-    };
-
-    overlays = import ./overlays {inherit inputs;};
-  };
 }

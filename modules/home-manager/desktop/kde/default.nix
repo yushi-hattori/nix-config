@@ -61,26 +61,26 @@
     };
 
     hotkeys.commands = {
-      launch-alacritty = {
-        name = "Launch Alacritty";
-        key = "Meta+Shift+Return";
-        command = "alacritty";
-      };
-      launch-brave = {
-        name = "Launch Brave";
-        key = "Meta+Shift+B";
-        command = "brave";
-      };
-      launch-ocr = {
-        name = "Launch OCR";
-        key = "Alt+@";
-        command = "ocr";
-      };
-      launch-telegram = {
-        name = "Launch Telegram";
-        key = "Meta+Shift+T";
-        command = "Telegram";
-      };
+      # launch-alacritty = {
+      #   name = "Launch Alacritty";
+      #   key = "Meta+Shift+Return";
+      #   command = "alacritty";
+      # };
+      # launch-brave = {
+      #   name = "Launch Brave";
+      #   key = "Meta+Shift+B";
+      #   command = "brave";
+      # };
+      # launch-ocr = {
+      #   name = "Launch OCR";
+      #   key = "Alt+@";
+      #   command = "ocr";
+      # };
+      # launch-telegram = {
+      #   name = "Launch Telegram";
+      #   key = "Meta+Shift+T";
+      #   command = "Telegram";
+      # };
       launch-albert = {
         name = "Launch albert";
         key = "Ctrl+Space";
@@ -130,45 +130,37 @@
 
     input = {
       keyboard = {
-        layouts = [
-          {
-            layout = "pl";
-          }
-          {
-            layout = "ru";
-          }
-        ];
         repeatDelay = 250;
         repeatRate = 40;
       };
       mice = [
-        {
-          accelerationProfile = "none";
-          name = "Razer Razer Viper V3 Pro";
-          productId = "00c1";
-          vendorId = "1532";
-        }
-        {
-          accelerationProfile = "none";
-          name = "Logitech USB Receiver";
-          productId = "c547";
-          vendorId = "046d";
-        }
+        # {
+        #   accelerationProfile = "none";
+        #   name = "Razer Razer Viper V3 Pro";
+        #   productId = "00c1";
+        #   vendorId = "1532";
+        # }
+        # {
+        #   accelerationProfile = "none";
+        #   name = "Logitech USB Receiver";
+        #   productId = "c547";
+        #   vendorId = "046d";
+        # }
       ];
-      touchpads = [
-        {
-          disableWhileTyping = true;
-          enable = true;
-          leftHanded = false;
-          middleButtonEmulation = true;
-          name = "ELAN06A0:00 04F3:3231 Touchpad";
-          naturalScroll = true;
-          pointerSpeed = 0;
-          productId = "3231";
-          tapToClick = true;
-          vendorId = "04f3";
-        }
-      ];
+      # touchpads = [
+      #   {
+      #     disableWhileTyping = true;
+      #     enable = true;
+      #     leftHanded = false;
+      #     middleButtonEmulation = true;
+      #     name = "ELAN06A0:00 04F3:3231 Touchpad";
+      #     naturalScroll = true;
+      #     pointerSpeed = 0;
+      #     productId = "3231";
+      #     tapToClick = true;
+      #     vendorId = "04f3";
+      #   }
+      # ];
     };
 
     krunner.activateWhenTypingOnDesktop = false;
@@ -198,13 +190,13 @@
         wobblyWindows.enable = false;
       };
 
-      nightLight = {
-        enable = true;
-        location.latitude = "52.23";
-        location.longitude = "21.01";
-        mode = "location";
-        temperature.night = 4000;
-      };
+      # nightLight = {
+      #   enable = true;
+      #   location.latitude = "52.23";
+      #   location.longitude = "21.01";
+      #   mode = "location";
+      #   temperature.night = 4000;
+      # };
 
       virtualDesktops = {
         number = 5;
@@ -276,17 +268,17 @@
               items = {
                 showAll = false;
                 shown = [
-                  "org.kde.plasma.keyboardlayout"
+                  "org.kde.plasma.devicenotifier"
                   "org.kde.plasma.networkmanagement"
                   "org.kde.plasma.volume"
-                ];
-                hidden = [
                   "org.kde.plasma.battery"
-                  "org.kde.plasma.brightness"
-                  "org.kde.plasma.clipboard"
-                  "org.kde.plasma.devicenotifier"
                   "org.kde.plasma.mediacontroller"
                   "plasmashell_microphone"
+                ];
+                hidden = [
+                  "org.kde.plasma.keyboardlayout"
+                  "org.kde.plasma.brightness"
+                  "org.kde.plasma.clipboard"
                   "xdg-desktop-portal-kde"
                   "zoom"
                 ];
@@ -392,10 +384,10 @@
           desktops = "Desktop_1";
           desktopsrule = "3";
         };
-        description = "Assign Brave to Desktop 1";
+        description = "Assign Zen Browser to Desktop 1";
         match = {
           window-class = {
-            value = "brave-browser";
+            value = "zen-browser";
             type = "substring";
           };
           window-types = [ "normal" ];
@@ -406,10 +398,10 @@
           desktops = "Desktop_2";
           desktopsrule = "3";
         };
-        description = "Assign Alacritty to Desktop 2";
+        description = "Assign Ghostty to Desktop 2";
         match = {
           window-class = {
-            value = "Alacritty";
+            value = "ghost";
             type = "substring";
           };
           window-types = [ "normal" ];
@@ -508,6 +500,10 @@
     };
 
     configFile = {
+      # Keyboard Options
+      "kxkbrc"."Layout"."Options" = "caps:ctrl_modifier";
+      "kxkbrc"."Layout"."ResetOldOptions" = true;
+
       baloofilerc."Basic Settings"."Indexing-Enabled" = false;
       gwenviewrc.ThumbnailView.AutoplayVideos = true;
       kdeglobals = {
@@ -523,6 +519,7 @@
       };
       klaunchrc.FeedbackStyle.BusyCursor = false;
       klipperrc.General.MaxClipItems = 1000;
+
       kwinrc = {
         Effect-overview.BorderActivate = 9;
         Plugins = {
@@ -544,11 +541,11 @@
         };
         "Script-krohnkite" = {
           floatingClass = "brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc,org.freedesktop.impl.portal.desktop.kde";
-          screenGapBetween = 6;
-          screenGapBottom = 6;
-          screenGapLeft = 6;
-          screenGapRight = 6;
-          screenGapTop = 6;
+          screenGapBetween = 2;
+          screenGapBottom = 2;
+          screenGapLeft = 2;
+          screenGapRight = 2;
+          screenGapTop = 2;
         };
         Windows = {
           DelayFocusInterval = 0;

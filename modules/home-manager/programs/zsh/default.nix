@@ -11,6 +11,10 @@
     shellAliases = {
       ff = "fastfetch";
 
+      # NixOS
+      update-fw = "sudo nixos-rebuild switch --flake .#framework13";
+      update-fw-hm = "home-manager switch --flake .#yhattori@framework13";
+
       # git
       gaa = "git add --all";
       gcam = "git commit --all --message";

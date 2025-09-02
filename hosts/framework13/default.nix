@@ -3,7 +3,8 @@
   hostname,
   nixosModules,
   ...
-}: {
+}:
+{
   imports = [
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-gpu-amd
@@ -18,6 +19,9 @@
 
   # Set hostname
   networking.hostName = hostname;
+
+  services.fwupd.enable = true;
+  services.hardware.bolt.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

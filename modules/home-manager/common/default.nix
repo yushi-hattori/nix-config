@@ -7,14 +7,13 @@
 {
   imports = [
     ../programs/aerospace
-    ../programs/alacritty
     ../programs/albert
     ../programs/atuin
     ../programs/bat
-    ../programs/brave
     ../programs/btop
     ../programs/fastfetch
     ../programs/fzf
+    ../programs/ghostty
     ../programs/git
     ../programs/go
     ../programs/gpg
@@ -25,9 +24,9 @@
     ../programs/obs-studio
     ../programs/saml2aws
     ../programs/starship
-    ../programs/telegram
-    ../programs/tmux
+    ../programs/zellij
     ../programs/zsh
+    ../programs/zen-browser
     ../scripts
     ../services/flatpak
   ];

@@ -38,7 +38,10 @@
       bind C-l send-keys 'C-l'
 
       # Open a project in a separate window
-      bind-key -n C-f run-shell "tmux new-window -t 10 -n project-selector cd-to-project"
+      # bind-key -n C-f run-shell "tmux new-window -t 10 -n project-selector cd-to-project"
+
+      # Open a popup window to zsh
+      bind-key -n alt+f "tmux popup -KER zsh"
 
       # Apply Tc
       set -ga terminal-overrides ",xterm-256color:RGB:smcup@:rmcup@"

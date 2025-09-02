@@ -4,3 +4,7 @@
 
 vim.keymap.set("v", "p", '"_dP', { desc = "Paste without overwriting the default register" })
 vim.keymap.set("n", "<leader>dt", "<cmd>diffthis<CR>", { desc = "Diff This" })
+
+vim.keymap.set("n", "<C-f>", function()
+  require("snipe").open_buffer_menu()
+end, { desc = "Open Snipe buffer menu" })
