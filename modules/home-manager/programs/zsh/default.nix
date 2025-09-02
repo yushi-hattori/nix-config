@@ -8,12 +8,23 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    autosuggestions = true;
+    history = {
+      append = true;
+      extended = true;
+    };
+    syntaxHighlighting = {
+      enable = true;
+    };
+
     shellAliases = {
       ff = "fastfetch";
 
       # NixOS
+      update-fw-all = "update-fw && updatw-fw-hm";
       update-fw = "sudo nixos-rebuild switch --flake .#framework13";
       update-fw-hm = "home-manager switch --flake .#yhattori@framework13";
+      "gc" = "sudo nix-collect-garbage -d";
 
       # git
       gaa = "git add --all";
@@ -61,6 +72,8 @@
       vi = "nvim";
       vim = "nvim";
 
+      "cd" = "z";
+      ".." = "cd ..";
       ls = "eza --icons always"; # default view
       ll = "eza -bhl --icons --group-directories-first"; # long list
       la = "eza -abhl --icons --group-directories-first"; # all list
