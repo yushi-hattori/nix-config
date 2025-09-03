@@ -14,7 +14,7 @@
 
   home.packages = with pkgs; [
     (catppuccin-kde.override {
-      flavour = [ "macchiato" ];
+      flavour = [ "mocha" ];
       accents = [ "lavender" ];
     })
     kde-rounded-corners
@@ -491,7 +491,7 @@
     workspace = {
       enableMiddleClickPaste = false;
       clickItemTo = "select";
-      colorScheme = "CatppuccinMacchiatoLavender";
+      colorScheme = "CatppuccinMochaLavender";
       cursor.theme = "Yaru";
       splashScreen.engine = "none";
       splashScreen.theme = "none";

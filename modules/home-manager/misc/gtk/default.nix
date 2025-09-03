@@ -8,10 +8,10 @@
   gtk = {
     enable = true;
     theme = {
-      name = "catppuccin-macchiato-lavender-compact";
+      name = "catppuccin-mocha-lavender-compact";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "lavender" ];
-        variant = "macchiato";
+        variant = "mocha";
         size = "compact";
       };
     };

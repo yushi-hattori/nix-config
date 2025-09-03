@@ -74,6 +74,7 @@
       terraform
       obsidian
       spotify
+      google-chrome
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
@@ -90,7 +91,7 @@
 
   # Catpuccin flavor and accent
   catppuccin = {
-    flavor = "macchiato";
+    flavor = "mocha";
     accent = "lavender";
   };
 }

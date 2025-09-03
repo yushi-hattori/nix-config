@@ -71,7 +71,7 @@
     tmux = {
       enable = true;
       extraConfig = ''
-        set -g @catppuccin_flavor "macchiato"
+        set -g @catppuccin_flavor "mocha"
         set -g @catppuccin_status_background "none"
 
         set -g @catppuccin_window_current_number_color "#{@thm_peach}"
