@@ -8,7 +8,9 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions = true;
+    autosuggestion = {
+      enable = true;
+    };
     history = {
       append = true;
       extended = true;

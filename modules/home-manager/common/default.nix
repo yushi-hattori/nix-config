@@ -71,6 +71,7 @@
       python3
       ripgrep
       terraform
+      obsidian
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
