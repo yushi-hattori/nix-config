@@ -2,7 +2,7 @@
 {
   options.wallpaper = lib.mkOption {
     type = lib.types.path;
-    default = ./wallpaper.jpg;
+    default = ./space.png;
     readOnly = true;
     description = "Path to default wallpaper";
   };

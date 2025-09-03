@@ -5,7 +5,7 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
     settings = {
-      theme = "nightfox";
+      theme = "catppuccin-mocha";
       show_startup_tips = false;
       pane_frames = false;
       default_shell = "zsh";
@@ -17,8 +17,12 @@
     };
   };
 
-  xdg.configFile."zellij/config.kdl" = {
-    source = ./config.kdl;
-    recursive = true;
+  xdg.configFile = {
+    "zellij/config.kdl" = {
+      source = ./config.kdl;
+    };
+    "zellij/themes/catppuccin.kdl" = {
+      source = ./catppuccin.kdl;
+    };
   };
 }

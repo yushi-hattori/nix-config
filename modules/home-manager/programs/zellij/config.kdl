@@ -1,7 +1,7 @@
 default_shell "zsh"
 pane_frames false
 show_startup_tips false
-theme "nightfox"
+theme "catppuccin-mocha"
 ui {
     pane_frames {
         rounded_corners true
