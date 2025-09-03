@@ -25,6 +25,7 @@
     ../programs/saml2aws
     ../programs/starship
     ../programs/zellij
+    ../programs/zoxide
     ../programs/zsh
     ../programs/zen-browser
     ../scripts
@@ -72,6 +73,7 @@
       ripgrep
       terraform
       obsidian
+      spotify
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima

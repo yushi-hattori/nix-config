@@ -100,6 +100,18 @@
         # Enable ALT-C fzf keybinding on Mac
         bindkey 'ć' fzf-cd-widget
       ''}
+
+
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      if [ -f "$HOME/.env" ]; then
+        set -a
+        source "$HOME/.env"
+        set +a
+      fi
+
+      bindkey '^E' autosuggest-accept  # Ctrl + e to accept autosuggestions
+      bindkey '^J' history-down        # Ctrl + j to move down in history
+      bindkey '^K' history-up          # Ctrl + k to move up in history
     '';
   };
 }
