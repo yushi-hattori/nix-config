@@ -24,6 +24,7 @@
     ../programs/obs-studio
     ../programs/saml2aws
     ../programs/starship
+    ../programs/thunderbird
     ../programs/zellij
     ../programs/zoxide
     ../programs/zsh
