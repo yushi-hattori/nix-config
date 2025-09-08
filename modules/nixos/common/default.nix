@@ -63,6 +63,17 @@
   # Networking
   networking.networkmanager.enable = true;
 
+  # Foor kdeconnect
+  networking.firewall = rec {
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
+
   # Disable systemd services that are affecting the boot time
   systemd.services = {
     NetworkManager-wait-online.enable = false;
@@ -140,6 +151,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "dialout"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;

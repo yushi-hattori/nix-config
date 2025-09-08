@@ -17,6 +17,7 @@
     ../programs/git
     ../programs/go
     ../programs/gpg
+    ../programs/kdeconnect
     ../programs/k9s
     ../programs/krew
     ../programs/lazygit
@@ -76,6 +77,9 @@
       obsidian
       spotify
       google-chrome
+      gimp3
+      inkcut
+      inkscape
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima

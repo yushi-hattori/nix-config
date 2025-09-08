@@ -30,6 +30,12 @@
       persistent=true
       trigger=clipboard
 
+      [albert]
+      enabled=true
+
+      [calculator]
+      enabled=true
+
       [debug]
       enabled=false
 
@@ -49,7 +55,7 @@
 
       [widgetsboxmodel-ng]
       alwaysOnTop=true
-      clearOnHide=true
+      clearOnHide=false
       debug=false
       displayScrollbar=false
       followCursor=true

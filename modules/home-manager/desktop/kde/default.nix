@@ -24,6 +24,13 @@
     tela-circle-icon-theme
   ];
 
+  # Enables kde connect
+  services.kdeconnect = {
+    enable = true;
+    package = pkgs.kdePackages.kdeconnect-kde;
+    indicator = true;
+  };
+
   # Set gpg agent specific to KDE/Kwallet
   services.gpg-agent = {
     pinentry.package = lib.mkForce pkgs.kwalletcli;
@@ -387,7 +394,7 @@
         description = "Assign Zen Browser to Desktop 1";
         match = {
           window-class = {
-            value = "zen-browser";
+            value = "zen zen-twilight";
             type = "substring";
           };
           window-types = [ "normal" ];
@@ -401,7 +408,7 @@
         description = "Assign Ghostty to Desktop 2";
         match = {
           window-class = {
-            value = "ghost";
+            value = "ghostty com.mitchellh.ghostty";
             type = "substring";
           };
           window-types = [ "normal" ];
@@ -412,10 +419,10 @@
           desktops = "Desktop_3";
           desktopsrule = "3";
         };
-        description = "Assign Telegram to Desktop 3";
+        description = "Assign Obsidian to Desktop 3";
         match = {
           window-class = {
-            value = "org.telegram.desktop";
+            value = "electron obsidian";
             type = "substring";
           };
           window-types = [ "normal" ];
