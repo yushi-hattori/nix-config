@@ -17,7 +17,6 @@
     ../programs/git
     ../programs/go
     ../programs/gpg
-    ../programs/kdeconnect
     ../programs/k9s
     ../programs/krew
     ../programs/lazygit
