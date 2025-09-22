@@ -9,7 +9,15 @@
     withPython3 = true;
     withRuby = true;
 
+    plugins = [
+      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+    ];
+
     extraPackages = with pkgs; [
+      tree-sitter
+      gcc
+      gnumake
+
       black
       golangci-lint
       gopls

@@ -1,6 +1,6 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     -- Disable Mason in favor of Nix packages
     enabled = false,
     opts = function(_, opts)
@@ -24,4 +24,6 @@ return {
       })
     end,
   },
+  { "mason-org/mason-lspconfig.nvim", enabled = false },
+  { "WhoIsSethDaniel/mason-tool-installer.nvim", enabled = false },
 }
