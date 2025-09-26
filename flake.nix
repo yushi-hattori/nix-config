@@ -50,29 +50,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Neovim
-
-    nixCats = {
-      url = "github:BirdeeHub/nixCats-nvim";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    plugins-debugmaster = {
-      url = "github:miroshQa/debugmaster.nvim";
-      flake = false;
-    };
-
-    plugins-nui = {
-      url = "github:MunifTanjim/nui.nvim";
-      flake = false;
-    };
-
-    plugins-opencode = {
-      url = "github:NickvanDyke/opencode.nvim";
-      flake = false;
-    };
   };
 
   outputs =

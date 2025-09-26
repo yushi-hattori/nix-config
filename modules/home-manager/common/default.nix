@@ -24,7 +24,6 @@
     ../programs/obs-studio
     ../programs/saml2aws
     ../programs/starship
-    ../programs/thunderbird
     ../programs/zellij
     ../programs/zoxide
     ../programs/zsh
@@ -61,6 +60,7 @@
       anki-bin
       awscli2
       dig
+      discord-ptb
       du-dust
       eza
       fd
