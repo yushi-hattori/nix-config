@@ -13,6 +13,7 @@
     ../programs/btop
     ../programs/fastfetch
     ../programs/fzf
+    ../programs/gemini-cli
     ../programs/ghostty
     ../programs/git
     ../programs/go
@@ -28,6 +29,8 @@
     ../programs/zoxide
     ../programs/zsh
     ../programs/zen-browser
+    ../programs/python
+    ../programs/vscode
     ../scripts
     ../services/flatpak
   ];
@@ -70,7 +73,6 @@
       nh
       openconnect
       pipenv
-      python3
       ripgrep
       terraform
       obsidian
@@ -79,6 +81,7 @@
       gimp3
       inkcut
       inkscape
+      micromamba
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
