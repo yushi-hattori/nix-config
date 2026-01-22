@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -7,6 +8,7 @@
   # Zsh shell configuration
   programs.zsh = {
     enable = true;
+    dotDir = config.home.homeDirectory;
     enableCompletion = true;
     autosuggestion = {
       enable = true;
@@ -21,9 +23,11 @@
 
     shellAliases = {
       ff = "fastfetch";
+      conda = "micromamba";
+      mamba = "micromamba";
 
       # NixOS
-      update-fw-all = "update-fw && updatw-fw-hm";
+      update-fw-all = "update-fw && update-fw-hm";
       update-fw = "sudo nixos-rebuild switch --flake .#framework13";
       update-fw-hm = "home-manager switch --flake .#yhattori@framework13 -b backup";
       "gc" = "sudo nix-collect-garbage -d";

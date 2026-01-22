@@ -64,7 +64,7 @@
       awscli2
       dig
       discord-ptb
-      du-dust
+      dust
       eza
       fd
       jq
@@ -82,6 +82,8 @@
       inkcut
       inkscape
       micromamba
+      stdenv.cc.cc.lib
+      zlib
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
