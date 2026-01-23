@@ -1,0 +1,88 @@
+return {
+    'MeanderingProgrammer/render-markdown.nvim', -- another markdown beautifier
+    main = "render-markdown",
+    opts = {
+      render_modes = { 'n', 'v', 'i', 'c', 't', 'x' },
+      anti_conceal = {
+        enabled = true,
+      },
+      checkbox = {
+        enabled = false,
+      },
+      win_options = {
+        conceallevel = {
+          default = 2,
+          rendered = 2,
+        },
+      },
+      bullet = {
+        enabled = true,
+        icons = { '●', '○', '◆', '◇' },
+        left_pad = 1,
+        right_pad = 0,
+        highlight = 'RenderMarkdownBullet',
+      },
+      link = {
+        enabled = false,
+      },
+      heading = {
+        enabled = true,
+        sign = false,
+        icons = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },
+        signs = { '󰫎 ' },
+        width = 'block',
+        left_pad = 0,
+        right_pad = 1,
+        backgrounds = {
+          'RenderMarkdownH1Bg',
+          'RenderMarkdownH2Bg',
+          'RenderMarkdownH3Bg',
+          'RenderMarkdownH4Bg',
+          'RenderMarkdownH5Bg',
+          'RenderMarkdownH6Bg',
+        },
+        foregrounds = {
+          'RenderMarkdownH1',
+          'RenderMarkdownH2',
+          'RenderMarkdownH3',
+          'RenderMarkdownH4',
+          'RenderMarkdownH5',
+          'RenderMarkdownH6',
+        },
+      },
+
+      code = {
+        enabled = true,
+        sign = false,
+        style = 'full',
+        left_pad = 1,
+        right_pad = 1,
+        width = 'block',
+        border = 'thin',
+        above = '-',
+        below = '-',
+        highlight = 'RenderMarkdownCode',
+        highlight_inline = 'RenderMarkdownCodeInline',
+      },
+      callout = {
+        note = { raw = '[!NOTE]', rendered = '󰋽 Note', highlight = 'RenderMarkdownInfo' },
+        tip = { raw = '[!TIP]', rendered = '󰌶 Tip', highlight = 'RenderMarkdownSuccess' },
+        important = { raw = '[!IMPORTANT]', rendered = '󰅾 Important', highlight = 'RenderMarkdownHint' },
+        warning = { raw = '[!WARNING]', rendered = '󰀪 Warning', highlight = 'RenderMarkdownWarn' },
+        caution = { raw = '[!CAUTION]', rendered = '󰳦 Caution', highlight = 'RenderMarkdownError' },
+        abstract = { raw = '[!ABSTRACT]', rendered = '󰨸 Abstract', highlight = 'RenderMarkdownInfo' },
+        todo = { raw = '[!TODO]', rendered = '󰗡 Todo', highlight = 'RenderMarkdownInfo' },
+        success = { raw = '[!SUCCESS]', rendered = '󰄬 Success', highlight = 'RenderMarkdownSuccess' },
+        question = { raw = '[!QUESTION]', rendered = '󰘥 Question', highlight = 'RenderMarkdownWarn' },
+        failure = { raw = '[!FAILURE]', rendered = '󰅖 Failure', highlight = 'RenderMarkdownError' },
+        danger = { raw = '[!DANGER]', rendered = '󱐌 Danger', highlight = 'RenderMarkdownError' },
+        bug = { raw = '[!BUG]', rendered = '󰨰 Bug', highlight = 'RenderMarkdownError' },
+        example = { raw = '[!EXAMPLE]', rendered = '󰉹 Example', highlight = 'RenderMarkdownHint' },
+        quote = { raw = '[!QUOTE]', rendered = '󱆨 Quote', highlight = 'RenderMarkdownQuote' },
+      },
+      latex = { enabled = false },
+    },
+
+    name = 'render-markdown',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+}

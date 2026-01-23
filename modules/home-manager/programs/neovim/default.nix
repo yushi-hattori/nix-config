@@ -39,6 +39,15 @@
       tflint
       vscode-langservers-extracted
       yaml-language-server
+
+      # Python packages for molten-nvim and Jupyter integration
+      python3Packages.jupyter
+      python3Packages.pynvim # Neovim Remote Plugin API
+      python3Packages.jupyter-client # For interacting with Jupyter kernels
+      python3Packages.ipykernel
+
+      # imagemagick for image.nvim
+      imagemagick
     ];
   };
 
