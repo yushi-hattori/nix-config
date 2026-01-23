@@ -116,6 +116,19 @@
       bindkey '^E' autosuggest-accept  # Ctrl + e to accept autosuggestions
       bindkey '^J' history-down        # Ctrl + j to move down in history
       bindkey '^K' history-up          # Ctrl + k to move up in history
+
+      # >>> mamba initialize >>>
+      # !! Contents within this block are managed by 'micromamba shell init' !!
+      export MAMBA_EXE='/nix/store/szq88nrq86pa50339h01hl983q2apnhl-micromamba-2.4.0/bin/micromamba';
+      export MAMBA_ROOT_PREFIX='${config.home.homeDirectory}/.mamba';
+      __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+      if [ $? -eq 0 ]; then
+          eval "$__mamba_setup"
+      else
+          alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
+      fi
+      unset __mamba_setup
+      # <<< mamba initialize <<<
     '';
   };
 }
