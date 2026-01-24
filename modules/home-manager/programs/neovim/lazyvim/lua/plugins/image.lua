@@ -5,6 +5,7 @@ return {
     priority = 1001,
     opts = {
       rocks = { "magick" },
+      enabled = false,
     },
   },
   opts = {

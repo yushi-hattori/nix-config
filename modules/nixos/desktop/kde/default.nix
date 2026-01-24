@@ -22,16 +22,14 @@ in
   ];
 
   # Excluding some KDE applications from the default install
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    baloo-widgets
-    elisa
-    ffmpegthumbs
-    kate
-    khelpcenter
-    konsole
-    krdp
-    plasma-browser-integration
-    xwaylandvideobridge
+  environment.plasma6.excludePackages = with pkgs; [
+    kdePackages.baloo-widgets
+    kdePackages.elisa
+    kdePackages.ffmpegthumbs
+    kdePackages.kate
+    kdePackages.khelpcenter
+    kdePackages.konsole
+    kdePackages.plasma-browser-integration
   ];
 
   # Disabled redundant services

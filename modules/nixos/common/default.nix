@@ -39,7 +39,7 @@
 
   # Boot settings
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_16;
+    kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 0;
     initrd.verbose = false;
     kernelParams = [

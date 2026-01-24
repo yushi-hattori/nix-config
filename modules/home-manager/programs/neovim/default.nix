@@ -9,6 +9,13 @@
     withPython3 = true;
     withRuby = true;
 
+    extraPython3Packages = ps: with ps; [
+      jupyter
+      pynvim # Neovim Remote Plugin API
+      jupyter-client # For interacting with Jupyter kernels
+      ipykernel
+    ];
+
     plugins = [
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
@@ -48,6 +55,11 @@
 
       # imagemagick for image.nvim
       imagemagick
+
+      # readline for luarocks Lua compilation
+      readline
+      lua5_1
+      luarocks # Provide pre-built luarocks
     ];
   };
 
