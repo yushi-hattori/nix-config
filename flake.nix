@@ -104,7 +104,13 @@
       mkHomeConfiguration =
         system: username: hostname:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              outputs.overlays.stable-packages
+              outputs.overlays.gemini-cli
+            ];
+          };
           extraSpecialArgs = {
             inherit inputs outputs;
             userConfig = users.${username};
