@@ -40,6 +40,9 @@
       ggl = "git pull";
       ggp = "git push";
 
+      # python
+      deeplearning = "conda activate deeplearning && python -m ipykernel install --user --name deeplearning --display-name \"Python (deeplearning)\"";
+
       # kubectl
       k = "kubectl";
       kgno = "kubectl get node";

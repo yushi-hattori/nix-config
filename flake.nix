@@ -108,7 +108,6 @@
             inherit system;
             overlays = [
               outputs.overlays.stable-packages
-              outputs.overlays.gemini-cli
             ];
           };
           extraSpecialArgs = {

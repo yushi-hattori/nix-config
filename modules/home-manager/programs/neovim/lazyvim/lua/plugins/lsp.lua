@@ -46,11 +46,18 @@ return {
                 useLibraryCodeForTypes = true,
                 typeCheckingMode = "basic",
                 diagnosticMode = "openFilesOnly",
+                venvPath = "~/.mamba/envs/",
+                venv = "",
               },
             },
           },
         },
-        ruff = {},
+        ruff = {
+          on_attach = function(client, bufnr)
+            -- Disable hover capabilities for ruff
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
         terraformls = {},
         tflint = {},
         yamlls = {
