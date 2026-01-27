@@ -256,7 +256,7 @@
                 fontSize = 11;
                 fontStyleName = "Regular";
                 fontWeight = 400;
-                use24hFormat = 2;
+                use24hFormat = 1;
               };
             };
           }
