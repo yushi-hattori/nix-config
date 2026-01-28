@@ -307,13 +307,13 @@
       AC = {
         autoSuspend.action = "nothing";
         dimDisplay.enable = false;
-        powerButtonAction = "shutDown";
+        powerButtonAction = "sleep";
         turnOffDisplay.idleTimeout = "never";
       };
       battery = {
         autoSuspend.action = "nothing";
         dimDisplay.enable = false;
-        powerButtonAction = "shutDown";
+        powerButtonAction = "sleep";
         turnOffDisplay.idleTimeout = "never";
       };
     };
@@ -339,7 +339,21 @@
       };
 
       kwin = {
-        "KrohnkiteMonocleLayout" = [ ];
+        "Krohnkite Layout" = "Meta+\\";
+        "Krohnkite Decrease" = "Meta+D";
+        "Krohnkite Float" = "Meta+F";
+        "Krohnkite Increase" = "Meta+I";
+        "Krohnkite Monocle" = "Meta+M";
+        "Krohnkite Set Master" = "Meta+Return";
+        "Krohnkite Tile" = "Meta+T";
+        "Krohnkite Focus Up" = "Meta+K";
+        "Krohnkite Focus Down" = "Meta+J";
+        "Krohnkite Focus Left" = "Meta+H";
+        "Krohnkite Focus Right" = "Meta+L";
+        "Krohnkite Move Up" = "Meta+Shift+K";
+        "Krohnkite Move Down" = "Meta+Shift+J";
+        "Krohnkite Move Left" = "Meta+Shift+H";
+        "Krohnkite Move Right" = "Meta+Shift+L";
         "Switch to Desktop 1" = "Meta+1";
         "Switch to Desktop 2" = "Meta+2";
         "Switch to Desktop 3" = "Meta+3";
@@ -419,10 +433,10 @@
           desktops = "Desktop_3";
           desktopsrule = "3";
         };
-        description = "Assign Obsidian to Desktop 3";
+        description = "Assign VSCode to Desktop 3";
         match = {
           window-class = {
-            value = "electron obsidian";
+            value = "code";
             type = "substring";
           };
           window-types = [ "normal" ];
@@ -433,29 +447,11 @@
           desktops = "Desktop_4";
           desktopsrule = "3";
         };
-        description = "Assign OBS to Desktop 4";
+        description = "Assign Spotify to Desktop 4";
         match = {
           window-class = {
-            value = "com.obsproject.Studio";
+            value = "spotify";
             type = "substring";
-          };
-          window-types = [ "normal" ];
-        };
-      }
-      {
-        apply = {
-          desktops = "Desktop_4";
-          desktopsrule = "3";
-          fsplevel = "4";
-          fsplevelrule = "2";
-          minimizerule = "2";
-        };
-        description = "Assign Steam to Desktop 4";
-        match = {
-          window-class = {
-            value = "steam";
-            type = "exact";
-            match-whole = false;
           };
           window-types = [ "normal" ];
         };
@@ -464,30 +460,11 @@
         apply = {
           desktops = "Desktop_5";
           desktopsrule = "3";
-          fsplevel = "4";
-          fsplevelrule = "2";
         };
-        description = "Assign Steam Games to Desktop 5";
+        description = "Assign KDE Settings to Desktop 5";
         match = {
           window-class = {
-            value = "steam_app_";
-            type = "substring";
-            match-whole = false;
-          };
-        };
-      }
-      {
-        apply = {
-          desktops = "Desktop_5";
-          desktopsrule = "3";
-          fsplevel = "4";
-          fsplevelrule = "2";
-          minimizerule = "2";
-        };
-        description = "Assign Zoom to Desktop 5";
-        match = {
-          window-class = {
-            value = "zoom";
+            value = "org.kde.systemsettings";
             type = "substring";
           };
           window-types = [ "normal" ];
@@ -526,6 +503,12 @@
       };
       klaunchrc.FeedbackStyle.BusyCursor = false;
       klipperrc.General.MaxClipItems = 1000;
+
+      "kglobalshortcutsrc" = {
+        "[org.kde.konsole.desktop]" = {
+          "_launch" = "none";
+        };
+      };
 
       kwinrc = {
         Effect-overview.BorderActivate = 9;
