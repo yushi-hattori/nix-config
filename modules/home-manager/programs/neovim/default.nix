@@ -60,6 +60,10 @@
       readline
       lua5_1
       luarocks # Provide pre-built luarocks
+
+      # spell checking
+      hunspell
+      hunspellDicts.en_US
     ];
   };
 

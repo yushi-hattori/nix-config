@@ -38,6 +38,8 @@
 
     # Extras
 
+    claude-code.url = "github:sadjow/claude-code-nix";
+
     opencode = {
       url = "github:sst/opencode/v0.3.58";
       flake = false;
@@ -59,6 +61,7 @@
       darwin,
       home-manager,
       nixpkgs,
+      claude-code,
       ...
     }@inputs:
     let
@@ -108,6 +111,7 @@
             inherit system;
             overlays = [
               outputs.overlays.stable-packages
+              claude-code.overlays.default
             ];
           };
           extraSpecialArgs = {
