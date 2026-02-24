@@ -182,6 +182,7 @@
     gnumake
     killall
     mesa
+    claude-code
   ];
 
   # Docker configuration

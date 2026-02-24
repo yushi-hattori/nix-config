@@ -305,13 +305,15 @@
 
     powerdevil = {
       AC = {
-        autoSuspend.action = "nothing";
+        autoSuspend.action = "sleep";
+        autoSuspend.idleTimeout = 600;
         dimDisplay.enable = false;
         powerButtonAction = "sleep";
         turnOffDisplay.idleTimeout = "never";
       };
       battery = {
-        autoSuspend.action = "nothing";
+        autoSuspend.action = "sleep";
+        autoSuspend.idleTimeout = 600;
         dimDisplay.enable = false;
         powerButtonAction = "sleep";
         turnOffDisplay.idleTimeout = "never";
@@ -459,12 +461,12 @@
       {
         apply = {
           desktops = "Desktop_5";
-          desktopsrule = "3";
+          desktopsrule = "7";
         };
         description = "Assign KDE Settings to Desktop 5";
         match = {
           window-class = {
-            value = "org.kde.systemsettings";
+            value = "systemsettings";
             type = "substring";
           };
           window-types = [ "normal" ];

@@ -16,7 +16,7 @@
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
 
         PLATFORM_PROFILE_ON_AC = "low-power";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
+        PLATFORM_PROFILE_ON_BAT = "performance";
 
         USB_EXCLUDE_BTUSB = 1;
         USB_AUTOSUSPEND = 1;
