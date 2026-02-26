@@ -30,7 +30,7 @@ return {
         nls.builtins.diagnostics.golangci_lint,
         nls.builtins.diagnostics.hadolint,
         nls.builtins.diagnostics.markdownlint.with({ extra_args = { "--disable", "MD013" } }),
-        -- nls.builtins.diagnostics.spell.with({ filetypes = { "markdown" } }),
+        nls.builtins.diagnostics.spell,
       },
       on_attach = function(client, bufnr)
         -- Disable diagnostics for non-file buffers (like terminals)
