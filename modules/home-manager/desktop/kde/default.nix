@@ -341,21 +341,28 @@
       };
 
       kwin = {
-        "Krohnkite Layout" = "Meta+\\";
-        "Krohnkite Decrease" = "Meta+D";
-        "Krohnkite Float" = "Meta+F";
-        "Krohnkite Increase" = "Meta+I";
-        "Krohnkite Monocle" = "Meta+M";
-        "Krohnkite Set Master" = "Meta+Return";
-        "Krohnkite Tile" = "Meta+T";
+        # Aerospace-style keybinds
+        "Krohnkite Monocle" = "Ctrl+Shift+Return";
+        "Krohnkite Float" = "Ctrl+Shift+T";
+        "Krohnkite Layout" = "Ctrl+Shift+L";
+        "Krohnkite Tile" = "Ctrl+Shift+Y";
+        "Krohnkite Set Master" = "Ctrl+Shift+M";
+        "Krohnkite Decrease" = "Ctrl+Shift+D";
+        "Krohnkite Increase" = "Ctrl+Shift+I";
+
+        # Navigation (keep Meta for easier access)
         "Krohnkite Focus Up" = "Meta+K";
         "Krohnkite Focus Down" = "Meta+J";
         "Krohnkite Focus Left" = "Meta+H";
         "Krohnkite Focus Right" = "Meta+L";
+
+        # Moving windows (keep Meta+Shift)
         "Krohnkite Move Up" = "Meta+Shift+K";
         "Krohnkite Move Down" = "Meta+Shift+J";
         "Krohnkite Move Left" = "Meta+Shift+H";
         "Krohnkite Move Right" = "Meta+Shift+L";
+
+        # Desktop switching
         "Switch to Desktop 1" = "Meta+1";
         "Switch to Desktop 2" = "Meta+2";
         "Switch to Desktop 3" = "Meta+3";
@@ -363,8 +370,10 @@
         "Switch to Desktop 5" = "Meta+5";
         "Switch to Desktop 6" = "Meta+6";
         "Switch to Desktop 7" = "Meta+7";
+
+        # Window management
         "Window Close" = "Meta+Q";
-        "Window Fullscreen" = "Meta+M";
+        "Window Fullscreen" = "Ctrl+Shift+Return";
         "Window Move Center" = "Ctrl+Alt+C";
       };
 
@@ -509,6 +518,13 @@
       "kglobalshortcutsrc" = {
         "[org.kde.konsole.desktop]" = {
           "_launch" = "none";
+        };
+        "plasmashell" = {
+          "manage activities" = "none,none,Manage Activities";
+        };
+        "systemsettings.desktop" = {
+          "_launch" = "none,none,Settings";
+          "configure" = "none,Ctrl+,,Configure";
         };
       };
 
