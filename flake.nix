@@ -40,15 +40,17 @@
 
     claude-code.url = "github:sadjow/claude-code-nix";
 
-    opencode = {
-      url = "github:sst/opencode/v0.3.58";
-      flake = false;
-    };
+    opencode.url = "github:dan-online/opencode-nix";
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
       # to have it up-to-date or simply don't specify the nixpkgs input
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    walker = {
+      url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -62,6 +64,7 @@
       home-manager,
       nixpkgs,
       claude-code,
+      opencode,
       ...
     }@inputs:
     let
@@ -112,6 +115,7 @@
             overlays = [
               outputs.overlays.stable-packages
               claude-code.overlays.default
+              opencode.overlays.default
             ];
           };
           extraSpecialArgs = {

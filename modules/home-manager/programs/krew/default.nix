@@ -23,10 +23,10 @@ in
   home.activation.krew = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     export PATH="$HOME/.krew/bin:${pkgs.git}/bin:/usr/bin:$PATH";
 
-    if [ -z "$(${pkgs.krew}/bin/krew list)" ]; then
-      ${pkgs.krew}/bin/krew install ${krewPkgStr}
+    if [ -z "$(${pkgs.krew}/bin/krew list 2>/dev/null)" ]; then
+      ${pkgs.krew}/bin/krew install ${krewPkgStr} || true
     else
-      ${pkgs.krew}/bin/krew upgrade
+      ${pkgs.krew}/bin/krew upgrade || true
     fi
   '';
 }

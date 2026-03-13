@@ -19,6 +19,13 @@ vim.keymap.set("n", "<leader>zz", function()
   end
 end, { noremap = true, silent = false, desc = "Toggle zen mode (center cursor)" })
 
+-- Copy current file path
+vim.keymap.set("n", "<leader>cp", function()
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, { noremap = true, silent = true, desc = "Copy current file path" })
+
 vim.keymap.set("v", "p", '"_dP', { desc = "Paste without overwriting the default register" })
 vim.keymap.set("n", "<leader>dt", "<cmd>diffthis<CR>", { desc = "Diff This" })
 

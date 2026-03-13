@@ -10,17 +10,21 @@ let
       seaborn
       black
       isort
-      pylint
       pip
       ipykernel
       jupyterlab
       ipywidgets
       widgetsnbextension
       jupytext
+      # Note: PyTorch with ROCm is installed via mamba/conda
+      # to avoid long build times in Nix
     ];
 in
 {
   home.packages = with pkgs; [
-    (python311.withPackages pythonPackages)
+    (python313.withPackages pythonPackages)
+    # ROCm utilities
+    rocmPackages.rocm-smi
+    rocmPackages.rocminfo
   ];
 }

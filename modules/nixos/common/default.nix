@@ -62,6 +62,8 @@
 
   # Networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
+  networking.wireless.iwd.enable = true;
 
   # Foor kdeconnect
   networking.firewall = rec {
@@ -182,6 +184,7 @@
     gnumake
     killall
     mesa
+    usbutils
     claude-code
   ];
 

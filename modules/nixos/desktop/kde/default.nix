@@ -14,6 +14,7 @@ in
 
   environment.systemPackages = [
     pkgs.yaru-theme
+    pkgs.kdePackages.krfb  # KDE VNC server for remote desktop (TV Remote Access)
     (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
       [General]
       background=${wallpaper};

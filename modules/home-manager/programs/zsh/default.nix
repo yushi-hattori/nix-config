@@ -23,6 +23,7 @@
 
     shellAliases = {
       ff = "fastfetch";
+      sunshine-ui = "zen https://localhost:47990 &>/dev/null &";
       conda = "micromamba";
       mamba = "micromamba";
 
@@ -71,6 +72,9 @@
       kdsec = "kubectl describe secret";
       kdelsec = "kubectl delete secret";
 
+      impala = "impala";
+      walker = "walker";
+
       ld = "lazydocker";
       lg = "lazygit";
 
@@ -89,6 +93,9 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     initContent = ''
+      # Ollama API configuration
+      export OLLAMA_API_BASE=http://localhost:11434
+
       # kubectl auto-complete
       source <(kubectl completion zsh)
 

@@ -60,6 +60,7 @@
   home.packages =
     with pkgs;
     [
+      aider-chat
       anki-bin
       awscli2
       dig
@@ -71,6 +72,7 @@
       kubectl
       lazydocker
       nh
+      opencode
       openconnect
       pipenv
       ripgrep
@@ -93,6 +95,7 @@
       raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
+      impala
       tesseract
       unzip
       wl-clipboard

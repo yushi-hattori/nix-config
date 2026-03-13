@@ -17,7 +17,7 @@
       flavour = [ "mocha" ];
       accents = [ "lavender" ];
     })
-    kde-rounded-corners
+    # kde-rounded-corners  # Temporarily disabled - incompatible with KWin 6.6.2
     kdePackages.kcalc
     kdePackages.krohnkite
     kdotool
@@ -341,26 +341,26 @@
       };
 
       kwin = {
-        # Aerospace-style keybinds
-        "Krohnkite Monocle" = "Ctrl+Shift+Return";
-        "Krohnkite Float" = "Ctrl+Shift+T";
-        "Krohnkite Layout" = "Ctrl+Shift+L";
-        "Krohnkite Tile" = "Ctrl+Shift+Y";
-        "Krohnkite Set Master" = "Ctrl+Shift+M";
-        "Krohnkite Decrease" = "Ctrl+Shift+D";
-        "Krohnkite Increase" = "Ctrl+Shift+I";
+        # Aerospace-style keybinds (using correct Krohnkite shortcut names)
+        "KrohnkiteMonocleLayout" = "Ctrl+Shift+Return";
+        "KrohnkiteToggleFloat" = "Ctrl+Shift+T";
+        "KrohnkiteNextLayout" = "Ctrl+Shift+L";
+        "KrohnkiteTileLayout" = "Ctrl+Shift+Y";
+        "KrohnkiteSetMaster" = "Ctrl+Shift+M";
+        "KrohnkiteDecrease" = "Ctrl+Shift+D";
+        "KrohnkiteIncrease" = "Ctrl+Shift+I";
 
-        # Navigation (keep Meta for easier access)
-        "Krohnkite Focus Up" = "Meta+K";
-        "Krohnkite Focus Down" = "Meta+J";
-        "Krohnkite Focus Left" = "Meta+H";
-        "Krohnkite Focus Right" = "Meta+L";
+        # Navigation (using Alt+Shift to avoid neovim conflicts)
+        "KrohnkiteFocusUp" = "Alt+Shift+K";
+        "KrohnkiteFocusDown" = "Alt+Shift+J";
+        "KrohnkiteFocusLeft" = "Alt+Shift+H";
+        "KrohnkiteFocusRight" = "Alt+Shift+L";
 
-        # Moving windows (keep Meta+Shift)
-        "Krohnkite Move Up" = "Meta+Shift+K";
-        "Krohnkite Move Down" = "Meta+Shift+J";
-        "Krohnkite Move Left" = "Meta+Shift+H";
-        "Krohnkite Move Right" = "Meta+Shift+L";
+        # Moving windows (using Ctrl+Alt+Shift)
+        "KrohnkiteShiftUp" = "Ctrl+Alt+Shift+K";
+        "KrohnkiteShiftDown" = "Ctrl+Alt+Shift+J";
+        "KrohnkiteShiftLeft" = "Ctrl+Alt+Shift+H";
+        "KrohnkiteShiftRight" = "Ctrl+Alt+Shift+L";
 
         # Desktop switching
         "Switch to Desktop 1" = "Meta+1";
