@@ -65,15 +65,21 @@
   networking.networkmanager.wifi.backend = "iwd";
   networking.wireless.iwd.enable = true;
 
-  # Foor kdeconnect
-  networking.firewall = rec {
+  # For kdeconnect
+  networking.firewall = {
+    enable = true;
     allowedTCPPortRanges = [
       {
         from = 1714;
         to = 1764;
       }
     ];
-    allowedUDPPortRanges = allowedTCPPortRanges;
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
   };
 
   # Disable systemd services that are affecting the boot time
@@ -96,7 +102,7 @@
     LC_NUMERIC = "en_IE.UTF-8";
     LC_PAPER = "en_IE.UTF-8";
     LC_TELEPHONE = "en_IE.UTF-8";
-    LC_TIME = "en_IE.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
   # Enables support for Bluetooth
@@ -200,11 +206,14 @@
   programs.zsh.enable = true;
 
   # Fonts configuration
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.meslo-lg
-    roboto
-  ];
+  fonts = {
+    fontconfig.enable = true;
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.meslo-lg
+      roboto
+    ];
+  };
 
   # Additional services
   services.locate.enable = true;

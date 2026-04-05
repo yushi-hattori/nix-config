@@ -94,8 +94,8 @@
         };
 
         clock = {
-          format = "{:%b %d %H:%M}";
-          format-alt = " {:%H:%M   %Y, %d %B, %A}";
+          format = "{:%b %d %I:%M %p}";
+          format-alt = " {:%I:%M %p   %Y, %d %B, %A}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "year";
@@ -123,10 +123,20 @@
 
         "hyprland/workspaces" = {
           all-outputs = true;
-          format = "{name}";
+          format = "{icon}";
           on-click = "activate";
           show-special = false;
           sort-by-number = true;
+          format-icons = {
+            "1" = "󰈹";
+            "2" = "";
+            "3" = "󰍡";
+            "4" = "󰓓";
+            "5" = "󰐺";
+            "urgent" = "";
+            "active" = "";
+            "default" = "";
+          };
         };
 
         memory = {

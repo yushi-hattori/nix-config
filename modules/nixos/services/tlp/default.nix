@@ -30,10 +30,10 @@
 
         SATA_LINKPWR_ON_BAT = "min_power";
         PCIE_ASPM_ON_AC = "performance";
-        PCIE_ASPM_ON_BAT = "powersupersave";
+        PCIE_ASPM_ON_BAT = "performance";
 
         RUNTIME_PM_ON_AC = "on";
-        RUNTIME_PM_ON_BAT = "auto";
+        RUNTIME_PM_ON_BAT = "on";
 
         WIFI_PWR_ON_BAT = "on";
 
