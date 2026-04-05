@@ -18,7 +18,6 @@
     "${nixosModules}/programs/steam"
     "${nixosModules}/programs/bambu-studio"
     "${nixosModules}/services/tlp"
-    "${nixosModules}/services/keyd"
   ];
 
   # Set hostname
@@ -59,7 +58,7 @@
   services.hardware.bolt.enable = true;
 
   # Xbox One wireless USB dongle support
-  services.logind.powerKey = "suspend";
+  services.logind.settings.Login.HandlePowerKey = "suspend";
 
   systemd.sleep.settings.Sleep = {
     AllowHibernation = "no";
