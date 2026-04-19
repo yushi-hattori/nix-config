@@ -4,11 +4,48 @@ set -euo pipefail
 # Path for the dynamically generated config
 TMP_CONFIG="/tmp/hyprlock.conf"
 
-# Find the name of the connected DP monitor, if any
-DP_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.name | startswith("DP-")) | .name' | head -n 1)
+# Detect compositor
+COMPOSITOR="unknown"
+if [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
+    COMPOSITOR="hyprland"
+elif [[ -n "${NIRI_SOCKET:-}" ]]; then
+    COMPOSITOR="niri"
+fi
+
+# Function to get monitors
+get_monitors() {
+    if [[ "$COMPOSITOR" == "hyprland" ]]; then
+        hyprctl monitors -j | jq -r '.[] | .name'
+    elif [[ "$COMPOSITOR" == "niri" ]]; then
+        niri msg -j outputs | jq -r '.[] | .name'
+    else
+        # Fallback if we can't detect, or just use eDP-1 as default
+        echo "eDP-1"
+    fi
+}
+
+# Function to get focused monitor
+get_focused_monitor() {
+    if [[ "$COMPOSITOR" == "hyprland" ]]; then
+        hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name'
+    elif [[ "$COMPOSITOR" == "niri" ]]; then
+        niri msg -j outputs | jq -r '.[] | select(.focused == true) | .name'
+    else
+        echo "eDP-1"
+    fi
+}
+
+# Get all monitors
+MONITORS=$(get_monitors)
 
 # Get the wallpaper path from the existing hyprpaper config
-WALLPAPER=$(grep 'wallpaper = ' ~/.config/hypr/hyprpaper.conf | sed 's/wallpaper = ,//' | tr -d '\n')
+# Fallback to a default if not found
+WALLPAPER_CONFIG="$HOME/.config/hypr/hyprpaper.conf"
+if [[ -f "$WALLPAPER_CONFIG" ]]; then
+    WALLPAPER=$(grep 'wallpaper = ' "$WALLPAPER_CONFIG" | head -n 1 | sed 's/.*, //' | tr -d '\n')
+else
+    WALLPAPER=""
+fi
 
 # --- Generate the config file ---
 cat >"$TMP_CONFIG" <<EOF
@@ -23,11 +60,32 @@ background {
 
 general {
     fail_timeout = 1000
+    no_fade_in = false
+    grace = 0
+    disable_loading = true
 }
+EOF
 
+# Add input-field and labels for each monitor
+for MONITOR in $MONITORS; do
+    # Default sizes
+    INPUT_SIZE="500, 120"
+    FONT_SIZE_DATE=30
+    FONT_SIZE_TIME=240
+    
+    # Smaller UI for secondary monitors if they aren't eDP-1
+    if [[ "$MONITOR" != "eDP-1" ]]; then
+        INPUT_SIZE="250, 60"
+        FONT_SIZE_DATE=15
+        FONT_SIZE_TIME=120
+    fi
+
+    cat >>"$TMP_CONFIG" <<EOF
+
+# Config for $MONITOR
 input-field {
-    monitor = eDP-1
-    size = 500, 120
+    monitor = $MONITOR
+    size = $INPUT_SIZE
     outline_thickness = 2
     dots_size = 0.2
     dots_spacing = 0.2
@@ -44,97 +102,33 @@ input-field {
     halign = center
     valign = center
 }
+
 label {
-    monitor = eDP-1
+    monitor = $MONITOR
     text = cmd[update:1000] echo "<span>\$(date '+%A, %d %B')</span>"
     color = rgba(255, 255, 255, 0.8)
-    font_size = 30
+    font_size = $FONT_SIZE_DATE
     font_family = JetBrains Mono Nerd Font Mono ExtraBold
     position = 0, -400
     halign = center
     valign = top
 }
+
 label {
-    monitor = eDP-1
+    monitor = $MONITOR
     text = cmd[update:1000] echo "<span>\$(date '+%H:%M')</span>"
     color = rgba(255, 255, 255, 0.8)
-    font_size = 240
+    font_size = $FONT_SIZE_TIME
     font_family = JetBrains Mono Nerd Font Mono ExtraBold
     position = 0, -400
     halign = center
     valign = top
-}
-label {
-    monitor = eDP-1
-    text = \$LAYOUT
-    color = rgba(255, 255, 255, 0.9)
-    font_size = 20
-    font_family = JetBrains Mono Nerd Font Mono
-    position = 0, -230
-    halign = center
-    valign = center
 }
 EOF
-
-# Append configuration for the DP-* monitor if it's
-if [[ -n "$DP_MONITOR" ]]; then
-	cat >>"$TMP_CONFIG" <<EOF
-
-# Dynamic Config for $DP_MONITOR (External Display)
-input-field {
-    monitor = $DP_MONITOR
-    size = 250, 60
-    outline_thickness = 2
-    dots_size = 0.2
-    dots_spacing = 0.2
-    dots_center = true
-    outer_color = rgba(0, 0, 0, 0)
-    inner_color = rgba(0, 0, 0, 0.5)
-    font_color = rgb(200, 200, 200)
-    fade_on_empty = false
-    capslock_color = -1
-    placeholder_text = <i><span foreground="##e6e9ef">Password</span></i>
-    fail_text = <i>\$FAIL <b>(\$ATTEMPTS)</b></i>
-    hide_input = false
-    position = 0, -120
-    halign = center
-    valign = center
-}
-label {
-    monitor = $DP_MONITOR
-    text = cmd[update:1000] echo "<span>\$(date '+%A, %d %B')</span>"
-    color = rgba(255, 255, 255, 0.8)
-    font_size = 15
-    font_family = JetBrains Mono Nerd Font Mono ExtraBold
-    position = 0, -400
-    halign = center
-    valign = top
-}
-label {
-    monitor = $DP_MONITOR
-    text = cmd[update:1000] echo "<span>\$(date '+%H:%M')</span>"
-    color = rgba(255, 255, 255, 0.8)
-    font_size = 120
-    font_family = JetBrains Mono Nerd Font Mono ExtraBold
-    position = 0, -400
-    halign = center
-    valign = top
-}
-label {
-    monitor = $DP_MONITOR
-    text = \$LAYOUT
-    color = rgba(255, 255, 255, 0.9)
-    font_size = 10
-    font_family = JetBrains Mono Nerd Font Mono
-    position = 0, -175
-    halign = center
-    valign = center
-}
-EOF
-fi
+done
 
 if ! pgrep -x hyprlock >/dev/null; then
-	hyprlock -c "$TMP_CONFIG"
+    hyprlock -c "$TMP_CONFIG"
 fi
 
 # Clean up the temporary file after unlocking
