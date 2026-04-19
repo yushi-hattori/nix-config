@@ -444,7 +444,7 @@ keybinds clear-defaults=true {
         bind "Alt z" {
             SwitchToMode "Locked"
         }
-        bind "Ctrl q" {
+        bind "Ctrl F1" {
             Quit
         }
         bind "Alt f" {

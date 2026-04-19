@@ -75,6 +75,7 @@
       opencode
       openconnect
       pipenv
+      playerctl
       ripgrep
       terraform
       obsidian
@@ -86,6 +87,7 @@
       micromamba
       stdenv.cc.cc.lib
       zlib
+      hyprpaper
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima

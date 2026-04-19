@@ -17,6 +17,7 @@
 
         modules-left = [
           "hyprland/workspaces"
+          "niri/workspaces"
           "cpu"
           "temperature"
           "memory"
@@ -32,6 +33,7 @@
           "privacy"
           "custom/recorder"
           "hyprland/language"
+          "niri/language"
           "tray"
           "bluetooth"
           "pulseaudio"
@@ -137,6 +139,24 @@
             "active" = "";
             "default" = "";
           };
+        };
+
+        "niri/workspaces" = {
+          format = "{icon}";
+          format-icons = {
+            "1" = "󰈹";
+            "2" = "";
+            "3" = "󰍡";
+            "4" = "󰓓";
+            "5" = "󰐺";
+            "urgent" = "";
+            "active" = "";
+            "default" = "";
+          };
+        };
+
+        "niri/language" = {
+          format = " {short}";
         };
 
         memory = {

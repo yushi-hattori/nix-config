@@ -1,0 +1,213 @@
+// Niri configuration file (KDL)
+// See https://github.com/YaLTeR/niri/wiki/Configuration:-Overview for help.
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            options "caps:ctrl_modifier"
+        }
+        repeat-delay 250
+        repeat-rate 40
+    }
+
+    touchpad {
+        tap
+        dwt
+    }
+
+    mouse {
+        // acceleration-profile "flat"
+    }
+
+    warp-mouse-to-focus
+    focus-follows-mouse
+}
+
+output "eDP-1" {
+    mode "2880x1920@120.000"
+    scale 1.5
+    position x=4359 y=2997
+}
+
+output "DP-7" {
+    mode "2560x1440@59.951"
+    scale 1.0
+    transform "90"
+    position x=2632 y=1060
+}
+
+output "DP-10" {
+    mode "2560x1440@59.951"
+    scale 1.0
+    position x=4072 y=1557
+}
+
+layout {
+    gaps 8
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 2
+        active-color "#b4befe"
+        inactive-color "#45475a"
+    }
+
+    border {
+        off
+    }
+
+    struts {
+        left 0
+        right 0
+        top 0
+        bottom 0
+    }
+}
+
+spawn-at-startup "waybar"
+spawn-at-startup "swaync"
+spawn-at-startup "swayidle"
+spawn-at-startup "hyprpaper"
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+
+// Some environmental variables for screen sharing
+environment {
+    DISPLAY ":0"
+}
+
+animations {
+    // slowdown 2.0
+}
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+// Keybindings
+binds {
+    // Mod is the Super key
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // Apps
+    Mod+Return { spawn "ghostty"; }
+    Mod+Space { spawn "walker"; }
+    Ctrl+Space { spawn "walker"; }
+    Mod+E { spawn "nautilus"; }
+
+    // Screenshots
+    Mod+Shift+S { spawn "grim" "-g" "$(slurp)" "- | swappy -f -"; }
+    Print { spawn "grim" "- | swappy -f -"; }
+
+    // Window management
+    Mod+Q { close-window; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+C { center-column; }
+
+    // Focus
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-or-workspace-down; }
+    Mod+K { focus-window-or-workspace-up; }
+    Mod+L { focus-column-right; }
+
+    // Movement
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+J { move-window-down; }
+    Mod+Shift+K { move-window-up; }
+    Mod+Shift+L { move-column-right; }
+
+    // Column width
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { reset-window-height; }
+
+    // Workspaces (Niri calls them workspaces)
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    Mod+WheelScrollDown      { focus-workspace-down; }
+    Mod+WheelScrollUp        { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   { move-column-to-workspace-up; }
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+
+    // Mouse bindings
+    // Mod+MouseLeft { move-column-drag-sticky; }
+    // Mod+MouseRight { resize-column-drag-sticky; }
+
+    // Move windows to specific outputs
+    Mod+Shift+Ctrl+1 { move-column-to-monitor "card1-eDP-1"; }
+    Mod+Shift+Ctrl+2 { move-column-to-monitor "card1-DP-1"; }
+    Mod+Shift+Ctrl+3 { move-column-to-monitor "card1-DP-2"; }
+    Mod+Shift+Ctrl+4 { move-column-to-monitor "card1-DP-3"; }
+
+    // System
+    Mod+Shift+E { quit; }
+    Mod+Alt+L { spawn "swaylock"; }
+    Mod+Shift+V { spawn "bash" "-c" "cliphist list | walker --dmenu | cliphist decode | wl-copy"; }
+    Mod+Shift+Escape { spawn "walker" "--modules" "menus:power"; }
+
+    // Media keys
+    XF86AudioRaiseVolume { spawn "pamixer" "--increase" "10"; }
+    XF86AudioLowerVolume { spawn "pamixer" "--decrease" "10"; }
+    XF86AudioMute { spawn "pamixer" "--toggle-mute"; }
+    XF86AudioMicMute { spawn "pamixer" "--default-source" "--toggle-mute"; }
+
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioNext { spawn "playerctl" "next"; }
+    XF86AudioPrev { spawn "playerctl" "previous"; }
+
+    XF86MonBrightnessUp { spawn "brightnessctl" "set" "+10%"; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-"; }
+}
+
+window-rule {
+    match app-id="zen"
+    open-on-workspace "1"
+}
+
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    open-on-workspace "2"
+}
+
+window-rule {
+    match app-id="code"
+    open-on-workspace "3"
+}
+
+window-rule {
+    match app-id="spotify"
+    open-on-workspace "4"
+}

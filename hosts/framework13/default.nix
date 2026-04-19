@@ -14,7 +14,7 @@
 
     ./hardware-configuration.nix
     "${nixosModules}/common"
-    "${nixosModules}/desktop/kde"
+    "${nixosModules}/desktop/niri"
     "${nixosModules}/programs/steam"
     "${nixosModules}/programs/bambu-studio"
   ];

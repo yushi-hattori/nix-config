@@ -8,6 +8,7 @@
 
       # Window management settings for multi-monitor support
       window-save-state = "never";
+      window-step-resize = false;
       gtk-single-instance = false;
 
       # font-size = 10;
