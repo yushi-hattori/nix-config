@@ -1,5 +1,6 @@
 return {
   "3rd/image.nvim", -- display images in kitty terminal
+  enabled = false,
   dependencies = {
     "vhyrro/luarocks.nvim",
     priority = 1001,
@@ -14,7 +15,7 @@ return {
       markdown = {
         enabled = true,
         clear_in_insert_mode = false,
-        download_remote_images = true
+        download_remote_images = true,
       },
     },
     max_width = 500,
