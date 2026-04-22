@@ -8,7 +8,7 @@ input {
             layout "us"
             options "caps:ctrl_modifier"
         }
-        repeat-delay 250
+        repeat-delay 150
         repeat-rate 40
     }
 
@@ -27,7 +27,7 @@ input {
 
 output "eDP-1" {
     mode "2880x1920@120.000"
-    scale 1.5
+    scale 1.75
     position x=4359 y=2997
 }
 
@@ -140,12 +140,12 @@ binds {
 
     // Workspaces (Niri calls them workspaces)
     Mod+1 { focus-monitor "eDP-1"; }
-    Mod+2 { focus-monitor "DP-8"; }
-    Mod+3 { focus-monitor "DP-10"; }
+    Mod+2 { focus-monitor "DP-10"; }
+    Mod+3 { focus-monitor "DP-8"; }
     
     Mod+Shift+1 { move-column-to-monitor "eDP-1"; }
-    Mod+Shift+2 { move-column-to-monitor "DP-8"; }
-    Mod+Shift+3 { move-column-to-monitor "DP-10"; }
+    Mod+Shift+2 { move-column-to-monitor "DP-10"; }
+    Mod+Shift+3 { move-column-to-monitor "DP-8"; }
     
     // Move Workspace to Monitor
     Mod+Shift+H         { move-column-to-monitor-left; }
@@ -185,22 +185,22 @@ binds {
     XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-"; }
 }
 
-window-rule {
-    match app-id="zen"
-    open-on-workspace "1"
-}
-
-window-rule {
-    match app-id="com.mitchellh.ghostty"
-    open-on-workspace "2"
-}
-
-window-rule {
-    match app-id="code"
-    open-on-workspace "3"
-}
-
-window-rule {
-    match app-id="spotify"
-    open-on-workspace "4"
-}
+// window-rule {
+//     match app-id="zen"
+//     open-on-workspace "1"
+// }
+//
+// window-rule {
+//     match app-id="com.mitchellh.ghostty"
+//     open-on-workspace "2"
+// }
+//
+// window-rule {
+//     match app-id="code"
+//     open-on-workspace "3"
+// }
+//
+// window-rule {
+//     match app-id="spotify"
+//     open-on-workspace "4"
+// }
