@@ -10,10 +10,7 @@
 
   xdg = lib.mkIf (!pkgs.stdenv.isDarwin) {
     mimeApps = {
-      defaultApplications = lib.mkMerge [
-        (config.lib.xdg.mimeAssociations [ pkgs.brave ])
-      ];
-
+      defaultApplicationPackages = [ pkgs.brave ];
     };
   };
 }

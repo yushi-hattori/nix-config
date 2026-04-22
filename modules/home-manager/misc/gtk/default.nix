@@ -1,4 +1,5 @@
 {
+  config,
   userConfig,
   pkgs,
   ...
@@ -15,6 +16,7 @@
         size = "compact";
       };
     };
+    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;
