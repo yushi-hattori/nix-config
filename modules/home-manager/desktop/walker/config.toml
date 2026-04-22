@@ -1,0 +1,68 @@
+force_keyboard_focus = true
+selection_wrap = true
+hide_action_hints = true
+
+[placeholders]
+default = { input = " Search...", list = "No Results" }
+
+[keybinds]
+quick_activate = []
+
+[columns]
+symbols = 1
+
+[providers]
+max_results = 256
+default = [
+  "desktopapplications",
+  "runner",
+  "websearch",
+  "menus"
+]
+
+[[providers.prefixes]]
+prefix = "/"
+provider = "providerlist"
+
+[[providers.prefixes]]
+prefix = "."
+provider = "files"
+
+[[providers.prefixes]]
+prefix = ":"
+provider = "symbols"
+
+[[providers.prefixes]]
+prefix = "="
+provider = "calc"
+
+[[providers.prefixes]]
+prefix = "@"
+provider = "websearch"
+
+[[providers.prefixes]]
+prefix = "$"
+provider = "clipboard"
+
+[[menus]]
+name = "power"
+
+[[menus.items]]
+label = "Shutdown"
+exec = "shutdown now"
+
+[[menus.items]]
+label = "Reboot"
+exec = "reboot"
+
+[[menus.items]]
+label = "Suspend"
+exec = "loginctl suspend"
+
+[[menus.items]]
+label = "Lock"
+exec = "swaylock"
+
+[[emergencies]]
+text = "Restart Walker"
+command = "systemctl --user restart walker"

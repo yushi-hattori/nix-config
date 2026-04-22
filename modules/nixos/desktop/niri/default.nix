@@ -31,7 +31,7 @@
     waybar # status bar
     swaynotificationcenter # notifications
     swaylock-effects # screen locker
-    swayidle # idle daemon
+    hypridle # idle daemon
     fuzzel # app launcher (or walker, which the user already has)
     swappy # screenshot editor
     grim # screenshot tool

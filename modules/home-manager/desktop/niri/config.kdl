@@ -1,5 +1,6 @@
 // Niri configuration file (KDL)
 // See https://github.com/YaLTeR/niri/wiki/Configuration:-Overview for help.
+// Default config: https://github.com/niri-wm/niri/blob/main/resources/default-config.kdl
 
 input {
     keyboard {
@@ -21,7 +22,7 @@ input {
     }
 
     warp-mouse-to-focus
-    focus-follows-mouse
+    // focus-follows-mouse
 }
 
 output "eDP-1" {
@@ -30,7 +31,7 @@ output "eDP-1" {
     position x=4359 y=2997
 }
 
-output "DP-7" {
+output "DP-8" {
     mode "2560x1440@59.951"
     scale 1.0
     transform "90"
@@ -45,7 +46,7 @@ output "DP-10" {
 
 layout {
     gaps 8
-    center-focused-column "never"
+    center-focused-column "always"
 
     preset-column-widths {
         proportion 0.33333
@@ -75,10 +76,14 @@ layout {
 
 spawn-at-startup "waybar"
 spawn-at-startup "swaync"
-spawn-at-startup "swayidle"
+spawn-at-startup "hypridle"
 spawn-at-startup "hyprpaper"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+
+spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
+spawn-at-startup "systemctl" "--user" "start" "graphical-session.target"
 
 // Some environmental variables for screen sharing
 environment {
@@ -120,63 +125,51 @@ binds {
     Mod+J { focus-window-or-workspace-down; }
     Mod+K { focus-window-or-workspace-up; }
     Mod+L { focus-column-right; }
+    Mod+Tab { focus-column-right; }
+    Mod+Right { focus-column-right; }
 
     // Movement
-    Mod+Shift+H { move-column-left; }
-    Mod+Shift+J { move-window-down; }
-    Mod+Shift+K { move-window-up; }
-    Mod+Shift+L { move-column-right; }
+    Ctrl+Shift+H { move-column-left; }
+    Ctrl+Shift+J { move-window-down; }
+    Ctrl+Shift+K { move-window-up; }
+    Ctrl+Shift+L { move-column-right; }
 
     // Column width
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { reset-window-height; }
 
     // Workspaces (Niri calls them workspaces)
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
+    Mod+1 { focus-monitor "eDP-1"; }
+    Mod+2 { focus-monitor "DP-8"; }
+    Mod+3 { focus-monitor "DP-10"; }
+    
+    Mod+Shift+1 { move-column-to-monitor "eDP-1"; }
+    Mod+Shift+2 { move-column-to-monitor "DP-8"; }
+    Mod+Shift+3 { move-column-to-monitor "DP-10"; }
+    
+    // Move Workspace to Monitor
+    Mod+Shift+H         { move-column-to-monitor-left; }
+    Mod+Shift+J         { move-column-to-monitor-down; }
+    Mod+Shift+K         { move-column-to-monitor-up; }
+    Mod+Shift+L         { move-column-to-monitor-right; }
 
-    Mod+Shift+1 { move-column-to-workspace 1; }
-    Mod+Shift+2 { move-column-to-workspace 2; }
-    Mod+Shift+3 { move-column-to-workspace 3; }
-    Mod+Shift+4 { move-column-to-workspace 4; }
-    Mod+Shift+5 { move-column-to-workspace 5; }
-    Mod+Shift+6 { move-column-to-workspace 6; }
-    Mod+Shift+7 { move-column-to-workspace 7; }
-    Mod+Shift+8 { move-column-to-workspace 8; }
-    Mod+Shift+9 { move-column-to-workspace 9; }
+    // Focus Monitor
+    Mod+Ctrl+H    { focus-monitor-left; }
+    Mod+Ctrl+J    { focus-monitor-down; }
+    Mod+Ctrl+K    { focus-monitor-up; }
+    Mod+Ctrl+L    { focus-monitor-right; }
 
-    Mod+WheelScrollDown      { focus-workspace-down; }
-    Mod+WheelScrollUp        { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown { move-column-to-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   { move-column-to-workspace-up; }
 
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
-    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-
-    // Mouse bindings
-    // Mod+MouseLeft { move-column-drag-sticky; }
-    // Mod+MouseRight { resize-column-drag-sticky; }
 
     // Move windows to specific outputs
-    Mod+Shift+Ctrl+1 { move-column-to-monitor "card1-eDP-1"; }
-    Mod+Shift+Ctrl+2 { move-column-to-monitor "card1-DP-1"; }
-    Mod+Shift+Ctrl+3 { move-column-to-monitor "card1-DP-2"; }
-    Mod+Shift+Ctrl+4 { move-column-to-monitor "card1-DP-3"; }
+    Mod+Ctrl+1 { move-column-to-monitor "eDP-1"; }
+    Mod+Ctrl+2 { move-column-to-monitor "DP-8"; }
+    Mod+Ctrl+3 { move-column-to-monitor "DP-10"; }
 
     // System
     Mod+Shift+E { quit; }
-    Mod+Alt+L { spawn "swaylock"; }
+    Mod+Escape { spawn "walker" "--modules" "menus:power"; }
     Mod+Shift+V { spawn "bash" "-c" "cliphist list | walker --dmenu | cliphist decode | wl-copy"; }
-    Mod+Shift+Escape { spawn "walker" "--modules" "menus:power"; }
 
     // Media keys
     XF86AudioRaiseVolume { spawn "pamixer" "--increase" "10"; }

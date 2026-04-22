@@ -70,7 +70,7 @@
   };
 
   # ALL MAJOR KERNEL WORKAROUNDS REMOVED
-  boot.kernelParams = [ ];
+  boot.kernelParams = [ "rtc_cmos.use_acpi_alarm=1" ];
 
   # Sunshine game streaming host
   services.sunshine = {

@@ -47,6 +47,22 @@
     source = ./hyprpaper.conf;
   };
 
+  # Source hypridle config
+  xdg.configFile."hypr/hypridle.conf" = {
+    text = ''
+      general {
+        lock_cmd = pidof hyprlock || $HOME/.local/bin/dynamic-hyprlock
+        before_sleep_cmd = loginctl lock-session
+        after_sleep_cmd = "niri msg action load-config-file && systemctl --user restart kanshi.service && niri msg action power-on-monitors"
+      }
+
+      listener {
+        timeout = 900
+        on-timeout = loginctl suspend
+      }
+    '';
+  };
+
   # Set GNOME-like desktop settings
   dconf.settings = {
     "org/gnome/desktop/interface" = {
