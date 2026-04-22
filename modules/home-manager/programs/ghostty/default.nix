@@ -5,6 +5,7 @@
     settings = {
       theme = "Catppuccin Mocha";
       command = "zellij attach --create main";
+      window-decoration = false;
 
       # Window management settings for multi-monitor support
       window-save-state = "never";

@@ -35,6 +35,7 @@
           "hyprland/language"
           "niri/language"
           "tray"
+          "network"
           "bluetooth"
           "pulseaudio"
           "pulseaudio#microphone"
@@ -158,17 +159,27 @@
         "niri/language" = {
           format = " {short}";
         };
-
         memory = {
-          interval = 10;
-          format = "󰾆 {used:0.1f}G";
-          format-alt = "󰾆 {percentage}%";
-          format-alt-click = "click";
-          tooltip = true;
-          tooltip-format = "{used:0.1f}GB/{total:0.1f}G";
-          on-click-right = "foot --title btop sh -c 'btop'";
+         interval = 10;
+         format = "󰾆 {used:0.1f}G";
+         format-alt = "󰾆 {percentage}%";
+         format-alt-click = "click";
+         tooltip = true;
+         tooltip-format = "{used:0.1f}GB/{total:0.1f}G";
+         on-click-right = "ghostty --title=btop --window-decoration=true --confirm-close-surface=false -e btop";
         };
 
+        network = {
+         interval = 5;
+         format-wifi = "  {essid}";
+         format-ethernet = "󰈀 {ifname}";
+         format-disconnected = "󰤮 Disconnected";
+         tooltip-format = "{ifname} via {gwaddr} 󰊗";
+         tooltip-format-wifi = "{essid} ({signalStrength}%) ";
+         tooltip-format-ethernet = "{ifname} ";
+         tooltip-format-disconnected = "Disconnected";
+         on-click = "ghostty --title=wifi-tui --window-decoration=true --confirm-close-surface=false -e impala";
+        };
         privacy = {
           icon-size = 14;
           modules = [
@@ -325,6 +336,7 @@
       #custom-recorder,
       #language,
       #memory,
+      #network,
       #privacy,
       #pulseaudio,
       #temperature,

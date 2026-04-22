@@ -74,7 +74,7 @@
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      "button-layout" = lib.mkForce "";
+      "button-layout" = lib.mkForce ":close";
     };
 
     "org/gnome/nautilus/preferences" = {

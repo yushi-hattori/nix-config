@@ -84,6 +84,21 @@ window-rule {
     clip-to-geometry true
 }
 
+window-rule {
+    match title="wifi-tui"
+    open-floating true
+    default-column-width { proportion 0.3; }
+    default-window-height { proportion 0.4; }
+    default-floating-position x=10 y=10 relative-to="top-right"
+}
+
+window-rule {
+    match title="btop"
+    open-floating true
+    default-column-width { proportion 0.8; }
+    default-window-height { proportion 0.8; }
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 

@@ -74,6 +74,8 @@
       nh
       opencode
       openconnect
+      networkmanagerapplet
+      iwgtk
       pipenv
       playerctl
       ripgrep
