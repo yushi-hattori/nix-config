@@ -17,33 +17,32 @@ input {
         dwt
     }
 
-    mouse {
-        // acceleration-profile "flat"
-    }
-
     warp-mouse-to-focus
-    // focus-follows-mouse
 }
 
-output "eDP-1" {
+// --- MONITOR TOPOLOGY (Stable Hardware IDs) ---
+
+// Laptop
+output "BOE NE135A1M-NY1 Unknown" {
     mode "2880x1920@120.000"
     scale 1.75
     position x=4359 y=2997
 }
 
-output "DP-8" {
+// Side Monitor (S2721D)
+output "Dell Inc. DELL S2721D 1PVGP43" {
     mode "2560x1440@59.951"
     scale 1.0
     transform "90"
     position x=2632 y=1060
 }
 
-output "DP-10" {
+// Main Monitor (S2721DGF)
+output "Dell Inc. DELL S2721DGF FVM4093" {
     mode "2560x1440@59.951"
     scale 1.0
     position x=4072 y=1557
 }
-
 layout {
     gaps 8
     center-focused-column "always"
@@ -63,16 +62,7 @@ layout {
         inactive-color "#45475a"
     }
 
-    border {
-        off
-    }
-
-    struts {
-        left 0
-        right 0
-        top 0
-        bottom 0
-    }
+    border { off; }
 }
 
 spawn-at-startup "waybar"
@@ -85,14 +75,8 @@ spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DI
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "systemctl" "--user" "start" "graphical-session.target"
 
-
-// Some environmental variables for screen sharing
 environment {
     DISPLAY ":0"
-}
-
-animations {
-    // slowdown 2.0
 }
 
 window-rule {
@@ -100,9 +84,7 @@ window-rule {
     clip-to-geometry true
 }
 
-// Keybindings
 binds {
-    // Mod is the Super key
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Apps
@@ -139,33 +121,27 @@ binds {
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { reset-window-height; }
 
-    // Workspaces (Niri calls them workspaces)
-    Mod+1 { focus-monitor "eDP-1"; }
-    Mod+2 { focus-monitor "DP-10"; }
-    Mod+3 { focus-monitor "DP-8"; }
-    
-    Mod+Shift+1 { move-column-to-monitor "eDP-1"; }
-    Mod+Shift+2 { move-column-to-monitor "DP-10"; }
-    Mod+Shift+3 { move-column-to-monitor "DP-8"; }
-    
-    // Move Workspace to Monitor
-    Mod+Shift+H         { move-column-to-monitor-left; }
-    Mod+Shift+J         { move-column-to-monitor-down; }
-    Mod+Shift+K         { move-column-to-monitor-up; }
-    Mod+Shift+L         { move-column-to-monitor-right; }
+    // --- Dynamic Monitor Actions (Slot-based) ---
+    // Mod+1/2/3: Just switch focus
+    Mod+1 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh focus 1"; }
+    Mod+2 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh focus 2"; }
+    Mod+3 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh focus 3"; }
 
-    // Focus Monitor
-    Alt+Ctrl+H    { focus-monitor-left; }
-    Alt+Ctrl+J    { focus-monitor-down; }
-    Alt+Ctrl+K    { focus-monitor-up; }
-    Alt+Ctrl+L    { focus-monitor-right; }
+    // Mod+Shift+1/2/3: Move window, stay on current monitor
+    Mod+Shift+1 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh move 1"; }
+    Mod+Shift+2 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh move 2"; }
+    Mod+Shift+3 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh move 3"; }
 
+    // Native Directional
+    Mod+Shift+H { move-column-to-monitor-left; }
+    Mod+Shift+J { move-column-to-monitor-down; }
+    Mod+Shift+K { move-column-to-monitor-up; }
+    Mod+Shift+L { move-column-to-monitor-right; }
 
-
-    // Move windows to specific outputs
-    Mod+Ctrl+1 { move-column-to-monitor "eDP-1"; }
-    Mod+Ctrl+2 { move-column-to-monitor "DP-8"; }
-    Mod+Ctrl+3 { move-column-to-monitor "DP-10"; }
+    Alt+Ctrl+H   { focus-monitor-left; }
+    Alt+Ctrl+J   { focus-monitor-down; }
+    Alt+Ctrl+K   { focus-monitor-up; }
+    Alt+Ctrl+L   { focus-monitor-right; }
 
     // System
     Mod+Shift+E { quit; }
@@ -177,31 +153,9 @@ binds {
     XF86AudioLowerVolume { spawn "pamixer" "--decrease" "10"; }
     XF86AudioMute { spawn "pamixer" "--toggle-mute"; }
     XF86AudioMicMute { spawn "pamixer" "--default-source" "--toggle-mute"; }
-
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioNext { spawn "playerctl" "next"; }
     XF86AudioPrev { spawn "playerctl" "previous"; }
-
     XF86MonBrightnessUp { spawn "brightnessctl" "set" "+10%"; }
     XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-"; }
 }
-
-// window-rule {
-//     match app-id="zen"
-//     open-on-workspace "1"
-// }
-//
-// window-rule {
-//     match app-id="com.mitchellh.ghostty"
-//     open-on-workspace "2"
-// }
-//
-// window-rule {
-//     match app-id="code"
-//     open-on-workspace "3"
-// }
-//
-// window-rule {
-//     match app-id="spotify"
-//     open-on-workspace "4"
-// }

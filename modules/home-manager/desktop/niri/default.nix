@@ -58,6 +58,12 @@
     '';
   };
 
+  # Source some extra scripts
+  xdg.configFile."niri/monitor_action.sh" = {
+    source = ./monitor_action.sh;
+    executable = true;
+  };
+
   # Set GNOME-like desktop settings
   dconf.settings = {
     "org/gnome/desktop/interface" = {

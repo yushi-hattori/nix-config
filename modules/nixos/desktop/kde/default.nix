@@ -10,11 +10,11 @@ in
     settings.Theme.CursorTheme = "Yaru";
     wayland.enable = true;
   };
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   environment.systemPackages = [
     pkgs.yaru-theme
-    pkgs.kdePackages.krfb  # KDE VNC server for remote desktop (TV Remote Access)
+    # pkgs.kdePackages.krfb  # KDE VNC server for remote desktop (TV Remote Access)
     (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
       [General]
       background=${wallpaper};
@@ -22,16 +22,16 @@ in
     '')
   ];
 
-  # Excluding some KDE applications from the default install
-  environment.plasma6.excludePackages = with pkgs; [
-    kdePackages.baloo-widgets
-    kdePackages.elisa
-    kdePackages.ffmpegthumbs
-    kdePackages.kate
-    kdePackages.khelpcenter
-    kdePackages.konsole
-    kdePackages.plasma-browser-integration
-  ];
+  # # Excluding some KDE applications from the default install
+  # environment.plasma6.excludePackages = with pkgs; [
+  #   kdePackages.baloo-widgets
+  #   kdePackages.elisa
+  #   kdePackages.ffmpegthumbs
+  #   kdePackages.kate
+  #   kdePackages.khelpcenter
+  #   kdePackages.konsole
+  #   kdePackages.plasma-browser-integration
+  # ];
 
   # Disabled redundant services
   systemd.user.services = {
