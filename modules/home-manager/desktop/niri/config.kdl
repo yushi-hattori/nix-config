@@ -155,10 +155,10 @@ binds {
     Mod+Shift+L         { move-column-to-monitor-right; }
 
     // Focus Monitor
-    Mod+Ctrl+H    { focus-monitor-left; }
-    Mod+Ctrl+J    { focus-monitor-down; }
-    Mod+Ctrl+K    { focus-monitor-up; }
-    Mod+Ctrl+L    { focus-monitor-right; }
+    Alt+Ctrl+H    { focus-monitor-left; }
+    Alt+Ctrl+J    { focus-monitor-down; }
+    Alt+Ctrl+K    { focus-monitor-up; }
+    Alt+Ctrl+L    { focus-monitor-right; }
 
 
 
