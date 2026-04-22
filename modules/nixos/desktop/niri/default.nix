@@ -20,6 +20,7 @@
     nautilus # file manager
     loupe # image viewer
     gnome-calculator
+    gnome-calendar
     gnome-text-editor
     seahorse # keyring manager
     file-roller # archive manager

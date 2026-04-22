@@ -32,6 +32,7 @@
         modules-right = [
           "privacy"
           "custom/recorder"
+          "custom/weather"
           "hyprland/language"
           "niri/language"
           "tray"
@@ -113,6 +114,7 @@
               today = "<span color='#ed8796'><b><u>{}</u></b></span>";
             };
           };
+          on-click = "gnome-calendar";
         };
 
         cpu = {
@@ -160,25 +162,25 @@
           format = " {short}";
         };
         memory = {
-         interval = 10;
-         format = "󰾆 {used:0.1f}G";
-         format-alt = "󰾆 {percentage}%";
-         format-alt-click = "click";
-         tooltip = true;
-         tooltip-format = "{used:0.1f}GB/{total:0.1f}G";
-         on-click-right = "ghostty --title=btop --window-decoration=true --confirm-close-surface=false -e btop";
+          interval = 10;
+          format = "󰾆 {used:0.1f}G";
+          format-alt = "󰾆 {percentage}%";
+          format-alt-click = "click";
+          tooltip = true;
+          tooltip-format = "{used:0.1f}GB/{total:0.1f}G";
+          on-click = "ghostty --title=btop --window-decoration=true --confirm-close-surface=false -e btop";
         };
 
         network = {
-         interval = 5;
-         format-wifi = "  {essid}";
-         format-ethernet = "󰈀 {ifname}";
-         format-disconnected = "󰤮 Disconnected";
-         tooltip-format = "{ifname} via {gwaddr} 󰊗";
-         tooltip-format-wifi = "{essid} ({signalStrength}%) ";
-         tooltip-format-ethernet = "{ifname} ";
-         tooltip-format-disconnected = "Disconnected";
-         on-click = "ghostty --title=wifi-tui --window-decoration=true --confirm-close-surface=false -e impala";
+          interval = 5;
+          format-wifi = "  {essid}";
+          format-ethernet = "󰈀 {ifname}";
+          format-disconnected = "󰤮 Disconnected";
+          tooltip-format = "{ifname} via {gwaddr} 󰊗";
+          tooltip-format-wifi = "{essid} ({signalStrength}%) ";
+          tooltip-format-ethernet = "{ifname} ";
+          tooltip-format-disconnected = "Disconnected";
+          on-click = "ghostty --title=wifi-tui --window-decoration=true --confirm-close-surface=false -e impala";
         };
         privacy = {
           icon-size = 14;
