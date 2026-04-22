@@ -86,8 +86,8 @@
       inkscape
       micromamba
       stdenv.cc.cc.lib
+      swaybg
       zlib
-      hyprpaper
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima

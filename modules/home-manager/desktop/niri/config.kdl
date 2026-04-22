@@ -49,12 +49,13 @@ layout {
     center-focused-column "always"
 
     preset-column-widths {
-        proportion 0.33333
+        proportion 0.25
         proportion 0.5
-        proportion 0.66667
+        proportion 0.75
+        proportion 1.0
     }
 
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.75; }
 
     focus-ring {
         width 2
@@ -77,13 +78,13 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "swaync"
 spawn-at-startup "hypridle"
-spawn-at-startup "hyprpaper"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
-
+spawn-at-startup "swaybg" "-i" "/home/yhattori/nix-config/modules/home-manager/misc/wallpaper/space.png" "-m" "fill"
 spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "systemctl" "--user" "start" "graphical-session.target"
+
 
 // Some environmental variables for screen sharing
 environment {

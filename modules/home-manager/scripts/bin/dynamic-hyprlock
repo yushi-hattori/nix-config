@@ -7,45 +7,36 @@ TMP_CONFIG="/tmp/hyprlock.conf"
 # Detect compositor
 COMPOSITOR="unknown"
 if [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
-    COMPOSITOR="hyprland"
+  COMPOSITOR="hyprland"
 elif [[ -n "${NIRI_SOCKET:-}" ]]; then
-    COMPOSITOR="niri"
+  COMPOSITOR="niri"
 fi
 
 # Function to get monitors
 get_monitors() {
-    if [[ "$COMPOSITOR" == "hyprland" ]]; then
-        hyprctl monitors -j | jq -r '.[] | .name'
-    elif [[ "$COMPOSITOR" == "niri" ]]; then
-        niri msg -j outputs | jq -r '.[] | .name'
-    else
-        # Fallback if we can't detect, or just use eDP-1 as default
-        echo "eDP-1"
-    fi
+  if [[ "$COMPOSITOR" == "hyprland" ]]; then
+    hyprctl monitors -j | jq -r '.[] | .name'
+  elif [[ "$COMPOSITOR" == "niri" ]]; then
+    niri msg -j outputs | jq -r '.[] | .name'
+  else
+    # Fallback if we can't detect, or just use eDP-1 as default
+    echo "eDP-1"
+  fi
 }
 
 # Function to get focused monitor
 get_focused_monitor() {
-    if [[ "$COMPOSITOR" == "hyprland" ]]; then
-        hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name'
-    elif [[ "$COMPOSITOR" == "niri" ]]; then
-        niri msg -j outputs | jq -r '.[] | select(.focused == true) | .name'
-    else
-        echo "eDP-1"
-    fi
+  if [[ "$COMPOSITOR" == "hyprland" ]]; then
+    hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name'
+  elif [[ "$COMPOSITOR" == "niri" ]]; then
+    niri msg -j outputs | jq -r '.[] | select(.focused == true) | .name'
+  else
+    echo "eDP-1"
+  fi
 }
 
 # Get all monitors
 MONITORS=$(get_monitors)
-
-# Get the wallpaper path from the existing hyprpaper config
-# Fallback to a default if not found
-WALLPAPER_CONFIG="$HOME/.config/hypr/hyprpaper.conf"
-if [[ -f "$WALLPAPER_CONFIG" ]]; then
-    WALLPAPER=$(grep 'wallpaper = ' "$WALLPAPER_CONFIG" | head -n 1 | sed 's/.*, //' | tr -d '\n')
-else
-    WALLPAPER=""
-fi
 
 # --- Generate the config file ---
 cat >"$TMP_CONFIG" <<EOF
@@ -68,19 +59,19 @@ EOF
 
 # Add input-field and labels for each monitor
 for MONITOR in $MONITORS; do
-    # Default sizes
-    INPUT_SIZE="500, 120"
-    FONT_SIZE_DATE=30
-    FONT_SIZE_TIME=240
-    
-    # Smaller UI for secondary monitors if they aren't eDP-1
-    if [[ "$MONITOR" != "eDP-1" ]]; then
-        INPUT_SIZE="250, 60"
-        FONT_SIZE_DATE=15
-        FONT_SIZE_TIME=120
-    fi
+  # Default sizes
+  INPUT_SIZE="500, 120"
+  FONT_SIZE_DATE=30
+  FONT_SIZE_TIME=240
 
-    cat >>"$TMP_CONFIG" <<EOF
+  # Smaller UI for secondary monitors if they aren't eDP-1
+  if [[ "$MONITOR" != "eDP-1" ]]; then
+    INPUT_SIZE="250, 60"
+    FONT_SIZE_DATE=15
+    FONT_SIZE_TIME=120
+  fi
+
+  cat >>"$TMP_CONFIG" <<EOF
 
 # Config for $MONITOR
 input-field {
@@ -128,7 +119,7 @@ EOF
 done
 
 if ! pgrep -x hyprlock >/dev/null; then
-    hyprlock -c "$TMP_CONFIG"
+  hyprlock -c "$TMP_CONFIG"
 fi
 
 # Clean up the temporary file after unlocking

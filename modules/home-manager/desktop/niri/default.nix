@@ -42,11 +42,6 @@
     source = ./config.kdl;
   };
 
-  # Source hyprpaper config
-  xdg.configFile."hypr/hyprpaper.conf" = {
-    source = ./hyprpaper.conf;
-  };
-
   # Source hypridle config
   xdg.configFile."hypr/hypridle.conf" = {
     text = ''
