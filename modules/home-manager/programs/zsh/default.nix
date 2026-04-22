@@ -72,7 +72,7 @@
       kdsec = "kubectl describe secret";
       kdelsec = "kubectl delete secret";
 
-      impala = "impala";
+      impala = "impala"; # Wifi TUI
       walker = "walker";
 
       ld = "lazydocker";

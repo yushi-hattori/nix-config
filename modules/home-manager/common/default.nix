@@ -97,6 +97,7 @@
       raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
+      # Wifi
       impala
       tesseract
       unzip
