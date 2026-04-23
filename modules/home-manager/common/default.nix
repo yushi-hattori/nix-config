@@ -11,6 +11,7 @@
     ../programs/atuin
     ../programs/bat
     ../programs/btop
+    ../programs/codex
     ../programs/fastfetch
     ../programs/fzf
     ../programs/gemini-cli

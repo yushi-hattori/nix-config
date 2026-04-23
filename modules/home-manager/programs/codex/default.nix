@@ -1,6 +1,6 @@
 { ... }:
 {
-  programs.gemini-cli = {
+  programs.codex = {
     enable = true;
   };
 
