@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
-  # Enable GDM display manager
-  services.displayManager.gdm.enable = true;
+  # Keep external displays usable in clamshell/docked mode.
+  services.logind.lidSwitchDocked = "ignore";
 
   # Enable Niri
   programs.niri.enable = true;
@@ -9,7 +9,6 @@
   # Enable security services
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
-  security.pam.services.gdm.enableGnomeKeyring = true;
 
   # Enable Bluetooth support (standard for desktops)
   services.blueman.enable = true;
@@ -31,7 +30,6 @@
     xwayland-satellite # if needed for X11 apps
     waybar # status bar
     swaynotificationcenter # notifications
-    swaylock-effects # screen locker
     hypridle # idle daemon
     fuzzel # app launcher (or walker, which the user already has)
     swappy # screenshot editor

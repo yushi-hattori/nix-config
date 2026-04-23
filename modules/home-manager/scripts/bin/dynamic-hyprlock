@@ -10,6 +10,10 @@ if [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
   COMPOSITOR="hyprland"
 elif [[ -n "${NIRI_SOCKET:-}" ]]; then
   COMPOSITOR="niri"
+elif niri msg -j outputs >/dev/null 2>&1; then
+  COMPOSITOR="niri"
+elif hyprctl monitors -j >/dev/null 2>&1; then
+  COMPOSITOR="hyprland"
 fi
 
 # Function to get monitors
@@ -35,8 +39,15 @@ get_focused_monitor() {
   fi
 }
 
-# Get all monitors
+# Get all monitors; if detection is imperfect, prefer the focused output over
+# blindly falling back to the internal panel.
 MONITORS=$(get_monitors)
+if [[ -z "${MONITORS:-}" ]]; then
+  MONITORS=$(get_focused_monitor)
+fi
+if [[ -z "${MONITORS:-}" ]]; then
+  MONITORS="eDP-1"
+fi
 
 # --- Generate the config file ---
 cat >"$TMP_CONFIG" <<EOF

@@ -44,18 +44,7 @@
 
   # Source hypridle config
   xdg.configFile."hypr/hypridle.conf" = {
-    text = ''
-      general {
-        lock_cmd = pidof hyprlock || $HOME/.local/bin/dynamic-hyprlock
-        before_sleep_cmd = loginctl lock-session
-        after_sleep_cmd = "niri msg action load-config-file && systemctl --user restart kanshi.service && niri msg action power-on-monitors"
-      }
-
-      listener {
-        timeout = 900
-        on-timeout = loginctl suspend
-      }
-    '';
+    source = ./hypridle.conf;
   };
 
   # Source some extra scripts
@@ -100,5 +89,6 @@
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
+    WALLPAPER = "${config.wallpaper}";
   };
 }
