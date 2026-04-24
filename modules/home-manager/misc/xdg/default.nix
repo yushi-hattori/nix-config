@@ -18,8 +18,9 @@ defaultApplicationPackages = [
   pkgs.smplayer
   pkgs.imv
   pkgs.zathura
-];
-
+  pkgs.kdePackages.gwenview
+  pkgs.shotwell
+  ];
 defaultApplications = {
   "application/xhtml+xml" = [ "zen-twilight.desktop" ];
   "text/html" = [ "zen-twilight.desktop" ];

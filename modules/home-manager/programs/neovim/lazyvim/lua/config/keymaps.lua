@@ -63,13 +63,14 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.bmp", "*.svg", "*.tiff", -- Images
     "*.pdf", -- PDFs
   },
-  callback = function()
+  callback = function(ev)
+    local buf = ev.buf
     local file = vim.fn.expand("%:p")
     vim.fn.jobstart({ "xdg-open", file }, { detach = true })
     vim.cmd("stopinstall")
     vim.schedule(function()
-      if vim.api.nvim_buf_is_valid(0) then
-        vim.cmd("bwipeout")
+      if vim.api.nvim_buf_is_valid(buf) then
+        vim.api.nvim_buf_delete(buf, { force = true })
       end
     end)
   end,

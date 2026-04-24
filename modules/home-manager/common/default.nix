@@ -108,6 +108,8 @@
       vlc
       celluloid
       imv
+      kdePackages.gwenview
+      shotwell
       wl-clipboard
     ];
 
