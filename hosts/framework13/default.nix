@@ -81,7 +81,16 @@
     openFirewall = true;
   };
 
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      libglvnd
+      xorg.libX11
+      xorg.libXext
+      stdenv.cc.cc.lib
+      zlib
+    ];
+  };
   programs.kdeconnect.enable = true;
 
   # Waydroid - run Android apps in a container
