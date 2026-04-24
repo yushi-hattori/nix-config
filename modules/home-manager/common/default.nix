@@ -23,6 +23,7 @@
     ../programs/krew
     ../programs/lazygit
     ../programs/neovim
+    ../programs/mpv
     ../programs/obs-studio
     ../programs/saml2aws
     ../programs/starship
@@ -103,6 +104,8 @@
       impala
       tesseract
       unzip
+      vlc
+      celluloid
       wl-clipboard
     ];
 

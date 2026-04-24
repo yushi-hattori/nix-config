@@ -53,3 +53,24 @@ vim.keymap.set("v", "<localleader>r",  runner.run_range, { desc = "run visual ra
 vim.keymap.set("n", "<localleader>RA", function()
   runner.run_all(true)
 end, { desc = "run all cells of all languages", silent = true })
+
+-- Open media files in external applications
+local media_group = vim.api.nvim_create_augroup("ExternalMedia", { clear = true })
+vim.api.nvim_create_autocmd("BufReadPre", {
+  group = media_group,
+  pattern = {
+    "*.mp4", "*.mkv", "*.webm", "*.mov", "*.avi", "*.m4v", "*.flv", "*.wmv", -- Videos
+    "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.bmp", "*.svg", "*.tiff", -- Images
+    "*.pdf", -- PDFs
+  },
+  callback = function()
+    local file = vim.fn.expand("%:p")
+    vim.fn.jobstart({ "xdg-open", file }, { detach = true })
+    vim.cmd("stopinstall")
+    vim.schedule(function()
+      if vim.api.nvim_buf_is_valid(0) then
+        vim.cmd("bwipeout")
+      end
+    end)
+  end,
+})
