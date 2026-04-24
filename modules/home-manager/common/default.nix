@@ -30,6 +30,7 @@
     ../programs/zellij
     ../programs/zoxide
     ../programs/zsh
+    ../programs/zathura
     ../programs/zen-browser
     ../programs/python
     ../programs/vscode
@@ -106,6 +107,7 @@
       unzip
       vlc
       celluloid
+      imv
       wl-clipboard
     ];
 
