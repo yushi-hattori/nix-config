@@ -503,7 +503,7 @@
       gwenviewrc.ThumbnailView.AutoplayVideos = true;
       kdeglobals = {
         General = {
-          BrowserApplication = "brave-browser.desktop";
+          BrowserApplication = "zen-twilight.desktop";
         };
         Icons = {
           Theme = "Tela-circle-dark";

@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    # inputs.zen-browser.homeModules.default
     inputs.zen-browser.homeModules.twilight
   ];
 
@@ -30,5 +31,19 @@
         Fingerprinting = true;
       };
     };
+    # profiles.default = {
+    #   keyboardShortcuts = [
+    #     {
+    #       id = "key_restoreLastClosedTabOrWindowOrSession";
+    #       key = "t";
+    #       modifiers = {
+    #         shift = true;
+    #         accel = true;
+    #       };
+    #       disabled = false;
+    #     }
+    #   ];
+    #   keyboardShortcutsVersion = 16;
+    # };
   };
 }
