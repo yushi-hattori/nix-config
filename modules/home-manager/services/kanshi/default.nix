@@ -23,7 +23,7 @@
             mode = "2560x1440@59.951";
             scale = 1.25;
             transform = "90";
-            position = "2632,1060";
+            position = "2920,1304";
           }
           {
             # Main Monitor (The one that flips between DP-10 and DP-11)

@@ -9,8 +9,8 @@ input {
             options "caps:ctrl_modifier"
         }
         numlock
-        repeat-delay 150
-        repeat-rate 40
+        repeat-delay 200
+        repeat-rate 60
     }
 
     touchpad {
@@ -36,7 +36,7 @@ output "Dell Inc. DELL S2721D 1PVGP43" {
     mode "2560x1440@59.951"
     scale 1.25
     transform "90"
-    position x=2632 y=1060
+    position x=2920 y=1304
 }
 
 // Main Monitor (S2721DGF)
