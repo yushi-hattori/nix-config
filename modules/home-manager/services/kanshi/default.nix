@@ -21,7 +21,7 @@
             criteria = "Dell Inc. DELL S2721D 1PVGP43";
             status = "enable";
             mode = "2560x1440@59.951";
-            scale = 1.0;
+            scale = 1.25;
             transform = "90";
             position = "2632,1060";
           }
@@ -30,7 +30,7 @@
             criteria = "Dell Inc. DELL S2721DGF FVM4093";
             status = "enable";
             mode = "2560x1440@59.951";
-            scale = 1.0;
+            scale = 1.25;
             position = "4072,1557";
           }
         ];
