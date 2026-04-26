@@ -8,6 +8,8 @@ let
   qtCtAppearanceConfig = (pkgs.formats.ini { }).generate "qtct-config" {
     Appearance = {
       icon_theme = config.gtk.iconTheme.name;
+      style = "kvantum";
+      standard_dialogs = "default";
     };
   };
 in
@@ -29,6 +31,11 @@ in
   # Use catppuccin nix module for kvantum and qt5ct theming
   catppuccin.kvantum.enable = true;
   catppuccin.qt5ct.enable = true;
+
+  home.sessionVariables = {
+    # Force Kvantum for Qt apps to ensure correct colors
+    QT_STYLE_OVERRIDE = "kvantum";
+  };
 
   xdg.configFile = {
     # qt5ct is handled by catppuccin module
