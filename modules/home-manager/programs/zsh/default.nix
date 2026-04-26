@@ -22,6 +22,8 @@
     };
 
     shellAliases = {
+      main = "zellij attach --create main";
+
       ff = "fastfetch";
       sunshine-ui = "zen https://localhost:47990 &>/dev/null &";
       conda = "micromamba";
@@ -33,44 +35,8 @@
       update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup";
       "gc" = "sudo nix-collect-garbage -d";
 
-      # git
-      gaa = "git add --all";
-      gcam = "git commit --all --message";
-      gcl = "git clone";
-      gco = "git checkout";
-      ggl = "git pull";
-      ggp = "git push";
-
       # python
-      deeplearning = "conda activate deeplearning && python -m ipykernel install --user --name deeplearning --display-name \"Python (deeplearning)\"";
-
-      # kubectl
-      k = "kubectl";
-      kgno = "kubectl get node";
-      kdno = "kubectl describe node";
-      kgp = "kubectl get pods";
-      kep = "kubectl edit pods";
-      kdp = "kubectl describe pods";
-      kdelp = "kubectl delete pods";
-      kgs = "kubectl get svc";
-      kes = "kubectl edit svc";
-      kds = "kubectl describe svc";
-      kdels = "kubectl delete svc";
-      kgi = "kubectl get ingress";
-      kei = "kubectl edit ingress";
-      kdi = "kubectl describe ingress";
-      kdeli = "kubectl delete ingress";
-      kgns = "kubectl get namespaces";
-      kens = "kubectl edit namespace";
-      kdns = "kubectl describe namespace";
-      kdelns = "kubectl delete namespace";
-      kgd = "kubectl get deployment";
-      ked = "kubectl edit deployment";
-      kdd = "kubectl describe deployment";
-      kdeld = "kubectl delete deployment";
-      kgsec = "kubectl get secret";
-      kdsec = "kubectl describe secret";
-      kdelsec = "kubectl delete secret";
+      deeplearning = "conda activate deeplearning";
 
       impala = "impala"; # Wifi TUI
       wifi = "alacritty --title wifi-tui -e impala"; # Wifi TUI
