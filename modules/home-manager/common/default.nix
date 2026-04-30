@@ -32,6 +32,7 @@
     ../programs/zsh
     ../programs/zathura
     ../programs/zen-browser
+    ../programs/zed
     ../programs/python
     ../programs/vscode
     ../scripts
