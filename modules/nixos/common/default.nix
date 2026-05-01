@@ -217,6 +217,12 @@
   # Additional services
   services.locate.enable = true;
 
+  # Enable wake-on-USB for keyboards and mice
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usbhid", ATTR{power/wakeup}="enabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="*", ATTR{idProduct}=="*", ATTR{power/wakeup}="enabled"
+  '';
+
   # OpenSSH daemon
   services.openssh.enable = true;
 }

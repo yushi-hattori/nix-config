@@ -1,7 +1,15 @@
 { pkgs, ... }:
 {
   # Keep external displays usable in clamshell/docked mode.
-  services.logind.lidSwitchDocked = "ignore";
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+    settings.Login = {
+      HandleLidSwitchExternalPower = "ignore";
+      HandleLidSwitchDocked = "ignore";
+    };
+  };
 
   # Enable Niri
   programs.niri.enable = true;
