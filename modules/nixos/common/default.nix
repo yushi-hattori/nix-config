@@ -132,9 +132,6 @@
   # PATH configuration
   environment.localBinInPath = true;
 
-  # Disable CUPS printing
-  services.printing.enable = false;
-
   # Enable devmon for device management
   services.devmon.enable = true;
 
@@ -160,6 +157,8 @@
       "wheel"
       "docker"
       "dialout"
+      "lp"
+      "scanner"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;

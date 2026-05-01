@@ -16,6 +16,7 @@
     "${nixosModules}/common"
     "${nixosModules}/desktop/niri"
     "${nixosModules}/services/greetd"
+    "${nixosModules}/services/printing"
     "${nixosModules}/programs/steam"
     "${nixosModules}/programs/bambu-studio"
   ];
