@@ -83,6 +83,7 @@
       playerctl
       ripgrep
       terraform
+      yazi
       obsidian
       spotify
       google-chrome

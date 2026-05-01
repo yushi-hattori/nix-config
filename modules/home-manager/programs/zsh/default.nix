@@ -31,8 +31,8 @@
 
       # NixOS
       update-fw-all = "update-fw && update-fw-hm";
-      update-fw = "cd ~/nix-config && sudo nixos-rebuild switch --flake .#framework13 && restart-all";
-      update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup && restart-all";
+      update-fw = "cd ~/nix-config && sudo nixos-rebuild switch --flake .#framework13";
+      update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup";
       "gc" = "sudo nix-collect-garbage -d";
 
       restart-all = "walker-restart && waybar-restart";
@@ -53,6 +53,7 @@
       v = "nvim";
       vi = "nvim";
       vim = "nvim";
+      zed = "zeditor";
 
       "cd" = "z";
       ".." = "cd ..";

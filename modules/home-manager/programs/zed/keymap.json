@@ -1,0 +1,104 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-`": "terminal_panel::ToggleFocus",
+      "alt-f": "terminal_panel::ToggleFocus",
+      "ctrl-shift-t": "workspace::NewCenterTerminal",
+      "ctrl-shift-y": [
+        "task::Spawn",
+        {
+          "task_name": "yazi",
+          "reveal_target": "center",
+        },
+      ],
+      "alt-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "alt-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "alt-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "alt-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "alt-n": "workspace::NewTerminal",
+      "alt-d": "pane::SplitDown",
+      "alt-r": "pane::SplitRight",
+      "space space": "file_finder::Toggle",
+
+      "space s g": "pane::DeploySearch",
+      "space s r": ["pane::DeploySearch", { "replace_enabled": true }],
+      "space g g": [
+        "task::Spawn",
+        {
+          "task_name": "lazygit",
+          "reveal_target": "center",
+        },
+      ],
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-`": "workspace::ToggleBottomDock",
+      "alt-f": "workspace::ToggleBottomDock",
+      "alt-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "alt-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "alt-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "alt-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "alt-n": "workspace::NewTerminal",
+      "alt-d": "pane::SplitDown",
+      "alt-r": "pane::SplitRight",
+    },
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+      "space o": [
+        "task::Spawn",
+        {
+          "task_name": "yazi",
+          "reveal_target": "center",
+        },
+      ],
+      "-": "project_panel::ToggleFocus",
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-f": "tab_switcher::OpenInActivePane",
+      // "-ctrl-f": "tab_switcher::toggle",
+    },
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+      "escape": "project_panel::ToggleFocus",
+      "enter": [
+        "action::Sequence",
+        [
+          "project_panel::Open",
+          "project_panel::ToggleFocus",
+          "workspace::ToggleLeftDock",
+        ],
+      ],
+      "o": "project_panel::NewDirectory",
+      "a": "project_panel::NewFile",
+      "r": "project_panel::Rename",
+      "x": "project_panel::Cut",
+      "y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "d": "project_panel::Delete",
+      "l": "project_panel::ExpandSelectedEntry",
+      "h": "project_panel::CollapseSelectedEntry",
+      "j": "menu::SelectNext",
+      "k": "menu::SelectPrevious",
+    },
+  },
+  {
+    "context": "TabSwitcher",
+    "bindings": {
+      "j": "menu::SelectNext",
+      "k": "menu::SelectPrevious",
+      "shift-d": "tab_switcher::CloseSelectedItem",
+      "q": "menu::Cancel",
+    },
+  },
+]

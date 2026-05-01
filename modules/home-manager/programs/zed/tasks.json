@@ -1,0 +1,22 @@
+[
+  {
+    "label": "lazygit",
+    "command": "lazygit",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "always",
+  },
+  {
+    "label": "yazi",
+    "command": "yazi",
+    "args": ["$ZED_FILE"],
+    "env": {
+      "EDITOR": "zeditor",
+    },
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "always",
+  },
+]
