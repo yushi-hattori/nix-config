@@ -1,16 +1,29 @@
 #!/usr/bin/env bash
 
-echo "Attempting to stop any running instance of walker..."
-pkill walker
+echo "Clearing walker cache..."
+rm -rf ~/.cache/walker
+
+echo "Restarting Walker and Elephant services..."
+
+# Try to restart via systemd first, as it's cleaner
+systemctl --user restart elephant.service 2>/dev/null
+systemctl --user restart walker.service 2>/dev/null
+
+# If services aren't used or failed, fallback to manual pkill and start
+echo "Ensuring processes are refreshed..."
+pkill -9 walker
+pkill -9 elephant
 
 sleep 1
 
-if pgrep walker >/dev/null 2>&1; then
-  echo "Failed to stop walker." >&2
-else
-  echo "Walker stopped successfully."
-  echo "Starting walker..."
-  walker &>/dev/null &
-  disown
-  echo "Walker restarted successfully."
-fi
+echo "Starting Elephant (backend)..."
+elephant &>/dev/null &
+disown
+
+sleep 1
+
+echo "Starting Walker (frontend)..."
+walker &>/dev/null &
+disown
+
+echo "Walker and Elephant restarted successfully."
