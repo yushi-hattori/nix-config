@@ -103,13 +103,15 @@
     package = pkgs.ollama-rocm;
   };
 
-  services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchExternalPower = "ignore";
-    lidSwitchDocked = "ignore";
-    settings.Login = {
-      HandlePowerKey = "suspend";
-    };
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      libglvnd
+      libx11
+      libxext
+      stdenv.cc.cc.lib
+      zlib
+    ];
   };
 
   # Fix for spontaneous wakeups on Framework 13 AMD

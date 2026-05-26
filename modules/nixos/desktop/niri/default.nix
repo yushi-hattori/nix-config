@@ -2,10 +2,8 @@
 {
   # Keep external displays usable in clamshell/docked mode.
   services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
     settings.Login = {
+      HandleLidSwitch = "suspend";
       HandleLidSwitchExternalPower = "ignore";
       HandleLidSwitchDocked = "ignore";
     };
