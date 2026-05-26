@@ -47,6 +47,10 @@
     source = ./hypridle.conf;
   };
 
+  services.hypridle = {
+    enable = true;
+  };
+
   # Source some extra scripts
   xdg.configFile."niri/monitor_action.sh" = {
     source = ./monitor_action.sh;

@@ -103,7 +103,26 @@
     package = pkgs.ollama-rocm;
   };
 
-  services.logind.settings.Login.HandlePowerKey = "suspend";
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchExternalPower = "ignore";
+    lidSwitchDocked = "ignore";
+    settings.Login = {
+      HandlePowerKey = "suspend";
+    };
+  };
+
+  # Fix for spontaneous wakeups on Framework 13 AMD
+  # Disable XHC0 wakeup trigger
+  systemd.services.disable-usb-wakeup = {
+    description = "Disable USB wakeup triggers";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'echo XHC0 > /proc/acpi/wakeup || true'";
+      RemainAfterExit = true;
+    };
+  };
 
   # ROCm support for AMD Radeon 890M
   systemd.tmpfiles.rules = [
