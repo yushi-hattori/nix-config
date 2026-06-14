@@ -204,6 +204,9 @@
   # Zsh configuration
   programs.zsh.enable = true;
 
+  # Enable dconf
+  programs.dconf.enable = true;
+
   # Fonts configuration
   fonts = {
     fontconfig.enable = true;

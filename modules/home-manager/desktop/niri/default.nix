@@ -90,6 +90,7 @@
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     GDK_BACKEND = "wayland";
+    GTK_USE_PORTAL = "1";
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";

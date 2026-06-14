@@ -12,8 +12,9 @@
   # Enable Niri
   programs.niri.enable = true;
 
-  # Enable security services
+  # Enable security and file services
   services.gnome.gnome-keyring.enable = true;
+  services.gvfs.enable = true;
   security.polkit.enable = true;
 
   # Enable Bluetooth support (standard for desktops)
@@ -53,6 +54,7 @@
   xdg.portal = {
     enable = true;
     config.common.default = [
+      "niri"
       "gnome"
       "gtk"
     ];
