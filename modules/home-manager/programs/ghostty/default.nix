@@ -9,7 +9,10 @@
 
       # Window management settings for multi-monitor support
       window-save-state = "never";
-      window-step-resize = false;
+      window-step-resize = true;
+      window-padding-x = 0;
+      window-padding-y = 0;
+      term = "xterm-256color";
       gtk-single-instance = false;
 
       # font-size = 10;

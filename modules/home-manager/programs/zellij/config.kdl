@@ -599,6 +599,7 @@ load_plugins {
 //   - false
 //
 // auto_layout true
+auto_layout true
 
 // Whether sessions should be serialized to the cache folder (including their tabs/panes, cwds and running commands) so that they can later be resurrected
 // (Requires restart)
@@ -668,6 +669,7 @@ load_plugins {
 //   - false
 //
 // mouse_mode false
+mouse_mode true
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
