@@ -1,7 +1,11 @@
 return {
   "folke/snacks.nvim",
   opts = {
-    zen = { enabled = true },
+    zen = {
+      enabled = true,
+      dim = false,
+    },
+    dim = { enabled = false },
     scroll = { enabled = true },
     picker = {
       sources = {

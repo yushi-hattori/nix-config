@@ -7,6 +7,7 @@ local NS = { noremap = true, silent = true } -- Define NS for keymaps
 -- Toggle zen mode (center cursor)
 vim.keymap.set("n", "<leader>zz", function()
   Snacks.zen({
+    dim = false,
     win = {
       buffer = {
         options = {
@@ -14,6 +15,20 @@ vim.keymap.set("n", "<leader>zz", function()
         },
       },
     },
+    on_open = function()
+      vim.opt_local.scrolloff = 999
+      -- Create an autocmd to keep it centered at all times
+      vim.api.nvim_create_autocmd("CursorMoved", {
+        group = vim.api.nvim_create_augroup("ZenCenter", { clear = true }),
+        buffer = 0,
+        callback = function()
+          vim.cmd("normal! zz")
+        end,
+      })
+    end,
+    on_close = function()
+      vim.api.nvim_del_augroup_by_name("ZenCenter")
+    end,
   })
 end, { noremap = true, silent = false, desc = "Toggle zen mode (center cursor)" })
 

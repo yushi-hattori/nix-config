@@ -1,5 +1,5 @@
--- Enable spell checking
-vim.opt.spell = true
+-- Disable spell checking
+vim.opt.spell = false
 vim.opt.spelllang = { "en" }
 
 return {
@@ -8,6 +8,7 @@ return {
     opts = {
       servers = {
         ltex = {
+          enabled = false,
           filetypes = { "markdown", "text" },
         },
       },
