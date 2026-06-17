@@ -42,6 +42,10 @@
     source = ./config.kdl;
   };
 
+  xdg.configFile."niri/centering.kdl" = {
+    source = ./centering.kdl;
+  };
+
   # Source hypridle config
   xdg.configFile."hypr/hypridle.conf" = {
     source = ./hypridle.conf;
@@ -54,6 +58,11 @@
   # Source some extra scripts
   xdg.configFile."niri/monitor_action.sh" = {
     source = ./monitor_action.sh;
+    executable = true;
+  };
+
+  xdg.configFile."niri/toggle_center.sh" = {
+    source = ./toggle_center.sh;
     executable = true;
   };
 

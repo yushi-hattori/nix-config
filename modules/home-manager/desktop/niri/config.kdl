@@ -2,6 +2,8 @@
 // See https://github.com/YaLTeR/niri/wiki/Configuration:-Overview for help.
 // Default config: https://github.com/niri-wm/niri/blob/main/resources/default-config.kdl
 
+include "centering.kdl"
+
 input {
     keyboard {
         xkb {
@@ -47,17 +49,15 @@ output "Dell Inc. DELL S2721DGF FVM4093" {
 }
 layout {
     gaps 8
-    center-focused-column "always"
 
     preset-column-widths {
         proportion 0.25
         proportion 0.5
         proportion 0.75
-        proportion 0.9
         proportion 1.0
     }
 
-    default-column-width { proportion 0.75; }
+    default-column-width { proportion 0.5; }
 
     focus-ring {
         width 2
@@ -139,16 +139,18 @@ binds {
     Mod+E { spawn "nautilus"; }
 
     // Screenshots
-    Mod+Shift+S { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
     Print { spawn-sh "grim - | swappy -f -"; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
     // Window management
+    Mod+S { expel-window-from-column; }
+    Mod+Shift+S { consume-window-into-column; }
     Mod+O { toggle-overview; }
     Mod+Q { close-window; }
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+F { switch-preset-column-width; }
+    Mod+Shift+F { maximize-column; }
+    Mod+T { spawn "bash" "-c" "/home/yhattori/.config/niri/toggle_center.sh"; }
     Mod+M { maximize-window-to-edges; }
     Mod+C { center-column; }
     Mod+Ctrl+C { center-visible-columns; }
@@ -170,13 +172,13 @@ binds {
 
     // Movement
     Mod+Ctrl+Left { move-column-left; }
-    Mod+Ctrl+Down { move-window-down; }
-    Mod+Ctrl+Up { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
-    Ctrl+Shift+H { move-column-left; }
-    Ctrl+Shift+J { move-window-down; }
-    Ctrl+Shift+K { move-window-up; }
-    Ctrl+Shift+L { move-column-right; }
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+L { move-column-right; }
+    Mod+Shift+J { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K { move-window-up-or-to-workspace-up; }
+    Mod+Shift+Down { move-window-down-or-to-workspace-down; }
+    Mod+Shift+Up { move-window-up-or-to-workspace-up; }
     Mod+Ctrl+Home { move-column-to-first; }
     Mod+Ctrl+End { move-column-to-last; }
     // Toggle tabbed column display mode.
@@ -211,13 +213,11 @@ binds {
 
     // Native Directional
     Mod+Shift+Left { focus-monitor-left; }
-    Mod+Shift+Down { focus-monitor-down; }
-    Mod+Shift+Up { focus-monitor-up; }
     Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+H { move-column-to-monitor-left; }
-    Mod+Shift+J { move-column-to-monitor-down; }
-    Mod+Shift+K { move-column-to-monitor-up; }
-    Mod+Shift+L { move-column-to-monitor-right; }
+    Mod+Ctrl+Shift+H { move-column-to-monitor-left; }
+    Mod+Ctrl+Shift+J { move-column-to-monitor-down; }
+    Mod+Ctrl+Shift+K { move-column-to-monitor-up; }
+    Mod+Ctrl+Shift+L { move-column-to-monitor-right; }
 
     Mod+Shift+Ctrl+Left { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
