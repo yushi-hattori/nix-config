@@ -77,6 +77,7 @@
       lazydocker
       nh
       opencode
+      google-antigravity-cli
       openconnect
       networkmanagerapplet
       pipenv

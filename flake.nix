@@ -36,6 +36,11 @@
 
     opencode.url = "github:dan-online/opencode-nix";
 
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
@@ -59,6 +64,7 @@
       nixpkgs,
       claude-code,
       opencode,
+      antigravity-nix,
       ...
     }@inputs:
     let
@@ -110,6 +116,7 @@
               outputs.overlays.stable-packages
               claude-code.overlays.default
               opencode.overlays.default
+              antigravity-nix.overlays.default
             ];
           };
           extraSpecialArgs = {
