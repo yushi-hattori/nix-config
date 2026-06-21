@@ -19,6 +19,7 @@
     "${nixosModules}/services/printing"
     "${nixosModules}/programs/steam"
     "${nixosModules}/programs/bambu-studio"
+    "${nixosModules}/services/ollama"
   ];
 
   # Set hostname
@@ -86,12 +87,6 @@
 
   # Waydroid - run Android apps in a container
   virtualisation.waydroid.enable = true;
-
-  # Ollama for local LLM with ROCm GPU acceleration
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-rocm;
-  };
 
   programs.nix-ld = {
     enable = true;
