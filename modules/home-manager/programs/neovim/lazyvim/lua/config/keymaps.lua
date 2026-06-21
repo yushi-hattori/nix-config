@@ -4,33 +4,33 @@
 
 local NS = { noremap = true, silent = true } -- Define NS for keymaps
 
--- Toggle zen mode (center cursor)
+-- zz mode: toggle always-centered cursor (scrolloff = 999 + CursorMoved autocmd)
+-- The autocmd approach keeps the cursor centered even at end-of-file, unlike scrolloff alone.
+local zz_mode_enabled = false
+local ZZ_GROUP = "ZzMode"
+
 vim.keymap.set("n", "<leader>zz", function()
-  Snacks.zen({
-    dim = false,
-    win = {
-      buffer = {
-        options = {
-          scrolloff = 999,
-        },
-      },
-    },
-    on_open = function()
-      vim.opt_local.scrolloff = 999
-      -- Create an autocmd to keep it centered at all times
-      vim.api.nvim_create_autocmd("CursorMoved", {
-        group = vim.api.nvim_create_augroup("ZenCenter", { clear = true }),
-        buffer = 0,
-        callback = function()
+  zz_mode_enabled = not zz_mode_enabled
+
+  if zz_mode_enabled then
+    vim.opt.scrolloff = 999
+    vim.api.nvim_create_augroup(ZZ_GROUP, { clear = true })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      group = ZZ_GROUP,
+      callback = function()
+        -- Only recenter in normal buffers to avoid breaking popups/floats
+        if vim.bo.buftype == "" then
           vim.cmd("normal! zz")
-        end,
-      })
-    end,
-    on_close = function()
-      vim.api.nvim_del_augroup_by_name("ZenCenter")
-    end,
-  })
-end, { noremap = true, silent = false, desc = "Toggle zen mode (center cursor)" })
+        end
+      end,
+    })
+    vim.notify("  zz mode ON — cursor will stay centered", vim.log.levels.INFO)
+  else
+    vim.opt.scrolloff = 10
+    vim.api.nvim_create_augroup(ZZ_GROUP, { clear = true }) -- clear = true removes all listeners
+    vim.notify("  zz mode OFF", vim.log.levels.INFO)
+  end
+end, { noremap = true, silent = true, desc = "Toggle zz mode (always center cursor)" })
 
 -- Copy current file path
 vim.keymap.set("n", "<leader>cp", function()
