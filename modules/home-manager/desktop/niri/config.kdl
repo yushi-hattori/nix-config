@@ -118,7 +118,7 @@ window-rule {
     match title="wifi-tui"
     open-floating true
     default-column-width { proportion 0.3; }
-    default-window-height { proportion 0.4; }
+    default-window-height { proportion 0.6; }
     default-floating-position x=10 y=10 relative-to="top-right"
 }
 
@@ -149,7 +149,7 @@ binds {
     Mod+O { toggle-overview; }
     Mod+Q { close-window; }
     Mod+F { switch-preset-column-width; }
-    Mod+Shift+F { maximize-column; }
+    Mod+Shift+F { switch-preset-column-width-back; }
     Mod+T { spawn "bash" "-c" "/home/yhattori/.config/niri/toggle_center.sh"; }
     Mod+M { maximize-window-to-edges; }
     Mod+C { center-column; }
