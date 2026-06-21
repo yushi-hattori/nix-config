@@ -14,7 +14,7 @@
             status = "enable";
             mode = "2880x1920@120.000";
             scale = 1.75;
-            position = "4359,2997";
+            position = "4238,2709";
           }
           {
             # Side Monitor (The one that flips between DP-7 and DP-8)
