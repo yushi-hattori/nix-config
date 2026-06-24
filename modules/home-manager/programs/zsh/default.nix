@@ -54,6 +54,7 @@
       vi = "nvim";
       vim = "nvim";
       zed = "zeditor";
+      oc = "opencode --model qwen3.6:35b-a3b";
 
       "cd" = "z";
       ".." = "cd ..";
