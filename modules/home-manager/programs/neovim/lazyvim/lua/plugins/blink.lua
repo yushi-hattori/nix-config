@@ -6,6 +6,7 @@ return {
       ["<Tab>"] = { "select_next", "fallback" },
       ["<S-Tab>"] = { "select_prev", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
+      ["<S-CR>"] = { "fallback" },
     },
   },
 }
