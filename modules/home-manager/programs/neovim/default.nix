@@ -67,6 +67,8 @@
     ];
   };
 
+  home.file.".local/share/nvim/dict/words".source = "${pkgs.scowl}/lib/aspell/en-common.wl";
+
   # source lua config from this repo
   xdg.configFile = {
     "nvim" = {
