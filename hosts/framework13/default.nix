@@ -99,17 +99,16 @@
     ];
   };
 
-  # Fix for spontaneous wakeups on Framework 13 AMD
-  # Disable XHC0 wakeup trigger
-  systemd.services.disable-usb-wakeup = {
-    description = "Disable USB wakeup triggers";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'echo XHC0 > /proc/acpi/wakeup || true'";
-      RemainAfterExit = true;
-    };
-  };
+  # USB wakeup: allow keyboards/mice to wake from sleep, block everything else.
+  # XHC0 ACPI wakeup is left enabled (we no longer toggle it off) so HID devices
+  # can wake the system. Individual device wakeup is managed by udev so non-HID
+  # devices (storage, hubs, etc.) don't cause spontaneous wakeups.
+  # Rules re-fire on every add event, so replug of a thunderbolt dock
+  # automatically re-enables wakeup for the re-enumerated HID devices.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="03", ATTR{power/wakeup}="enabled"
+  '';
 
   # ROCm support for AMD Radeon 890M
   systemd.tmpfiles.rules = [
