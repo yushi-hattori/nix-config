@@ -99,15 +99,29 @@
     ];
   };
 
-  # USB wakeup: allow keyboards/mice to wake from sleep, block everything else.
-  # XHC0 ACPI wakeup is left enabled (we no longer toggle it off) so HID devices
-  # can wake the system. Individual device wakeup is managed by udev so non-HID
-  # devices (storage, hubs, etc.) don't cause spontaneous wakeups.
-  # Rules re-fire on every add event, so replug of a thunderbolt dock
-  # automatically re-enables wakeup for the re-enumerated HID devices.
+  # XHC0 is the thunderbolt dock's USB controller (pci:0000:c3:00.0, same bus as NHI0/NHI1).
+  # It must be enabled for keyboard/mouse through the dock to wake the system from S3.
+  # The service checks current state and only toggles if disabled, so it's idempotent.
+  systemd.services.enable-xhc0-wakeup = {
+    description = "Enable XHC0 wakeup for thunderbolt dock keyboard/mouse";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.bash}/bin/bash -c 'grep -q \"XHC0.*disabled\" /proc/acpi/wakeup && echo XHC0 > /proc/acpi/wakeup || true'";
+    };
+  };
+
+  # USB wakeup: enable for input devices (HID class=03, composite class=00 which covers
+  # most keyboards/mice), disable for hubs/storage/BT/misc to prevent spontaneous wakeups.
+  # Rules re-fire on dock replug so re-enumerated devices are handled automatically.
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="08", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="e0", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="ef", ATTR{power/wakeup}="disabled"
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="03", ATTR{power/wakeup}="enabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="00", ATTR{power/wakeup}="enabled"
   '';
 
   # ROCm support for AMD Radeon 890M
