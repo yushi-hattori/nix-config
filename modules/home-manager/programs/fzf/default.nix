@@ -7,6 +7,8 @@ in
   programs.fzf = {
     enable = true;
 
+    # Ctrl-R is owned by atuin's history search; don't let fzf bind it too.
+    historyWidget.command = "";
     defaultCommand = "find .";
     defaultOptions = [
       "--bind '?:toggle-preview'"

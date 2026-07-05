@@ -14,7 +14,7 @@
     ../programs/codex
     ../programs/fastfetch
     ../programs/fzf
-    ../programs/gemini-cli
+    ../programs/antigravity-cli
     ../programs/ghostty
     ../programs/git
     ../programs/go
@@ -27,7 +27,7 @@
     ../programs/obs-studio
     ../programs/saml2aws
     ../programs/starship
-    # ../programs/zellij
+    ../programs/zellij
     ../programs/zoxide
     ../programs/zsh
     ../programs/zathura
@@ -78,7 +78,6 @@
       lazydocker
       nh
       opencode
-      google-antigravity-cli
       openconnect
       networkmanagerapplet
       pipenv

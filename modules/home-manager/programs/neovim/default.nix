@@ -35,8 +35,8 @@
       markdownlint-cli
       nixd
       nixfmt
-      nodePackages.bash-language-server
-      nodePackages.prettier
+      bash-language-server
+      prettier
       pyright
       ruff
       shellcheck
