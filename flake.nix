@@ -19,7 +19,7 @@
 
     # Declarative flatpak manager
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=v0.6.0";
-# Extras
+    # Extras
 
     # Nix Darwin (for MacOS machines)
     darwin = {
@@ -53,6 +53,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    herdr = {
+      url = "github:ogulcancelik/herdr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -65,6 +69,7 @@
       claude-code,
       opencode,
       antigravity-nix,
+      herdr,
       ...
     }@inputs:
     let
@@ -117,6 +122,7 @@
               claude-code.overlays.default
               opencode.overlays.default
               antigravity-nix.overlays.default
+              herdr.overlays.default
             ];
           };
           extraSpecialArgs = {

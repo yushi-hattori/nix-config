@@ -27,7 +27,7 @@
     ../programs/obs-studio
     ../programs/saml2aws
     ../programs/starship
-    ../programs/zellij
+    # ../programs/zellij
     ../programs/zoxide
     ../programs/zsh
     ../programs/zathura
@@ -72,6 +72,7 @@
       dust
       eza
       fd
+      herdr
       jq
       kubectl
       lazydocker
