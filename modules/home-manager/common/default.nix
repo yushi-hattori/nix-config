@@ -94,6 +94,7 @@
       micromamba
       stdenv.cc.cc.lib
       swaybg
+      wget
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [
