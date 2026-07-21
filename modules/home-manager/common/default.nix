@@ -91,6 +91,7 @@
       gimp3
       inkcut
       inkscape
+      prusa-slicer
       micromamba
       stdenv.cc.cc.lib
       swaybg

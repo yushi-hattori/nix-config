@@ -3,20 +3,21 @@ return {
   version = false,
   keys = {
     { "<leader>fm", false },
-    {
-      "<leader>o",
-      function()
-        require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-      end,
-      desc = "Open mini.files (Directory of Current File)",
-    },
-    {
-      "<leader>O",
-      function()
-        require("mini.files").open(vim.uv.cwd(), true)
-      end,
-      desc = "Open mini.files (cwd)",
-    },
+    -- mini.files keybindings, replaced by yazi.nvim (see plugins/yazi.lua)
+    -- {
+    --   "<leader>o",
+    --   function()
+    --     require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+    --   end,
+    --   desc = "Open mini.files (Directory of Current File)",
+    -- },
+    -- {
+    --   "<leader>O",
+    --   function()
+    --     require("mini.files").open(vim.uv.cwd(), true)
+    --   end,
+    --   desc = "Open mini.files (cwd)",
+    -- },
   },
   config = function()
     require("mini.ai").setup({ n_lines = 500 })
@@ -24,6 +25,8 @@ return {
     require("mini.pairs").setup()
     require("mini.jump2d").setup()
 
+    -- mini.files setup, replaced by yazi.nvim (see plugins/yazi.lua)
+    --[[
     local MiniFiles = require("mini.files")
 
     MiniFiles.setup({
@@ -57,5 +60,6 @@ return {
         map_split(buf_id, "V", "belowright vertical")
       end,
     })
+    --]]
   end,
 }

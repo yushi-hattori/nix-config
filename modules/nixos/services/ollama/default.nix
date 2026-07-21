@@ -52,17 +52,18 @@
       # Flash attention significantly reduces memory use on long contexts
       OLLAMA_FLASH_ATTENTION = "1";
 
-      # Cap context to 16K — Vulkan sees all 47GB RAM as VRAM and defaults to
-      # 262144 context with a 12GB KV cache. 16K covers almost all real use cases
-      # and cuts KV cache to ~750MB, significantly improving token speed.
-      # Override per-request in Open WebUI if you need longer context.
-      OLLAMA_CONTEXT_LENGTH = "16384";
+      # Context window — 32K tokens fits comfortably in the ~69GB available after
+      # the 24GB model load. KV cache at q8_0 stays ~1.5GB — still well within budget.
+      # Previously 16K caused repeated truncation (truncated=1) and expensive
+      # KV-cache rebuilds on every opencode turn, which is what caused the freezing.
+      OLLAMA_CONTEXT_LENGTH = "32768";
 
-      # Smaller batch size reduces latency on APU (less memory pressure per step)
-      OLLAMA_BATCH_SIZE = "256";
+      # Smaller batch size reduces Vulkan submission pressure on APU
+      OLLAMA_BATCH_SIZE = "128";
 
-      # 2 parallel requests — shared memory architecture, avoid iGPU VRAM thrash
-      OLLAMA_NUM_PARALLEL = "2";
+      # qwen35moe does not support parallel requests (ollama warns explicitly);
+      # keeping this at 1 avoids wasted scheduler overhead
+      OLLAMA_NUM_PARALLEL = "1";
 
       # Disable SDMA to avoid instability on newer APUs
       HSA_ENABLE_SDMA = "0";
