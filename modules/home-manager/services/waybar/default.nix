@@ -3,6 +3,7 @@
   # Install and configure waybar via home-manager module
   programs.waybar = {
     enable = true;
+    systemd.enable = true;   # manage via systemd user service instead of spawn-at-startup
     settings = {
       mainBar = {
         layer = "top";

@@ -77,7 +77,6 @@ layout {
     struts { }
 }
 
-spawn-at-startup "waybar"
 spawn-at-startup "swaync"
 spawn-at-startup "hypridle"
 spawn-at-startup "xwayland-satellite"
