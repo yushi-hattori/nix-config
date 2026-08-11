@@ -13,6 +13,8 @@ return {
         nls.builtins.formatting.prettier.with({
           filetypes = {
             "css",
+            "json",
+            "jsonc",
             "markdown",
             "yaml.docker-compose",
             "yaml.kubernetes",
