@@ -64,11 +64,20 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     # Runs only for login shells (~/.zprofile), before .zshrc. getty autologs
-    # the user in on tty1; this launches the niri session there. If niri exits
-    # (or fails to start) we intentionally fall through to a normal shell prompt
-    # on tty1 rather than exec'ing, so the machine stays recoverable.
+    # the user in on tty1; this launches the niri session there.
+    #
+    # The NIRI_SESSION_LAUNCHED guard is essential: niri-session re-execs itself
+    # through a login shell (`exec -l $SHELL`), which re-sources this very file.
+    # Without the guard that second pass would call niri-session again, which
+    # re-execs another login shell, ... — an infinite recursion that never lets
+    # niri start. The marker is exported, so it survives the exec and the second
+    # pass skips the launch, letting niri-session proceed normally.
+    #
+    # Not exec'd: if niri exits or fails to start we fall through to a normal
+    # shell prompt on tty1, keeping the machine recoverable.
     profileExtra = ''
-      if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+      if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && [ -z "$NIRI_SESSION_LAUNCHED" ]; then
+        export NIRI_SESSION_LAUNCHED=1
         niri-session
       fi
     '';
