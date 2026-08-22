@@ -2,8 +2,8 @@
 {
   # Install and configure waybar via home-manager module
   programs.waybar = {
-    enable = true;
-    systemd.enable = true;   # manage via systemd user service instead of spawn-at-startup
+    enable = false;
+    systemd.enable = true; # manage via systemd user service instead of spawn-at-startup
     settings = {
       mainBar = {
         layer = "top";
@@ -17,8 +17,8 @@
         margin-right = 4;
 
         modules-left = [
-          "hyprland/workspaces"
-          "niri/workspaces"
+          # "hyprland/workspaces"
+          # "niri/workspaces"
           "cpu"
           "temperature"
           "memory"
@@ -31,13 +31,13 @@
         ];
 
         modules-right = [
-          "privacy"
-          "custom/recorder"
-          "custom/weather"
-          "hyprland/language"
-          "niri/language"
-          "tray"
-          "network"
+          # "privacy"
+          # "custom/recorder"
+          # "custom/weather"
+          # "hyprland/language"
+          # "niri/language"
+          # "tray"
+          # "network"
           "bluetooth"
           "pulseaudio"
           "pulseaudio#microphone"
@@ -127,23 +127,23 @@
           format = "{short}";
         };
 
-        "hyprland/workspaces" = {
-          all-outputs = true;
-          format = "{icon}";
-          on-click = "activate";
-          show-special = false;
-          sort-by-number = true;
-          format-icons = {
-            "1" = "󰈹";
-            "2" = "";
-            "3" = "󰍡";
-            "4" = "󰓓";
-            "5" = "󰐺";
-            "urgent" = "";
-            "active" = "";
-            "default" = "";
-          };
-        };
+        # "hyprland/workspaces" = {
+        #   all-outputs = true;
+        #   format = "{icon}";
+        #   on-click = "activate";
+        #   show-special = false;
+        #   sort-by-number = true;
+        #   format-icons = {
+        #     "1" = "󰈹";
+        #     "2" = "";
+        #     "3" = "󰍡";
+        #     "4" = "󰓓";
+        #     "5" = "󰐺";
+        #     "urgent" = "";
+        #     "active" = "";
+        #     "default" = "";
+        #   };
+        # };
 
         "niri/workspaces" = {
           format = "{icon}";
@@ -172,26 +172,26 @@
           on-click = "ghostty --title=btop --window-decoration=true --confirm-close-surface=false -e btop";
         };
 
-        network = {
-          interval = 5;
-          format-wifi = "  {essid}";
-          format-ethernet = "󰈀 {ifname}";
-          format-disconnected = "󰤮 Disconnected";
-          tooltip-format = "{ifname} via {gwaddr} 󰊗";
-          tooltip-format-wifi = "{essid} ({signalStrength}%) ";
-          tooltip-format-ethernet = "{ifname} ";
-          tooltip-format-disconnected = "Disconnected";
-          on-click = "ghostty --title=wifi-tui --window-decoration=true --confirm-close-surface=false -e impala";
-        };
-        privacy = {
-          icon-size = 14;
-          modules = [
-            {
-              type = "screenshare";
-              tooltip = true;
-            }
-          ];
-        };
+        # network = {
+        #   interval = 5;
+        #   format-wifi = "  {essid}";
+        #   format-ethernet = "󰈀 {ifname}";
+        #   format-disconnected = "󰤮 Disconnected";
+        #   tooltip-format = "{ifname} via {gwaddr} 󰊗";
+        #   tooltip-format-wifi = "{essid} ({signalStrength}%) ";
+        #   tooltip-format-ethernet = "{ifname} ";
+        #   tooltip-format-disconnected = "Disconnected";
+        #   on-click = "ghostty --title=wifi-tui --window-decoration=true --confirm-close-surface=false -e impala";
+        # };
+        # privacy = {
+        #   icon-size = 14;
+        #   modules = [
+        #     {
+        #       type = "screenshare";
+        #       tooltip = true;
+        #     }
+        #   ];
+        # };
 
         pulseaudio = {
           format = "{icon} {volume}%";
