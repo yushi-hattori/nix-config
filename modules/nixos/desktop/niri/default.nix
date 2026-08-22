@@ -12,6 +12,20 @@
   # Enable Niri
   programs.niri.enable = true;
 
+  # Screen locker used as the login gate (see hosts/framework13 autologin).
+  # This installs hyprlock, enables hypridle, and creates the "hyprlock" PAM
+  # service for password auth. Fingerprint auth is handled by hyprlock itself
+  # over fprintd's D-Bus API (independent of PAM), so the two run concurrently
+  # and NEITHER should be chained in PAM — do not set fprintAuth here.
+  programs.hyprlock.enable = true;
+  services.fprintd.enable = true;
+  # fprintd being enabled injects pam_fprintd into every PAM service by default.
+  # For hyprlock that's harmful: its PAM stack would block on a fingerprint scan
+  # before accepting a typed password, while hyprlock is ALSO reading the sensor
+  # over D-Bus — two readers fighting. Keep hyprlock's PAM password-only; the
+  # fingerprint path is hyprlock's own D-Bus code, so the two stay concurrent.
+  security.pam.services.hyprlock.fprintAuth = false;
+
   # Enable security and file services
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true;

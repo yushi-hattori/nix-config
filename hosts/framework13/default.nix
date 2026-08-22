@@ -15,7 +15,6 @@
     ./hardware-configuration.nix
     "${nixosModules}/common"
     "${nixosModules}/desktop/niri"
-    "${nixosModules}/services/greetd"
     "${nixosModules}/services/printing"
     "${nixosModules}/programs/steam"
     "${nixosModules}/programs/bambu-studio"
@@ -24,6 +23,14 @@
 
   # Set hostname
   networking.hostName = hostname;
+
+  # Login flow (no display manager): autologin on tty1 straight into niri, which
+  # immediately spawns hyprlock as the real gate. hyprlock runs the password
+  # (PAM) and fingerprint (fprintd over D-Bus) checks concurrently, so either
+  # one unlocks at any time — the macOS-style behavior greetd/GDM couldn't give.
+  # niri is launched from the login shell (see programs.zsh.profileExtra in the
+  # zsh home-manager module); getty just needs to log the user in on tty1.
+  services.getty.autologinUser = "yhattori";
 
   # Remote Desktop (TV → Laptop via VNC/RDP) and Miracast (Laptop → TV)
   networking.firewall.allowedTCPPorts = [

@@ -77,6 +77,9 @@ layout {
     struts { }
 }
 
+// Lock immediately on session start. With autologin (no display manager), this
+// hyprlock instance is the actual login gate: password + fingerprint together.
+spawn-at-startup "hyprlock"
 spawn-at-startup "swaync"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
@@ -255,6 +258,7 @@ binds {
     // System
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
+    Mod+Alt+L { spawn "loginctl" "lock-session"; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
     Mod+Shift+P { power-off-monitors; }

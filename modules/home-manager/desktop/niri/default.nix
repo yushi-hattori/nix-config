@@ -51,6 +51,78 @@
     source = ./hypridle.conf;
   };
 
+  # hyprlock: the lock screen that also serves as the login gate. Password (PAM)
+  # and fingerprint (fprintd D-Bus) are both enabled and run concurrently, so
+  # either unlocks at any time. An empty `monitor =` draws each widget on every
+  # output, so the prompt appears on all screens.
+  xdg.configFile."hypr/hyprlock.conf".text = ''
+    general {
+        hide_cursor = true
+        ignore_empty_input = true
+    }
+
+    background {
+        monitor =
+        path = ${config.wallpaper}
+        blur_passes = 3
+        contrast = 0.8916
+        brightness = 0.8172
+        vibrancy = 0.1696
+        vibrancy_darkness = 0.0
+    }
+
+    auth {
+        pam {
+            enabled = true
+        }
+        fingerprint {
+            enabled = true
+            ready_message = Scan fingerprint or type password
+            present_message = Scanning fingerprint...
+        }
+    }
+
+    input-field {
+        monitor =
+        size = 400, 90
+        outline_thickness = 2
+        dots_size = 0.2
+        dots_spacing = 0.2
+        dots_center = true
+        outer_color = rgba(0, 0, 0, 0)
+        inner_color = rgba(0, 0, 0, 0.5)
+        font_color = rgb(200, 200, 200)
+        fade_on_empty = false
+        placeholder_text = <i>Password or fingerprint</i>
+        fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i>
+        position = 0, -120
+        halign = center
+        valign = center
+    }
+
+    label {
+        monitor =
+        text = cmd[update:1000] echo "$(date '+%H:%M')"
+        color = rgba(255, 255, 255, 0.8)
+        font_size = 120
+        font_family = JetBrains Mono Nerd Font Mono ExtraBold
+        position = 0, -300
+        halign = center
+        valign = top
+    }
+
+    label {
+        monitor =
+        text = cmd[update:1000] echo "$(date '+%A, %d %B')"
+        color = rgba(255, 255, 255, 0.8)
+        font_size = 24
+        font_family = JetBrains Mono Nerd Font Mono ExtraBold
+        position = 0, -170
+        halign = center
+        valign = top
+    }
+  '';
+
   services.hypridle = {
     enable = true;
   };

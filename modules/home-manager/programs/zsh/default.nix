@@ -63,6 +63,15 @@
       la = "eza -abhl --icons --group-directories-first"; # all list
       lt = "eza --tree --level=2 --icons"; # tree
     };
+    # Runs only for login shells (~/.zprofile), before .zshrc. getty autologs
+    # the user in on tty1; this launches the niri session there. If niri exits
+    # (or fails to start) we intentionally fall through to a normal shell prompt
+    # on tty1 rather than exec'ing, so the machine stays recoverable.
+    profileExtra = ''
+      if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+        niri-session
+      fi
+    '';
     initContent = ''
       # Ollama API configuration
       export OLLAMA_API_BASE=http://localhost:11434
