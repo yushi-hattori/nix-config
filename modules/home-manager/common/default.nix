@@ -65,7 +65,6 @@
     with pkgs;
     [
       aider-chat
-      anki-bin
       awscli2
       dig
       discord-ptb
