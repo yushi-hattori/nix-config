@@ -41,7 +41,7 @@ nixos-rebuild:
 
 home-manager-switch:
 	@echo "Switching Home Manager configuration..."
-	@home-manager switch --flake $(HOME_TARGET)
+	@home-manager switch --flake $(HOME_TARGET) -b backup
 	@echo "Home Manager switch complete."
 
 nix-gc:

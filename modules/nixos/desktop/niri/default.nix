@@ -49,7 +49,8 @@
 
     # Wayland/Niri utilities
     xwayland-satellite # if needed for X11 apps
-    waybar # status bar -- switching to wayle I think
+    # waybar # status bar -- switching to wayle I think
+    wayle
     swaynotificationcenter # notifications
     hypridle # idle daemon
     fuzzel # app launcher (or walker, which the user already has)

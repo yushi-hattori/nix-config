@@ -1,5 +1,5 @@
 {
-  description = "NixOS and nix-darwin configs for my machines";
+  description = "NixOS configs for my machines";
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -20,12 +20,6 @@
     # Declarative flatpak manager
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=v0.6.0";
     # Extras
-
-    # Nix Darwin (for MacOS machines)
-    darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Nix WSL (for Windows machines)
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
@@ -63,7 +57,6 @@
     {
       self,
       catppuccin,
-      darwin,
       home-manager,
       nixpkgs,
       claude-code,
@@ -98,19 +91,6 @@
           modules = [ ./hosts/${hostname} ];
         };
 
-      # Function for nix-darwin system configuration
-      mkDarwinConfiguration =
-        hostname: username:
-        darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = users.${username};
-            darwinModules = "${self}/modules/darwin";
-          };
-          modules = [ ./hosts/${hostname} ];
-        };
-
       # Function for Home Manager configuration
       mkHomeConfiguration =
         system: username: hostname:
@@ -141,14 +121,7 @@
         framework13 = mkNixosConfiguration "framework13" "yhattori";
       };
 
-      # darwinConfigurations = {
-      #   "some.random.hostname" = mkDarwinConfiguration "some.random.hostname" "yhattori";
-      # };
-
       homeConfigurations = {
-        # "yhattori@some.random.hostname" =
-        #   mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh"
-        #   "PL-OLX-KCGXHGK3PY";
         "yhattori@framework13" = mkHomeConfiguration "x86_64-linux" "yhattori" "framework13";
         "yhattori@wsl" = mkHomeConfiguration "x86_64-linux" "yhattori" "wsl";
       };

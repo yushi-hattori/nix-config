@@ -31,11 +31,14 @@
 
       # NixOS
       update-fw-all = "update-fw && update-fw-hm";
-      update-fw = "cd ~/nix-config && sudo nixos-rebuild switch --flake .#framework13";
-      update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup";
+      update-fw = "cd ~/nix-config && sudo nixos-rebuild switch --flake .#framework13 && source ~/.zshrc";
+      update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup && source ~/.zshrc";
       "gc" = "sudo nix-collect-garbage -d";
 
-      restart-all = "walker-restart && waybar-restart";
+      # restart-all = "walker-restart && waybar-restart";
+      restart-all = "source ~/.zshrc && walker-restart && wayle panel restart";
+
+      wayle-convert = "cd ~/.config/wayle && nix-instantiate --eval --expr '(builtins.fromTOML (builtins.readFile ./config.toml)) // (builtins.fromTOML (builtins.readFile ./runtime.toml))' | nixfmt";
 
       # python
       deeplearning = "conda activate deeplearning";

@@ -27,7 +27,8 @@ in
     "${nhModules}/services/cliphist"
     "${nhModules}/services/kanshi"
     "${nhModules}/services/swaync"
-    "${nhModules}/services/waybar"
+    "${nhModules}/services/wayle"
+    # "${nhModules}/services/waybar"
   ];
 
   # Consistent cursor theme
