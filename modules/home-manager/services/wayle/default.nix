@@ -55,7 +55,7 @@
         # this will automatically install aww
         engine-enabled = true;
 
-        cycling-directory = "~/nix-config/files/wallpaper/";
+        cycling-directory = "/home/yhattori/nix-config/files/wallpaper";
         cycling-mode = "shuffle";
       };
     };
