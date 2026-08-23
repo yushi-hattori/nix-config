@@ -93,7 +93,7 @@
       prusa-slicer
       micromamba
       stdenv.cc.cc.lib
-      swaybg
+      # swaybg
       wget
       zlib
     ]
@@ -112,7 +112,6 @@
       vlc
       celluloid
       imv
-      kdePackages.gwenview
       shotwell
       wl-clipboard
     ];

@@ -4,20 +4,6 @@ This repository contains NixOS and nix-darwin configurations for my machines, ma
 
 It is structured to easily accommodate multiple machines and user configurations, leveraging [nixpkgs](https://github.com/NixOS/nixpkgs), [home-manager](https://github.com/nix-community/home-manager), [nix-darwin](https://github.com/LnL7/nix-darwin), and various other community contributions for a seamless experience across NixOS and macOS.
 
-## Showcase
-
-### Hyprland
-
-![hyprland](./files/screenshots/hyprland.png)
-
-### KDE
-
-![kde](./files/screenshots/kde.png)
-
-### macOS
-
-![macos](./files/screenshots/mac.png)
-
 ## Structure
 
 - `flake.nix`: The flake itself, defining inputs and outputs for NixOS, nix-darwin, and Home Manager configurations.
@@ -40,7 +26,6 @@ It is structured to easily accommodate multiple machines and user configurations
 - **hardware**: Provides NixOS modules to optimize settings for different hardware.
 - **catppuccin**: Provides global Catppuccin theme integration.
 - **nix-flatpak**: Provides a declarative way to manage Flatpaks.
-- **plasma-manager**: A declarative manager for the KDE Plasma desktop environment.
 
 ## Usage
 
@@ -213,7 +198,6 @@ nix flake update
 
 - **`common`**: Common system configurations including bootloader, networking, PipeWire, fonts, and user settings.
 - **`desktop/hyprland`**: Hyprland window manager with GDM, Bluetooth, and required system packages.
-- **`desktop/kde`**: KDE Plasma desktop environment with SDDM.
 - **`programs/steam`**: Steam gaming platform configuration.
 - **`services/tlp`**: TLP configuration for advanced power management on laptops.
 
@@ -225,7 +209,6 @@ nix flake update
 
 - **`common`**: Common user-space configurations that import most other modules.
 - **`desktop/hyprland`**: User-level settings for Hyprland, including keybindings and related services like Waybar and Swaync.
-- **`desktop/kde`**: User-level settings for KDE Plasma, managed declaratively with `plasma-manager`.
 - **`misc/gtk`**: GTK3/4 theming (Tela icons, Yaru cursor, Roboto font) and Catppuccin theme.
 - **`misc/qt`**: Qt theming using Kvantum and Catppuccin on Linux.
 - **`misc/wallpaper`**: Defines the default wallpaper path for desktops.
