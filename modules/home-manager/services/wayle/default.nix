@@ -16,7 +16,7 @@
           # add more attribute sets with different monitors if wayle should
           # have different layouts on each
           {
-            monitor = "DP-1"; # replace "DP-1" with "*" for all monitors
+            monitor = "*"; # replace "DP-1" with "*" for all monitors
             show = true;
             center = [
               "clock"
@@ -38,7 +38,7 @@
         };
       };
       osd = {
-        monitor = "DP-1";
+        monitor = "*";
       };
       styling = {
         palette = {
@@ -55,7 +55,7 @@
         # this will automatically install aww
         engine-enabled = true;
 
-        cycling-directory = "/home/horsey/Pictures/Backgrounds/1/";
+        cycling-directory = "~/nix-config/files/wallpaper/";
         cycling-mode = "shuffle";
       };
     };
