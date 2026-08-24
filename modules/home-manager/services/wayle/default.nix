@@ -12,15 +12,42 @@
     # nix-instantiate --eval --expr 'builtins.fromTOML (builtins.readFile ./config.toml)' | nixfmt
     settings = {
       bar = {
-        background-opacity = 50;
+        background-opacity = 75;
         border-location = "top";
-        button-border-location = "bottom";
         button-label-weight = "medium";
         button-opacity = 80;
         button-rounding = "full";
         button-variant = "basic";
+        dropdown-opacity = 100;
         inset-edge = 0.35;
         inset-ends = 0.35;
+        layout = [
+          {
+            center = [
+              "media"
+              "clock"
+              "weather"
+            ];
+            left = [
+              "niri-workspaces"
+              "cpu"
+              "storage"
+              "ram"
+              "netstat"
+            ];
+            monitor = "*";
+            right = [
+              "bluetooth"
+              "microphone"
+              "volume"
+              "network"
+              "battery"
+              "notifications"
+              "dashboard"
+            ];
+            show = true;
+          }
+        ];
         padding-ends = 1.5;
         rounding = "lg";
         scale = 0.8;
@@ -133,6 +160,7 @@
           border-show = true;
         };
       };
+
       osd = {
         margin = 0;
         position = "top-right";
