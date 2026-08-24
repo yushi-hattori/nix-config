@@ -133,8 +133,9 @@
   # PATH configuration
   environment.localBinInPath = true;
 
-  # Enable devmon for device management
+  # Enable devmon and upower for device/power management
   services.devmon.enable = true;
+  services.upower.enable = true;
 
   # Enable PipeWire for sound
   services.pulseaudio.enable = false;
