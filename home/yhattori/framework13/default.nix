@@ -5,6 +5,7 @@
     "${nhModules}/desktop/niri"
     "${nhModules}/desktop/walker"
     "${nhModules}/services/swayidle"
+    ./winapps.nix
   ];
 
   # Enable home-manager

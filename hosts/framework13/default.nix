@@ -18,6 +18,7 @@
     "${nixosModules}/services/printing"
     "${nixosModules}/programs/steam"
     "${nixosModules}/programs/bambu-studio"
+    "${nixosModules}/programs/virt-manager"
     "${nixosModules}/services/ollama"
   ];
 

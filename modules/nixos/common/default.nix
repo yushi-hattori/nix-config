@@ -161,7 +161,6 @@
       "dialout"
       "lp"
       "scanner"
-      "libvirtd"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -194,23 +193,12 @@
     mesa
     usbutils
     claude-code
-    freerdp # Required by WinApps for seamless Windows app streaming
   ];
 
   # Docker configuration
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless.enable = true;
   virtualisation.docker.rootless.setSocketVariable = true;
-
-  # Virtualisation (KVM/QEMU & virt-manager for Windows VMs)
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      swtpm.enable = true;
-    };
-  };
-  programs.virt-manager.enable = true;
 
   # Enable xwayland
   programs.xwayland.enable = true;
