@@ -14,43 +14,16 @@
       bar = {
         background-opacity = 50;
         border-location = "top";
+        button-border-location = "bottom";
         button-label-weight = "medium";
         button-opacity = 80;
         button-rounding = "full";
         button-variant = "basic";
-        dropdown-opacity = 85;
         inset-edge = 0.35;
         inset-ends = 0.35;
-        layout = [
-          {
-            center = [
-              "media"
-              "clock"
-              "weather"
-            ];
-            left = [
-              "niri-workspaces"
-              "cpu"
-              "storage"
-              "ram"
-              "netstat"
-            ];
-            monitor = "*";
-            right = [
-              "bluetooth"
-              "microphone"
-              "volume"
-              "network"
-              "battery"
-              "notifications"
-              "dashboard"
-            ];
-            show = true;
-          }
-        ];
         padding-ends = 1.5;
         rounding = "lg";
-        scale = 0.7;
+        scale = 0.8;
       };
       general = {
         font-sans = "JetBrainsMonoNL Nerd Font Propo";
@@ -58,23 +31,27 @@
       modules = {
         battery = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
         bluetooth = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
         brightness = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           label-color = "accent";
         };
         clock = {
           border-color = "fg-default";
+          border-show = true;
           format = "%a %b %-d | %-I:%M %p | Day %-j/365";
           icon-bg-color = "fg-default";
           icon-color = "fg-default";
@@ -82,38 +59,45 @@
         };
         cpu = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
         dashboard = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
         };
         media = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
         microphone = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
         netstat = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
         network = {
+          border-show = true;
           icon-color = "accent";
         };
         notifications = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
@@ -123,21 +107,30 @@
         };
         ram = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
         storage = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
         };
+        systray = {
+          border-show = true;
+        };
         volume = {
           border-color = "accent";
+          border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
           label-color = "accent";
+        };
+        weather = {
+          border-show = true;
         };
       };
       osd = {
