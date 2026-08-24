@@ -131,6 +131,15 @@ window-rule {
     default-window-height { proportion 0.8; }
 }
 
+window-rule {
+    // WinApps/RAIL sometimes surfaces small Fusion 360 dialogs (e.g. "Fusion
+    // is already open") as separate top-level windows. Untiled, niri squishes
+    // them into a scrolling column at near-zero width, making them invisible
+    // and unclickable while the main window waits on them.
+    match app-id="^Autodesk Fusion 360$" title="already open"
+    open-floating true
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
