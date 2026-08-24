@@ -182,7 +182,7 @@
       wallpaper = {
         cycling-directory = "/home/yhattori/Downloads/wallpaper.webp";
         cycling-same-image = true;
-        engine-enabled = false;
+        engine-enabled = true;
       };
     };
   };
