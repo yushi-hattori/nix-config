@@ -194,7 +194,7 @@
     mesa
     usbutils
     claude-code
-    freerdp3 # Required by WinApps for seamless Windows app streaming
+    freerdp # Required by WinApps for seamless Windows app streaming
   ];
 
   # Docker configuration
