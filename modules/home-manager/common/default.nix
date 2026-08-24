@@ -7,7 +7,6 @@
 {
   imports = [
     ../programs/aerospace
-    # ../programs/albert
     ../programs/atuin
     ../programs/bat
     ../programs/btop
@@ -76,6 +75,7 @@
       kubectl
       lazydocker
       nh
+      nixfmt
       opencode
       openconnect
       networkmanagerapplet

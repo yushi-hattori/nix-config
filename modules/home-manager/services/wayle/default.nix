@@ -12,51 +12,156 @@
     # nix-instantiate --eval --expr 'builtins.fromTOML (builtins.readFile ./config.toml)' | nixfmt
     settings = {
       bar = {
+        background-opacity = 50;
+        border-location = "top";
+        button-label-weight = "medium";
+        button-opacity = 80;
+        button-rounding = "full";
+        button-variant = "basic";
+        dropdown-opacity = 85;
+        inset-edge = 0.35;
+        inset-ends = 0.35;
         layout = [
-          # add more attribute sets with different monitors if wayle should
-          # have different layouts on each
           {
-            monitor = "*"; # replace "DP-1" with "*" for all monitors
-            show = true;
             center = [
+              "media"
               "clock"
               "weather"
             ];
-            left = [ "dashboard" ];
-            right = [ "volume" ];
-          } # this is a 'list' of 'attribute sets', no semi-colons after the closing braces needed
+            left = [
+              "niri-workspaces"
+              "cpu"
+              "storage"
+              "ram"
+              "netstat"
+            ];
+            monitor = "*";
+            right = [
+              "bluetooth"
+              "microphone"
+              "volume"
+              "network"
+              "battery"
+              "notifications"
+              "dashboard"
+            ];
+            show = true;
+          }
         ];
+        padding-ends = 1.5;
+        rounding = "lg";
+        scale = 0.7;
+      };
+      general = {
+        font-sans = "JetBrainsMonoNL Nerd Font Propo";
       };
       modules = {
-        clock = {
-          format = "%H:%M:%S";
-          dropdown-show-seconds = false;
+        battery = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
         };
-        weather = {
-          location = "Denver";
-          units = "imperial";
+        bluetooth = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        brightness = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          label-color = "accent";
+        };
+        clock = {
+          border-color = "fg-default";
+          format = "%a %b %-d | %-I:%M %p | Day %-j/365";
+          icon-bg-color = "fg-default";
+          icon-color = "fg-default";
+          label-color = "fg-default";
+        };
+        cpu = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        dashboard = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+        };
+        media = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        microphone = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        netstat = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        network = {
+          icon-color = "accent";
+        };
+        notifications = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        power = {
+          border-show = true;
+        };
+        ram = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        storage = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
+        };
+        volume = {
+          border-color = "accent";
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
         };
       };
       osd = {
-        monitor = "*";
+        margin = 0;
+        position = "top-right";
       };
       styling = {
         palette = {
-          bg = "#282a36";
-          blue = "#8be9fd";
-          # ...
+          bg = "#0a0a0a";
+          blue = "#33b1ff";
+          elevated = "#1f1f1f";
+          fg = "#f2f4f8";
+          fg-muted = "#a8aab1";
+          green = "#25be6a";
+          primary = "#78a9ff";
+          red = "#ee5396";
+          surface = "#161616";
+          yellow = "#08bdba";
         };
-        # wallust will be automatically installed if this is set
-        theme-provider = "wallust";
       };
-      # the following wallpaper option can be omitted if you're not using
-      # wayle's wallpaper engine
       wallpaper = {
-        # this will automatically install aww
-        engine-enabled = true;
-
-        cycling-directory = "/home/yhattori/nix-config/files/wallpaper";
-        cycling-mode = "shuffle";
+        cycling-directory = "/home/yhattori/Downloads/wallpaper.webp";
+        cycling-same-image = true;
+        engine-enabled = false;
       };
     };
   };
