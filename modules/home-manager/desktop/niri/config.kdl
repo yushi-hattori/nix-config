@@ -18,7 +18,7 @@ input {
     touchpad {
         tap
         dwt
-        natural-scroll
+        // natural-scroll
     }
 
     warp-mouse-to-focus

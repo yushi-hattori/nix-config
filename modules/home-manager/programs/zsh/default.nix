@@ -34,6 +34,7 @@
       update-fw = "cd ~/nix-config && sudo nixos-rebuild switch --flake .#framework13";
       update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup";
       "gc" = "sudo nix-collect-garbage -d";
+      update-bios = "fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update";
 
       # restart-all = "walker-restart && waybar-restart";
       restart-all = "walker-restart && wayle panel restart";
