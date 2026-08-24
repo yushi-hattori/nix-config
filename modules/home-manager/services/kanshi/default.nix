@@ -7,6 +7,7 @@
     settings = [
       {
         profile.name = "docked";
+        profile.exec = [ "systemctl --user restart wayle" ];
         profile.outputs = [
           {
             # Laptop Screen
@@ -39,6 +40,7 @@
         # Clamshell mode: Thunderbolt dock connected, laptop lid closed.
         # Laptop screen disabled; only external monitors active.
         profile.name = "clamshell";
+        profile.exec = [ "systemctl --user restart wayle" ];
         profile.outputs = [
           {
             criteria = "BOE NE135A1M-NY1 Unknown";
@@ -63,6 +65,7 @@
       }
       {
         profile.name = "undocked";
+        profile.exec = [ "systemctl --user restart wayle" ];
         profile.outputs = [
           {
             criteria = "BOE NE135A1M-NY1 Unknown";

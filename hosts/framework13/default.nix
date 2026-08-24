@@ -79,8 +79,10 @@
     AllowHybridSleep = "no";
   };
 
-  # ALL MAJOR KERNEL WORKAROUNDS REMOVED
-  boot.kernelParams = [ "rtc_cmos.use_acpi_alarm=1" ];
+  # Kernel parameters to fix s2idle suspend freezes on Framework 13 AMD + WD NVMe
+  boot.kernelParams = [
+    "nvme_core.default_ps_max_latency_us=0" # Fix WD_BLACK SN7100 DRAM-less NVMe APST suspend hang
+  ];
 
   # Sunshine game streaming host
   services.sunshine = {
@@ -119,8 +121,8 @@
     };
   };
 
-  # USB wakeup: enable for input devices (HID class=03, composite class=00 which covers
-  # most keyboards/mice), disable for hubs/storage/BT/misc to prevent spontaneous wakeups.
+  # USB wakeup: enable for input devices (HID class=03), disable for hubs/storage/BT/misc
+  # to prevent spontaneous sleep aborts/wakeups.
   # Rules re-fire on dock replug so re-enumerated devices are handled automatically.
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/wakeup}="disabled"
@@ -128,7 +130,6 @@
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="e0", ATTR{power/wakeup}="disabled"
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="ef", ATTR{power/wakeup}="disabled"
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="03", ATTR{power/wakeup}="enabled"
-    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="00", ATTR{power/wakeup}="enabled"
   '';
 
   # ROCm support for AMD Radeon 890M
