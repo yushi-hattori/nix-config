@@ -165,7 +165,12 @@
           label-color = "accent";
         };
         weather = {
+          border-color = "fg-default";
           border-show = true;
+          icon-bg-color = "fg-default";
+          icon-color = "fg-default";
+          label-color = "fg-default";
+
         };
       };
 
@@ -188,7 +193,8 @@
         };
       };
       wallpaper = {
-        cycling-directory = "/home/yhattori/Downloads/wallpaper.webp";
+        cycling-directory = "/home/yhattori/Pictures/wallpaper";
+        cycling-enabled = true;
         cycling-same-image = true;
         engine-enabled = true;
       };
