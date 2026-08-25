@@ -42,6 +42,7 @@
               "volume"
               "network"
               "battery"
+              "idle-inhibit"
               "notifications"
               "dashboard"
             ];
@@ -96,6 +97,13 @@
           border-show = true;
           icon-bg-color = "accent";
           icon-color = "accent";
+        };
+        idle-inhibit = {
+          border-color = "accent";
+          border-show = true;
+          icon-bg-color = "accent";
+          icon-color = "accent";
+          label-color = "accent";
         };
         media = {
           border-color = "accent";
