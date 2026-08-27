@@ -193,7 +193,7 @@
         };
       };
       wallpaper = {
-        cycling-directory = "/home/yhattori/Pictures/wallpaper";
+        cycling-directory = toString ../../../../files/wallpapers;
         cycling-enabled = true;
         cycling-same-image = true;
         engine-enabled = true;
