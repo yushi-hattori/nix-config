@@ -42,8 +42,6 @@
       shellcheck
       shfmt
       stylua
-      terraform-ls
-      tflint
       vscode-langservers-extracted
       yaml-language-server
 

@@ -19,10 +19,6 @@
 
     # Declarative flatpak manager
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=v0.6.0";
-    # Extras
-
-    # Nix WSL (for Windows machines)
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     # Extras
 
@@ -123,7 +119,6 @@
 
       homeConfigurations = {
         "yhattori@framework13" = mkHomeConfiguration "x86_64-linux" "yhattori" "framework13";
-        "yhattori@wsl" = mkHomeConfiguration "x86_64-linux" "yhattori" "wsl";
       };
 
       overlays = import ./overlays { inherit inputs; };

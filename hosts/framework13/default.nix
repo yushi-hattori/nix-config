@@ -20,6 +20,7 @@
     "${nixosModules}/programs/bambu-studio"
     "${nixosModules}/programs/virt-manager"
     "${nixosModules}/services/ollama"
+    "${nixosModules}/services/tlp"
   ];
 
   # Set hostname

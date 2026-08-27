@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -36,7 +35,6 @@
       "gc" = "sudo nix-collect-garbage -d";
       update-bios = "fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update";
 
-      # restart-all = "walker-restart && waybar-restart";
       restart-all = "walker-restart && wayle panel restart";
 
       wayle-convert = "cd ~/.config/wayle && nix-instantiate --eval --expr '(builtins.fromTOML (builtins.readFile ./config.toml)) // (builtins.fromTOML (builtins.readFile ./runtime.toml))' | nixfmt";
@@ -44,8 +42,6 @@
       # python
       deeplearning = "conda activate deeplearning";
 
-      impala = "impala"; # Wifi TUI
-      wifi = "alacritty --title wifi-tui -e impala"; # Wifi TUI
       walker = "walker";
 
       ld = "lazydocker";
@@ -57,7 +53,6 @@
       v = "nvim";
       vi = "nvim";
       vim = "nvim";
-      zed = "zeditor";
       oc = "opencode --model qwen3.6:35b-a3b";
 
       "cd" = "z";
@@ -89,9 +84,6 @@
       # Ollama API configuration
       export OLLAMA_API_BASE=http://localhost:11434
 
-      # kubectl auto-complete
-      source <(kubectl completion zsh)
-
       # bindings
       bindkey -e
       bindkey '^H' backward-delete-word
@@ -102,12 +94,6 @@
       autoload -z edit-command-line
       zle -N edit-command-line
       bindkey "^v" edit-command-line
-
-      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-        # Enable ALT-C fzf keybinding on Mac
-        bindkey 'ć' fzf-cd-widget
-      ''}
-
 
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       if [ -f "$HOME/.env" ]; then

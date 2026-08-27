@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, ... }:
 {
   # Install gpg via home-manager module
   programs.gpg = {
@@ -31,10 +27,10 @@
     };
   };
 
-  services.gpg-agent = lib.mkIf (!pkgs.stdenv.isDarwin) {
+  services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 86400;
     enableSshSupport = true;
-    pinentry.package = lib.mkDefault pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
 }

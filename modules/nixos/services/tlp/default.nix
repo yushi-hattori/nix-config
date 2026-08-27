@@ -49,7 +49,4 @@
 
     power-profiles-daemon.enable = false;
   };
-
-  # Disable fingerprint reader
-  services.fprintd.enable = false;
 }

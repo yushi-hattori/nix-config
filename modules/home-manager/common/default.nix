@@ -6,7 +6,6 @@
 }:
 {
   imports = [
-    ../programs/aerospace
     ../programs/atuin
     ../programs/bat
     ../programs/btop
@@ -18,23 +17,20 @@
     ../programs/git
     ../programs/go
     ../programs/gpg
-    ../programs/k9s
-    ../programs/krew
     ../programs/lazygit
     ../programs/neovim
     ../programs/mpv
     ../programs/obs-studio
-    ../programs/saml2aws
     ../programs/starship
     ../programs/zellij
     ../programs/zoxide
     ../programs/zsh
     ../programs/zathura
     ../programs/zen-browser
-    ../programs/zed
     ../programs/python
     ../programs/vscode
     ../scripts
+    ../services/easyeffects
     ../services/flatpak
   ];
 
@@ -55,66 +51,47 @@
   # Home-Manager configuration for the user's home environment
   home = {
     username = "${userConfig.name}";
-    homeDirectory =
-      if pkgs.stdenv.isDarwin then "/Users/${userConfig.name}" else "/home/${userConfig.name}";
+    homeDirectory = "/home/${userConfig.name}";
   };
 
   # Ensure common packages are installed
-  home.packages =
-    with pkgs;
-    [
-      aider-chat
-      awscli2
-      dig
-      discord-ptb
-      dust
-      eza
-      fd
-      herdr
-      jq
-      kubectl
-      lazydocker
-      nh
-      nixfmt
-      opencode
-      openconnect
-      networkmanagerapplet
-      pipenv
-      playerctl
-      ripgrep
-      terraform
-      yazi
-      obsidian
-      spotify
-      google-chrome
-      gimp3
-      inkcut
-      inkscape
-      prusa-slicer
-      micromamba
-      stdenv.cc.cc.lib
-      # swaybg
-      wget
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      colima
-      docker
-      hidden-bar
-      mos
-      raycast
-    ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      # Wifi
-      impala
-      tesseract
-      unzip
-      vlc
-      celluloid
-      imv
-      shotwell
-      wl-clipboard
-    ];
+  home.packages = with pkgs; [
+    aider-chat
+    dig
+    discord-ptb
+    dust
+    eza
+    fd
+    herdr
+    jq
+    lazydocker
+    nh
+    nixfmt
+    opencode
+    openconnect
+    pipenv
+    playerctl
+    ripgrep
+    yazi
+    obsidian
+    spotify
+    google-chrome
+    gimp3
+    inkcut
+    inkscape
+    prusa-slicer
+    micromamba
+    stdenv.cc.cc.lib
+    wget
+    zlib
+    tesseract
+    unzip
+    vlc
+    celluloid
+    imv
+    shotwell
+    wl-clipboard
+  ];
 
   # Catpuccin flavor and accent
   catppuccin = {

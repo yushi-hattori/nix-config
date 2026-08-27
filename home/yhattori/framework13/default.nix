@@ -4,7 +4,6 @@
     "${nhModules}/common"
     "${nhModules}/desktop/niri"
     "${nhModules}/desktop/walker"
-    "${nhModules}/services/swayidle"
     ./winapps.nix
   ];
 

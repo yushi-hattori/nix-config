@@ -28,13 +28,7 @@
   # System-wide packages for printer management
   programs.system-config-printer.enable = true;
 
-  # Additional desktop utilities for a "System Settings" feel
-  environment.systemPackages = with pkgs; [
-    blueman # Bluetooth manager
-    pavucontrol # Audio control
-    networkmanagerapplet # nm-connection-editor and nm-applet
-  ];
-
-  # Enable services for these utilities
-  services.blueman.enable = true;
+  # nm-connection-editor/nm-applet — blueman + pavucontrol live in the niri
+  # desktop module already, this is the only printing-adjacent tray utility.
+  environment.systemPackages = [ pkgs.networkmanagerapplet ];
 }

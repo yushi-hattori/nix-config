@@ -24,29 +24,12 @@ input {
     warp-mouse-to-focus
 }
 
-// --- MONITOR TOPOLOGY (Stable Hardware IDs) ---
+// Monitor topology (mode/scale/position per output) is managed entirely by
+// kanshi (modules/home-manager/services/kanshi), which switches between
+// docked/clamshell/undocked profiles. Static `output` blocks here would just
+// duplicate kanshi's "docked" profile while being unable to react to
+// dock/undock, so outputs are intentionally not configured in this file.
 
-// Laptop
-output "BOE NE135A1M-NY1 Unknown" {
-    mode "2880x1920@120.000"
-    scale 1.75
-    position x=4238 y=2709
-}
-
-// Side Monitor (S2721D)
-output "Dell Inc. DELL S2721D 1PVGP43" {
-    mode "2560x1440@59.951"
-    scale 1.25
-    transform "90"
-    position x=2920 y=1304
-}
-
-// Main Monitor (S2721DGF)
-output "Dell Inc. DELL S2721DGF FVM4093" {
-    mode "2560x1440@59.951"
-    scale 1.25
-    position x=4072 y=1557
-}
 layout {
     gaps 8
 
@@ -114,14 +97,6 @@ window-rule {
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
-}
-
-window-rule {
-    match title="wifi-tui"
-    open-floating true
-    default-column-width { proportion 0.3; }
-    default-window-height { proportion 0.6; }
-    default-floating-position x=10 y=10 relative-to="top-right"
 }
 
 window-rule {

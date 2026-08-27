@@ -17,7 +17,6 @@ return {
             "jsonc",
             "markdown",
             "yaml.docker-compose",
-            "yaml.kubernetes",
             "yaml",
           },
         }),
@@ -27,7 +26,6 @@ return {
         nls.builtins.formatting.nixfmt,
         nls.builtins.formatting.shfmt,
         nls.builtins.formatting.stylua,
-        nls.builtins.formatting.terraform_fmt,
         -- linters
         nls.builtins.diagnostics.golangci_lint,
         nls.builtins.diagnostics.hadolint,

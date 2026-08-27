@@ -58,8 +58,6 @@ return {
             client.server_capabilities.hoverProvider = false
           end,
         },
-        terraformls = {},
-        tflint = {},
         yamlls = {
           settings = {
             yaml = {

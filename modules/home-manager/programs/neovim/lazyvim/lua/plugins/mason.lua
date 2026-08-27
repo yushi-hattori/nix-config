@@ -18,8 +18,6 @@ return {
         "pyright",
         "shfmt",
         "stylua",
-        "terraform-ls",
-        "tflint",
         "yaml-language-server",
       })
     end,

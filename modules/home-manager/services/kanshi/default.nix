@@ -15,7 +15,7 @@
             status = "enable";
             mode = "2880x1920@120.000";
             scale = 1.75;
-            position = "4238,2709";
+            position = "166,1152";
           }
           {
             # Side Monitor (The one that flips between DP-7 and DP-8)
@@ -24,7 +24,7 @@
             mode = "2560x1440@59.951";
             scale = 1.25;
             transform = "90";
-            position = "2920,1304";
+            position = "-1152,-253";
           }
           {
             # Main Monitor (The one that flips between DP-10 and DP-11)
@@ -32,7 +32,7 @@
             status = "enable";
             mode = "2560x1440@59.951";
             scale = 1.25;
-            position = "4072,1557";
+            position = "0,0";
           }
         ];
       }
@@ -52,14 +52,14 @@
             mode = "2560x1440@59.951";
             scale = 1.25;
             transform = "90";
-            position = "0,0";
+            position = "-1152,-253";
           }
           {
             criteria = "Dell Inc. DELL S2721DGF FVM4093";
             status = "enable";
             mode = "2560x1440@59.951";
             scale = 1.25;
-            position = "1152,253";
+            position = "0,0";
           }
         ];
       }
