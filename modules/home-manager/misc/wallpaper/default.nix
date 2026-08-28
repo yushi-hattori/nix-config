@@ -2,7 +2,7 @@
 {
   options.wallpaper = lib.mkOption {
     type = lib.types.path;
-    default = ../../../../files/wallpapers/wallpaper.jpg;
+    default = ../../../../files/wallpapers/nix-wallpaper.png;
     readOnly = true;
     description = "Path to default wallpaper";
   };

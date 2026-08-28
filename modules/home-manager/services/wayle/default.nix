@@ -170,10 +170,20 @@
           icon-bg-color = "fg-default";
           icon-color = "fg-default";
           label-color = "fg-default";
-
         };
       };
-
+      monitors = [
+        {
+          fit-mode = "fill";
+          name = "DP-8";
+          wallpaper = "/nix/store/ghdkh081fb19p25cgc6gm633b7b1jq4a-source/files/wallpapers/apollo-walljpaper.jpg";
+        }
+        {
+          fit-mode = "fill";
+          name = "DP-10";
+          wallpaper = "/nix/store/ghdkh081fb19p25cgc6gm633b7b1jq4a-source/files/wallpapers/wedding-wallpaper.jpg";
+        }
+      ];
       osd = {
         margin = 0;
         position = "top-right";
@@ -193,10 +203,21 @@
         };
       };
       wallpaper = {
-        cycling-directory = toString ../../../../files/wallpapers;
-        cycling-enabled = true;
-        cycling-same-image = true;
-        engine-enabled = true;
+        monitors = [
+          {
+            fit-mode = "fill";
+            name = "DP-8";
+            # wallpaper = "/home/yhattori/nix-config/files/wallpapers/apollo-wallpaper.jpg";
+            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+
+          }
+          {
+            fit-mode = "fill";
+            name = "DP-10";
+            # wallpaper = "/home/yhattori/nix-config/files/wallpapers/wedding-wallpaper.jpg";
+            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+          }
+        ];
       };
     };
   };
