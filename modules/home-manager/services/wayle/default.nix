@@ -208,6 +208,12 @@
             name = "DP-10";
             wallpaper = toString ../../../../files/wallpapers/wedding-wallpaper.jpg;
           }
+          {
+            fit-mode = "fill";
+            name = "DP-11";
+            wallpaper = toString ../../../../files/wallpapers/wedding-wallpaper.jpg;
+          }
+
         ];
       };
     };
