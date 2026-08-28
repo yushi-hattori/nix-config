@@ -4,6 +4,13 @@
   services = {
     tlp = {
       enable = true;
+
+      # Exposes the same DBus PowerProfiles interface as power-profiles-daemon,
+      # backed by TLP, so desktop tools (e.g. wayle) can still switch performance
+      # levels. Running the real power-profiles-daemon alongside TLP is not
+      # supported (they fight over the same knobs).
+      pd.enable = true;
+
       settings = {
         CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
         CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
