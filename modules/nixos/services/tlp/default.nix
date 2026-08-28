@@ -1,14 +1,28 @@
 { ... }:
 {
+  # Running the real power-profiles-daemon alongside TLP is a hard NixOS
+  # assertion failure (services.power-profiles-daemon module forbids it
+  # outright), so TLP's own "tlp.pd" is the only way to expose a
+  # ppd-compatible DBus interface. Upstream tlp-pd omits the backward-compat
+  # "Driver" property key that real power-profiles-daemon emits alongside
+  # CpuDriver/PlatformDriver, which makes strict clients like wayle see 0
+  # available profiles. Patch it in here.
+  nixpkgs.overlays = [
+    (final: prev: {
+      tlp-pd = prev.tlp-pd.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace tlp-pd.in --replace-fail \
+            '{"Profile": f"{profile}", "CpuDriver": "tlp", "PlatformDriver": "tlp"}' \
+            '{"Profile": f"{profile}", "CpuDriver": "tlp", "PlatformDriver": "tlp", "Driver": "multiple"}'
+        '';
+      });
+    })
+  ];
+
   # Set TLP power profile
   services = {
     tlp = {
       enable = true;
-
-      # Exposes the same DBus PowerProfiles interface as power-profiles-daemon,
-      # backed by TLP, so desktop tools (e.g. wayle) can still switch performance
-      # levels. Running the real power-profiles-daemon alongside TLP is not
-      # supported (they fight over the same knobs).
       pd.enable = true;
 
       settings = {
