@@ -1,6 +1,14 @@
 { pkgs, ... }:
 # put this directly into your home-manager config or into a home-manager import
 {
+  # awww panics instead of clearing a stale socket left behind by an unclean
+  # exit (e.g. dock/undock flapping racing a `systemctl --user restart wayle`
+  # right after resume), then RestartSec=10 loops forever since nothing ever
+  # removes the file. Clear it before each start so the loop can't get stuck.
+  systemd.user.services.awww.Service.ExecStartPre = [
+    "${pkgs.findutils}/bin/find %t -maxdepth 1 -name 'wayland-*-awww-daemon.sock' -delete"
+  ];
+
   services.wayle = {
     enable = true;
 

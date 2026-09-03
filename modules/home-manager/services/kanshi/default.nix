@@ -6,6 +6,51 @@
     systemdTarget = "graphical-session.target";
     settings = [
       {
+        # Main Monitor, connected directly to the laptop instead of through
+        # the dock (same physical panel, second cable). niri can't read its
+        # EDID over this cable so it shows up as "Unknown Unknown Unknown"
+        # rather than matching the "Dell Inc. DELL S2721DGF FVM4093" criteria;
+        # without this profile it would appear as a duplicate output
+        # alongside the dock-routed one. Matched by description, not
+        # connector name (e.g. "DP-2"), since the connector it lands on is
+        # not stable across reboots/replugs. Must come before "docked" so
+        # kanshi prefers it whenever both cables are connected at once.
+        profile.name = "docked-direct";
+        profile.exec = [ "systemctl --user restart wayle" ];
+        profile.outputs = [
+          {
+            # Laptop Screen
+            criteria = "BOE NE135A1M-NY1 Unknown";
+            status = "enable";
+            mode = "2880x1920@120.000";
+            scale = 1.75;
+            position = "166,1152";
+          }
+          {
+            # Side Monitor (The one that flips between DP-7 and DP-8)
+            criteria = "Dell Inc. DELL S2721D 1PVGP43";
+            status = "enable";
+            mode = "2560x1440@59.951";
+            scale = 1.25;
+            transform = "90";
+            position = "-1152,-253";
+          }
+          {
+            # Main Monitor, direct cable
+            criteria = "Unknown Unknown Unknown";
+            status = "enable";
+            mode = "2560x1440@59.951";
+            scale = 1.25;
+            position = "0,0";
+          }
+          {
+            # Same physical monitor via the dock; disable to avoid a duplicate
+            criteria = "Dell Inc. DELL S2721DGF FVM4093";
+            status = "disable";
+          }
+        ];
+      }
+      {
         profile.name = "docked";
         profile.exec = [ "systemctl --user restart wayle" ];
         profile.outputs = [
@@ -33,6 +78,39 @@
             mode = "2560x1440@59.951";
             scale = 1.25;
             position = "0,0";
+          }
+        ];
+      }
+      {
+        # Clamshell mode with the Main Monitor on the direct cable instead of
+        # through the dock (see "docked-direct" above). Must come before
+        # "clamshell" so kanshi prefers it whenever both cables are connected
+        # at once.
+        profile.name = "clamshell-direct";
+        profile.exec = [ "systemctl --user restart wayle" ];
+        profile.outputs = [
+          {
+            criteria = "BOE NE135A1M-NY1 Unknown";
+            status = "disable";
+          }
+          {
+            criteria = "Dell Inc. DELL S2721D 1PVGP43";
+            status = "enable";
+            mode = "2560x1440@59.951";
+            scale = 1.25;
+            transform = "90";
+            position = "-1152,-253";
+          }
+          {
+            criteria = "Unknown Unknown Unknown";
+            status = "enable";
+            mode = "2560x1440@59.951";
+            scale = 1.25;
+            position = "0,0";
+          }
+          {
+            criteria = "Dell Inc. DELL S2721DGF FVM4093";
+            status = "disable";
           }
         ];
       }

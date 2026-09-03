@@ -84,6 +84,11 @@
   # Kernel parameters to fix s2idle suspend freezes on Framework 13 AMD + WD NVMe
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=0" # Fix WD_BLACK SN7100 DRAM-less NVMe APST suspend hang
+    "pm_debug_messages" # Extra suspend/resume logging to diagnose future s2idle hangs
+    # Detect (but don't panic on) CPU lockups during the silent s2idle hangs that have
+    # required hard resets. Log-only: without the *_panic sysctls, nmi_watchdog just
+    # prints a stack trace on a stuck CPU, so this can't itself cause an unwanted reboot.
+    "nmi_watchdog=1"
   ];
 
   # Sunshine game streaming host
