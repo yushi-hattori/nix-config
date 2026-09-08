@@ -54,6 +54,9 @@ in
 
   xdg.configFile."niri/centering.kdl" = {
     source = ./centering.kdl;
+    # toggle_center.sh writes this file at runtime; force lets home-manager
+    # reclaim it on each switch (the script can still overwrite it afterwards).
+    force = true;
   };
 
   # Source hypridle config

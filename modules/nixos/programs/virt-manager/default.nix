@@ -31,7 +31,7 @@
   programs.virt-manager.enable = true;
 
   environment.systemPackages = [
-    pkgs.freerdp # Required by WinApps for seamless Windows app streaming
+    pkgs.freerdp  # Required by WinApps for seamless Windows app streaming
   ];
 
   # libvirt's "default" NAT network doesn't always come up active on boot.
