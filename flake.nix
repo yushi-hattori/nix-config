@@ -97,6 +97,7 @@
               outputs.overlays.stable-packages
               claude-code.overlays.default
               opencode.overlays.default
+              outputs.overlays.opencode-latest
               antigravity-nix.overlays.default
               herdr.overlays.default
             ];
