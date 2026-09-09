@@ -95,6 +95,7 @@
             inherit system;
             overlays = [
               outputs.overlays.stable-packages
+              outputs.overlays.nmtui-go
               claude-code.overlays.default
               opencode.overlays.default
               outputs.overlays.opencode-latest

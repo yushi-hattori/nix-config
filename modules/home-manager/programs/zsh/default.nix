@@ -39,6 +39,15 @@
 
       wayle-convert = "cd ~/.config/wayle && nix-instantiate --eval --expr '(builtins.fromTOML (builtins.readFile ./config.toml)) // (builtins.fromTOML (builtins.readFile ./runtime.toml))' | nixfmt";
 
+      # wifi & bluetooth TUIs
+      wifi = "nmtui-go"; # modern NM TUI; nmcli-backed so it never grabs the device from NetworkManager
+      bt = "bluetui"; # BlueZ is open to your user, no sudo needed
+      # GNOME Settings' Bluetooth pane needs a full GNOME session; blueman is
+      # the standalone GUI that works under niri (also in walker as "Bluetooth Manager")
+      bluetooth = "blueman-manager";
+      # gnome-control-center refuses to run outside a GNOME/Unity session
+      settings = "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center";
+
       # python
       deeplearning = "conda activate deeplearning";
 
@@ -105,6 +114,12 @@
       bindkey '^E' autosuggest-accept  # Ctrl + e to accept autosuggestions
       bindkey '^J' history-down        # Ctrl + j to move down in history
       bindkey '^K' history-up          # Ctrl + k to move up in history
+
+      # Enter a nix develop shell but keep THIS interactive zsh (vim-mode
+      # bindings, highlighting, aliases all carry over) instead of nix's
+      # bare bash. `nix develop` runs its shellHook first, then execs zsh,
+      # which re-sources this .zshrc inside the dev env.
+      nd() { nix develop "$@" --command zsh; }
 
       # >>> mamba initialize >>>
       # !! Contents within this block are managed by 'micromamba shell init' !!

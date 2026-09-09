@@ -47,6 +47,21 @@ in
     indicator = true;
   };
 
+  # gnome-control-center only runs under a GNOME/Unity session. Override its
+  # desktop entry so "Settings" in the app launcher (walker) works under niri.
+  # (User applications dir takes precedence over the system one.)
+  xdg.dataFile."applications/gnome-control-center.desktop".text = ''
+    [Desktop Entry]
+    Name=Settings
+    Comment=GNOME Settings (Wi-Fi, Bluetooth, ...)
+    Exec=env XDG_CURRENT_DESKTOP=GNOME gnome-control-center
+    Icon=org.gnome.Settings
+    Terminal=false
+    Type=Application
+    Categories=Settings;GNOME;GTK;
+    StartupNotify=true
+  '';
+
   # Source niri config
   xdg.configFile."niri/config.kdl" = {
     source = ./config.kdl;

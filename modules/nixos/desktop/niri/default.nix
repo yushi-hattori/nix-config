@@ -41,6 +41,7 @@
     loupe # image viewer
     gnome-calculator
     gnome-calendar
+    gnome-control-center # Settings: Wi-Fi, Bluetooth, etc.
     gnome-text-editor
     seahorse # keyring manager
     file-roller # archive manager

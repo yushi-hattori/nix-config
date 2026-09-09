@@ -65,6 +65,14 @@
   networking.networkmanager.wifi.backend = "iwd";
   networking.wireless.iwd.enable = true;
 
+  # NOTE: No regulatory-domain setting is needed here. This laptop's wifi is an
+  # Intel AX210 (iwlwifi), a "self-managed" wiphy — userspace country hints can't
+  # change its channels, so options like `regdom` are both invalid in NixOS and
+  # ineffective on this card. When NetworkManager uses the iwd backend, the iwd
+  # NixOS module automatically injects `[DriverQuirks] DefaultInterface = "?*"`
+  # so iwd never destroys/recreates wlan0 (which used to make it go AWOL and
+  # "find no networks"). Don't add regdom settings back.
+
   # For kdeconnect
   networking.firewall = {
     enable = true;
@@ -88,9 +96,10 @@
     plymouth-quit-wait.enable = false;
   };
 
-  # Timezone
+  # Fallback timezone, used until the auto-timezone service
+  # (modules/nixos/services/auto-timezone) overrides it from IP geolocation.
+  # No need to edit this when traveling — it gets corrected automatically.
   time.timeZone = "America/Los_Angeles";
-  # time.timeZone = "America/New_York";
 
   # Internationalization
   i18n.defaultLocale = "en_US.UTF-8";

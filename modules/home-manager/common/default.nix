@@ -57,6 +57,7 @@
   # Ensure common packages are installed
   home.packages = with pkgs; [
     aider-chat
+    bluetui
     dig
     discord-ptb
     dust
@@ -67,6 +68,7 @@
     lazydocker
     nh
     nixfmt
+    nmtui-go
     opencode
     openconnect
     pipenv

@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
     "${nixosModules}/common"
     "${nixosModules}/desktop/niri"
+    "${nixosModules}/services/auto-timezone"
     "${nixosModules}/services/printing"
     "${nixosModules}/programs/steam"
     "${nixosModules}/programs/bambu-studio"
