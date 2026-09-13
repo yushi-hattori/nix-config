@@ -85,6 +85,13 @@ animations {
 }
 
 window-rule {
+    // Open every new window fullscreen. This is the most generic rule, so the
+    // specific rules below can opt out (floating windows set open-fullscreen
+    // false). Niri applies rules in order, later ones overriding earlier.
+    open-fullscreen true
+}
+
+window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
@@ -97,11 +104,13 @@ window-rule {
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
+    open-fullscreen false
 }
 
 window-rule {
     match title="btop"
     open-floating true
+    open-fullscreen false
     default-column-width { proportion 0.8; }
     default-window-height { proportion 0.8; }
 }
@@ -113,6 +122,7 @@ window-rule {
     // and unclickable while the main window waits on them.
     match app-id="^Autodesk Fusion 360$" title="already open"
     open-floating true
+    open-fullscreen false
 }
 
 binds {
@@ -152,6 +162,8 @@ binds {
     Mod+K { focus-window-or-workspace-up; }
     Mod+L { focus-column-right; }
     Mod+Tab { focus-column-right; }
+    // Cycle the focused window/column through every connected monitor.
+    Mod+Shift+Tab { move-column-to-monitor-next; }
     Mod+Right { focus-column-right; }
     Mod+Home { focus-column-first; }
     Mod+End { focus-column-last; }

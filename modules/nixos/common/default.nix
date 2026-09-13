@@ -49,7 +49,7 @@
     ];
     loader.efi.canTouchEfiVariables = true;
     loader.systemd-boot.enable = true;
-    loader.timeout = 5;
+    loader.timeout = 10;
     # Keep the boot menu short. Without this, every rebuild adds a systemd-boot
     # entry and the auto-detected "Windows Boot Manager" entry gets buried
     # hundreds of rows down. Older generations/entries are pruned automatically.

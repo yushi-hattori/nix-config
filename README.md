@@ -22,26 +22,22 @@ A module only takes effect if it's listed in the `imports` of `hosts/framework13
 - **nixpkgs** — `nixos-unstable`.
 - **nixpkgs-stable** — pinned stable channel, used selectively via the `stable-packages` overlay.
 - **home-manager**, **hardware** (nixos-hardware profiles for this Framework board), **catppuccin** (theming), **nix-flatpak**.
-- A handful of small flakes for specific tools: `claude-code`, `opencode`, `antigravity-nix`, `zen-browser`, `walker`, `herdr`.
+- A handful of small flakes for specific tools: `claude-code`, `opencode`, `antigravity-nix`, `zen-browser`, `walker`, `herdr`, `nirinit` (niri session save/restore).
 
 ## Usage
 
 ```sh
 # Rebuild the NixOS system
-make nixos-rebuild
-# or directly:
 sudo nixos-rebuild switch --flake .#framework13
 
 # Rebuild the Home Manager environment
-make home-manager-switch
-# or directly:
 home-manager switch --flake .#yhattori@framework13 -b backup
 
 # Update flake inputs
-make flake-update
+nix flake update
 
 # Garbage collect old generations
-make nix-gc
+nix-collect-garbage -d
 ```
 
 ## Notable design points

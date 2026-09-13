@@ -105,6 +105,17 @@ in
     executable = true;
   };
 
+  # hyprlock lock-screen widgets (weather + hourly joke/fun-fact quote).
+  xdg.configFile."niri/weather.sh" = {
+    source = ./weather.sh;
+    executable = true;
+  };
+
+  xdg.configFile."niri/quote.sh" = {
+    source = ./quote.sh;
+    executable = true;
+  };
+
   # Set GNOME-like desktop settings
   dconf.settings = {
     "org/gnome/desktop/interface" = {
