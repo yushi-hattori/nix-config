@@ -140,6 +140,8 @@ binds {
     Print { spawn-sh "grim - | swappy -f -"; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    // Region screenshot, opened in the swappy editor
+    Ctrl+Shift+S { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
 
     // Window management
     Mod+S { expel-window-from-column; }
