@@ -132,6 +132,8 @@ binds {
     Mod+Return { spawn "ghostty"; }
     Mod+Space { spawn "walker"; }
     Ctrl+Space { spawn "walker"; }
+    // Window switcher: Walker restricted to the "windows" provider.
+    Ctrl+Shift+Space { spawn "walker" "-m" "windows"; }
     Mod+E { spawn "nautilus"; }
 
     // Screenshots
@@ -147,7 +149,9 @@ binds {
     Mod+F { switch-preset-column-width; }
     Mod+Shift+F { switch-preset-column-width-back; }
     Mod+T { spawn "bash" "-c" "/home/yhattori/.config/niri/toggle_center.sh"; }
-    Mod+M { maximize-window-to-edges; }
+    // Windows now open fullscreen, so Mod+M toggles fullscreen (i.e. restores
+    // the window) rather than toggling maximize-to-edges.
+    Mod+M { fullscreen-window; }
     Mod+C { center-column; }
     Mod+Ctrl+C { center-visible-columns; }
     Mod+Ctrl+F { expand-column-to-available-width; }

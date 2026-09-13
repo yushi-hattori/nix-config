@@ -1,0 +1,4 @@
+# Window switcher (Ctrl+Shift+Space -> `walker -m windows`): show only actual
+# open windows, not workspace entries. Set to true to also list non-focused
+# non-empty workspaces as jump targets.
+show_workspaces = false

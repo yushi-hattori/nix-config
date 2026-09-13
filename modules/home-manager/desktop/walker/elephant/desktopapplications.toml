@@ -1,0 +1,5 @@
+# Make the Walker app list follow usage history when the query is empty, i.e.
+# most-recently/frequently used first. See `elephant generate doc
+# desktopapplications` for all options.
+history = true
+history_when_empty = true

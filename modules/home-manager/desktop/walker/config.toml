@@ -47,14 +47,15 @@ page_up = ["Page_Up"]
 show_actions = ["alt j"]
 
 [providers]
-# Added "menus:power" here so it shows up in global search
+# "menus:power" so power options show up in global search. Open windows are
+# intentionally NOT in these lists; they get their own view via
+# `walker -m windows` (bound to Ctrl+Shift+Space in niri), or the "$" prefix.
 default = [
   "desktopapplications",
   "calc",
   "websearch",
   "menus:power",
 ]
-# Added here so power options show up when you just open Walker
 empty = ["desktopapplications", "menus:power"]
 ignore_preview = []
 max_results = 50
@@ -152,6 +153,10 @@ desktopapplications = [
   { action = "new_instance:keep", label = "new+next", bind = "ctrl alt Return", after = "KeepOpen" },
   { action = "pin", bind = "ctrl p", after = "AsyncReload" },
   { action = "unpin", bind = "ctrl p", after = "AsyncReload" },
+]
+
+windows = [
+  { action = "focus", default = true, bind = "Return" },
 ]
 
 files = [
