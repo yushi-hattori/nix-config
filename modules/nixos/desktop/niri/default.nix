@@ -1,5 +1,15 @@
-{ pkgs, ... }:
 {
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    inputs.nirinit.nixosModules.nirinit
+  ];
+
   # Keep external displays usable in clamshell/docked mode.
   services.logind = {
     settings.Login = {
@@ -11,6 +21,41 @@
 
   # Enable Niri
   programs.niri.enable = true;
+
+  # nirinit: periodically snapshots the open niri windows and relaunches them
+  # (with their workspace, output and size) on the next session, e.g. after a
+  # reboot. `launch` maps a window's Wayland app_id to the command used to
+  # relaunch it. An unmapped app_id is used verbatim as the command, so apps
+  # whose app_id is not an executable (GNOME reverse-DNS ids, ghostty, ...)
+  # need an entry here. Anything not listed still restores as long as its
+  # app_id happens to be a runnable binary (e.g. `zen-twilight`).
+  services.nirinit = {
+    enable = true;
+    settings.launch = {
+      "com.mitchellh.ghostty" = "ghostty";
+
+      "org.gnome.Nautilus" = "nautilus";
+      "org.gnome.Loupe" = "loupe";
+      "org.gnome.Calculator" = "gnome-calculator";
+      "org.gnome.Calendar" = "gnome-calendar";
+      "org.gnome.TextEditor" = "gnome-text-editor";
+      "org.gnome.seahorse.Application" = "seahorse";
+      "org.gnome.FileRoller" = "file-roller";
+      "org.gnome.baobab" = "baobab";
+      "org.gnome.SystemMonitor" = "gnome-system-monitor";
+    };
+  };
+
+  # The upstream module hardcodes nirinit's default 300s save interval. Save
+  # every 60s instead: niri tears its windows down before nirinit receives its
+  # shutdown signal, so the periodic save is the reliable one, and a session
+  # that starts fresh (seeded empty on first run) would otherwise go
+  # uncaptured for five minutes.
+  systemd.user.services.nirinit.serviceConfig.ExecStart = lib.mkForce (
+    "${lib.getExe config.services.nirinit.package} --config ${
+      (pkgs.formats.toml { }).generate "nirinit-config.toml" config.services.nirinit.settings
+    } --save-interval 60"
+  );
 
   # Screen locker used as the login gate (see hosts/framework13 autologin).
   # This installs hyprlock, enables hypridle, and creates the "hyprlock" PAM

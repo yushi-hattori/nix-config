@@ -47,6 +47,13 @@
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Save/restore the niri window layout across sessions
+    nirinit = {
+      url = "github:amaanq/nirinit";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.fenix.inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
