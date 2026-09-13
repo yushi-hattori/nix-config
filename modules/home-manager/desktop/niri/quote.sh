@@ -1,7 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Hourly lock-screen quote: randomly a dad joke or a fun fact, prefixed with
 # "Joke of the Day:" or "Fun Fact:". Cached for an hour; falls back to the last
 # value, then to a bundled line, when offline.
+#
+# hyprlock is spawned by hypridle, whose systemd service sets a minimal PATH
+# (no bash/curl/jq), so use /bin/sh and set a usable PATH ourselves.
+PATH="/run/current-system/sw/bin:${HOME}/.nix-profile/bin:/etc/profiles/per-user/${USER}/bin:${PATH}"
+export PATH
+
 set -u
 
 cache="${XDG_CACHE_HOME:-$HOME/.cache}/hyprlock-quote"
@@ -16,24 +22,21 @@ if [ -s "$cache" ]; then
 fi
 
 random_joke() {
-    local joke
-    joke=$(curl -fsSL --max-time 8 -H "Accept: text/plain" "https://icanhazdadjoke.com/" 2>/dev/null) || true
-    printf '%s' "$joke"
+    curl -fsSL --max-time 8 -H "Accept: text/plain" "https://icanhazdadjoke.com/" 2>/dev/null || true
 }
 
 random_fact() {
-    local json fact
     json=$(curl -fsSL --max-time 8 "https://api.popcat.xyz/fact" 2>/dev/null) || true
     [ -z "$json" ] && return 0
     if command -v jq >/dev/null 2>&1; then
-        fact=$(printf '%s' "$json" | jq -r '.fact // empty' 2>/dev/null)
+        printf '%s' "$json" | jq -r '.fact // empty' 2>/dev/null
     else
-        fact=$(printf '%s' "$json" | sed -n 's/.*"fact": *"\(.*\)".*/\1/p')
+        printf '%s' "$json" | sed -n 's/.*"fact": *"\(.*\)".*/\1/p'
     fi
-    printf '%s' "$fact"
 }
 
-if [ $(( RANDOM % 2 )) -eq 0 ]; then
+# Random pick without relying on bash's $RANDOM.
+if [ $(( $(od -An -N1 -tu1 /dev/urandom) % 2 )) -eq 0 ]; then
     text="Joke of the Day: $(random_joke)"
 else
     text="Fun Fact: $(random_fact)"

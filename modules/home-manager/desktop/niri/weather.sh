@@ -1,8 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Weather line for the hyprlock screen.
 # Pattern adapted from JaKooLit/Hyprland-Dots (config/hypr/UserScripts/Weather.sh):
 # query wttr.in once and cache the result for an hour, so hyprlock's hourly
 # refresh (and every lock) doesn't hammer the API or stall on a slow request.
+#
+# hyprlock is spawned by hypridle, whose systemd service sets a minimal PATH
+# (no bash/curl), so use /bin/sh and set a usable PATH ourselves.
+PATH="/run/current-system/sw/bin:${HOME}/.nix-profile/bin:/etc/profiles/per-user/${USER}/bin:${PATH}"
+export PATH
+
 set -u
 
 cache="${XDG_CACHE_HOME:-$HOME/.cache}/hyprlock-weather"
