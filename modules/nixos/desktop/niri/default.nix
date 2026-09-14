@@ -101,7 +101,9 @@
     swappy # screenshot editor
     grim # screenshot tool
     slurp # region selector
+    satty # screenshot annotation editor (Snagit-like)
     wl-clipboard # clipboard manager
+    wtype # synthesize keys (Mod+Left/Right -> Home/End)
     libnotify # for notifications
     brightnessctl # backlight control
     pamixer # audio control

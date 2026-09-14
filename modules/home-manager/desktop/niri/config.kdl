@@ -140,8 +140,8 @@ binds {
     Print { spawn-sh "grim - | swappy -f -"; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
-    // Region screenshot, opened in the swappy editor
-    Ctrl+Shift+S { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
+    // Region screenshot, opened in the satty annotation editor
+    Ctrl+Shift+S { spawn-sh "grim -g \"$(slurp)\" -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename \"~/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png\" --actions-on-enter save-to-clipboard"; }
 
     // Window management
     Mod+S { expel-window-from-column; }
@@ -160,7 +160,10 @@ binds {
     Mod+V { toggle-window-floating; }
 
     // Focus
-    Mod+Left { focus-column-left; }
+    // Mod+Left/Right synthesize the literal Home/End keys into the focused
+    // window (the laptop keyboard has no Home/End). Column stepping is on
+    // Mod+H/L and Mod+Tab.
+    Mod+Left { spawn "wtype" "-k" "Home"; }
     Mod+Down { focus-window-down; }
     Mod+Up { focus-window-up; }
     Mod+H { focus-column-left; }
@@ -170,7 +173,7 @@ binds {
     Mod+Tab { focus-column-right; }
     // Cycle the focused window/column through every connected monitor.
     Mod+Shift+Tab { move-column-to-monitor-next; }
-    Mod+Right { focus-column-right; }
+    Mod+Right { spawn "wtype" "-k" "End"; }
     Mod+Home { focus-column-first; }
     Mod+End { focus-column-last; }
 

@@ -2,6 +2,10 @@ default_shell "zsh"
 pane_frames false
 show_startup_tips false
 theme "catppuccin-mocha"
+// Kitty Graphics Protocol: lets panes display images (yazi previews, image.nvim,
+// etc.). Requires the host terminal to support it (ghostty does). Needs a
+// zellij restart.
+support_kitty_graphics_protocol true
 ui {
     pane_frames {
         rounded_corners true

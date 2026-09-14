@@ -106,6 +106,8 @@
               claude-code.overlays.default
               opencode.overlays.default
               outputs.overlays.opencode-latest
+              outputs.overlays.zellij-latest
+              outputs.overlays.yazi-latest
               antigravity-nix.overlays.default
               herdr.overlays.default
             ];

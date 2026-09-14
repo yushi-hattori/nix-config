@@ -1,12 +1,12 @@
 return {
-  "3rd/image.nvim", -- display images in kitty terminal
-  enabled = false,
+  "3rd/image.nvim", -- display images in kitty-compatible terminals (and inside zellij, which now forwards KGP)
+  enabled = true,
   dependencies = {
     "vhyrro/luarocks.nvim",
     priority = 1001,
     opts = {
       rocks = { "magick" },
-      enabled = false,
+      enabled = true,
     },
   },
   opts = {
