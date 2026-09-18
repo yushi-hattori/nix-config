@@ -38,24 +38,97 @@ vim.keymap.set("n", "<localleader>RA", function()
   runner.run_all(true)
 end, { desc = "run all cells of all languages", silent = true })
 
--- Open media files in external applications
+-- Open media files in external applications.
+-- NOTE: images are intentionally NOT listed here so image.nvim can render them
+-- inline; videos/PDFs still open externally.
 local media_group = vim.api.nvim_create_augroup("ExternalMedia", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = media_group,
   pattern = {
     "*.mp4", "*.mkv", "*.webm", "*.mov", "*.avi", "*.m4v", "*.flv", "*.wmv", -- Videos
-    "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.bmp", "*.svg", "*.tiff", -- Images
     "*.pdf", -- PDFs
   },
   callback = function(ev)
     local buf = ev.buf
     local file = vim.fn.expand("%:p")
     vim.fn.jobstart({ "xdg-open", file }, { detach = true })
-    vim.cmd("stopinstall")
+    vim.cmd("stopinsert")
     vim.schedule(function()
       if vim.api.nvim_buf_is_valid(buf) then
         vim.api.nvim_buf_delete(buf, { force = true })
       end
     end)
+  end,
+})
+
+-- Standalone image viewer (snacks.image) in zellij.
+--
+-- zellij ignores the cursor position for kitty placements, so snacks' fallback
+-- overlay always lands at the top of the pane (under the bufferline) and can't
+-- be nudged with `set_cursor`. Instead, render the image in a centered floating
+-- window (whose position *is* honored, like the yazi overlay). Any key closes it.
+
+vim.on_key(function(key)
+  if key == "" then
+    return
+  end
+  local buf = vim.api.nvim_get_current_buf()
+  if not vim.api.nvim_buf_is_valid(buf) or vim.bo[buf].filetype ~= "image" then
+    return
+  end
+  vim.schedule(function()
+    if vim.api.nvim_buf_is_valid(buf) then
+      pcall(vim.api.nvim_buf_delete, buf, { force = true })
+    end
+  end)
+end)
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
+  callback = function()
+    local ok, imgbuf = pcall(require, "snacks.image.buf")
+    if not ok then
+      return
+    end
+
+    local orig_attach = imgbuf._attach
+    imgbuf._attach = function(buf, opts)
+      opts = opts or {}
+      local file = opts.src or vim.api.nvim_buf_get_name(buf)
+      -- Unsupported files: keep snacks' markdown info page.
+      if not Snacks.image.supports(file) then
+        return orig_attach(buf, opts)
+      end
+
+      Snacks.image.placement.clean(buf)
+      if not vim.api.nvim_buf_is_valid(buf) then
+        return
+      end
+      vim.bo[buf].filetype = "image"
+      vim.bo[buf].modifiable = false
+      vim.bo[buf].modified = false
+      vim.bo[buf].swapfile = false
+
+      -- Open the image in a centered floating window.
+      local cols, lines = vim.o.columns, vim.o.lines
+      local width = math.max(1, cols - 8)
+      local height = math.max(1, lines - 8)
+      local row = math.max(0, math.floor((lines - height) / 2) - 1)
+      local col = math.max(0, math.floor((cols - width) / 2))
+      vim.api.nvim_open_win(buf, true, {
+        relative = "editor",
+        row = row,
+        col = col,
+        width = width,
+        height = height,
+        style = "minimal",
+        border = "rounded",
+      })
+
+      opts.conceal = true
+      opts.auto_resize = true
+      return Snacks.image.placement.new(buf, file, opts)
+    end
   end,
 })

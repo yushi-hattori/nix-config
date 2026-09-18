@@ -51,8 +51,11 @@
       python3Packages.jupyter-client # For interacting with Jupyter kernels
       python3Packages.ipykernel
 
-      # imagemagick for image.nvim
+      # imagemagick for image.nvim / snacks.image
       imagemagick
+      # snacks.image uses ffmpeg for animated formats, chafa as a fallback
+      ffmpeg
+      chafa
 
       # readline for luarocks Lua compilation
       readline

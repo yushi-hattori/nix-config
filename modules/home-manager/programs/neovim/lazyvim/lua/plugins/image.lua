@@ -1,12 +1,15 @@
+-- image.nvim is disabled: it needs the `magick` rock via luarocks.nvim, whose
+-- package loader can't find `dkjson` on NixOS. Use snacks.image instead (see
+-- snacks.lua), which shells out to the ImageMagick CLI and needs no luarocks.
 return {
-  "3rd/image.nvim", -- display images in kitty-compatible terminals (and inside zellij, which now forwards KGP)
-  enabled = true,
+  "3rd/image.nvim",
+  enabled = false,
   dependencies = {
     "vhyrro/luarocks.nvim",
     priority = 1001,
     opts = {
       rocks = { "magick" },
-      enabled = true,
+      enabled = false,
     },
   },
   opts = {
