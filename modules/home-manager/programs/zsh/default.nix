@@ -93,6 +93,16 @@
       # Ollama API configuration
       export OLLAMA_API_BASE=http://localhost:11434
 
+      # Inside zellij, hide the host terminal's identity. Zellij forwards the
+      # outer terminal's env, so tools that pick a graphics protocol from
+      # $TERM_PROGRAM/$GHOSTTY_RESOURCES_DIR think they're talking to ghostty
+      # directly and choose kitty *unicode placeholders* — which zellij doesn't
+      # implement. With these unset, yazi's terminal probe sees zellij (or no
+      # brand) and picks KgpOld/Sixel, which zellij supports (yazi#4216).
+      if [ -n "$ZELLIJ" ]; then
+        unset GHOSTTY_RESOURCES_DIR GHOSTTY_BIN_DIR TERM_PROGRAM TERM_PROGRAM_VERSION
+      fi
+
       # bindings
       bindkey -e
       bindkey '^H' backward-delete-word
