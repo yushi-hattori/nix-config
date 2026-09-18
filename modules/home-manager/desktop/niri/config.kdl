@@ -154,10 +154,12 @@ binds {
     // Windows now open fullscreen, so Mod+M toggles fullscreen (i.e. restores
     // the window) rather than toggling maximize-to-edges.
     Mod+M { fullscreen-window; }
-    Mod+C { center-column; }
+    // Mod+C/Mod+V synthesize the literal Ctrl+C/Ctrl+V keys into the focused
+    // window (copy/paste), like Mod+Left/Right do for Home/End.
+    Mod+C { spawn "wtype" "-M" "ctrl" "-k" "c"; }
+    Mod+V { spawn "wtype" "-M" "ctrl" "-k" "v"; }
     Mod+Ctrl+C { center-visible-columns; }
     Mod+Ctrl+F { expand-column-to-available-width; }
-    Mod+V { toggle-window-floating; }
 
     // Focus
     // Mod+Left/Right synthesize the literal Home/End keys into the focused
