@@ -47,6 +47,7 @@ nix-collect-garbage -d
 - **Docker runs rootless only** (`virtualisation.docker.rootless`) — no system-wide daemon, no `docker` group.
 - **WinApps** (`home/yhattori/framework13/winapps.nix`) runs a Windows 11 VM (via `virt-manager`/libvirt) for Fusion 360, RDP'd in through gamescope to work around a niri/xwayland-satellite RAIL-rendering limitation. See `notes/fusion360-vm-setup.md`.
 - **Ollama** runs locally with the Vulkan backend against the Framework's Radeon 890M iGPU, fronted by Open WebUI.
+- **Known issue — suspend/resume with the HP Thunderbolt Dock G2 is unreliable.** On `s2idle` the dock's Thunderbolt link drops (`failed to reach state TB_PORT_UP` / `lost during suspend, disconnecting`) and the dock's USB controller is hot-removed via `pciehp` (with a `pci_disable_device` WARNING); occasionally the resume deadlocks entirely and the machine wakes to a black screen (see `journalctl -b -1` ending at `PM: suspend entry` with no resume). This matches the known Framework + HP Dock G2 bug. Possible future mitigations to try (one at a time): `pcie_aspm=off`, `thunderbolt.host_reset=false`, or simply not suspending while docked. Separately, after a hard reset the Intel AX210 can fail to probe (`iwlwifi: HW_REV=0xFFFFFFFF, PCI issues?` / `probe failed with error -5`); a full power-off (not a warm reboot) clears it.
 
 ## License
 
