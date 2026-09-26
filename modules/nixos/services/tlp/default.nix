@@ -52,7 +52,11 @@
 
         SATA_LINKPWR_ON_BAT = "min_power";
         PCIE_ASPM_ON_AC = "performance";
-        PCIE_ASPM_ON_BAT = "powersupersave";
+        # Avoid L1.2 on the WiFi root port (0000:00:02.3). "powersupersave" has
+        # caused PCIe link-retrain failures after s2idle on this platform (it
+        # wedged the old AX210 and is implicated in MT7925 failures). "default"
+        # lets the firmware choose a safe policy; the ath12k card is stable on it.
+        PCIE_ASPM_ON_BAT = "default";
 
         RUNTIME_PM_ON_AC = "on";
         RUNTIME_PM_ON_BAT = "auto";

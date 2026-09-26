@@ -69,13 +69,13 @@
   networking.networkmanager.wifi.backend = "iwd";
   networking.wireless.iwd.enable = true;
 
-  # NOTE: No regulatory-domain setting is needed here. This laptop's wifi is an
-  # Intel AX210 (iwlwifi), a "self-managed" wiphy — userspace country hints can't
-  # change its channels, so options like `regdom` are both invalid in NixOS and
-  # ineffective on this card. When NetworkManager uses the iwd backend, the iwd
-  # NixOS module automatically injects `[DriverQuirks] DefaultInterface = "?*"`
-  # so iwd never destroys/recreates wlan0 (which used to make it go AWOL and
-  # "find no networks"). Don't add regdom settings back.
+  # NOTE: No regulatory-domain setting is configured. The wifi card is a
+  # self-managed wiphy — userspace country hints can't change its channels, so
+  # options like `regdom` are both invalid in NixOS and ineffective. When
+  # NetworkManager uses the iwd backend, the iwd NixOS module automatically
+  # injects `[DriverQuirks] DefaultInterface = "?*"` so iwd never
+  # destroys/recreates wlan0 (which used to make it go AWOL and "find no
+  # networks"). Don't add regdom settings back.
 
   # For kdeconnect
   networking.firewall = {
