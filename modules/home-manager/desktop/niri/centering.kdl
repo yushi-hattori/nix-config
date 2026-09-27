@@ -1,1 +1,1 @@
-layout { center-focused-column "always"; }
+layout { center-focused-column "never"; }

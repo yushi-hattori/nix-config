@@ -31,7 +31,7 @@ input {
 // dock/undock, so outputs are intentionally not configured in this file.
 
 layout {
-    gaps 8
+    gaps 0
 
     preset-column-widths {
         proportion 0.25
@@ -50,12 +50,7 @@ layout {
 
     border { off; }
 
-    shadow {
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
-    }
+    shadow { off; }
 
     struts { }
 }
@@ -85,10 +80,11 @@ animations {
 }
 
 window-rule {
-    // Open every new window fullscreen. This is the most generic rule, so the
-    // specific rules below can opt out (floating windows set open-fullscreen
-    // false). Niri applies rules in order, later ones overriding earlier.
-    open-fullscreen true
+    // Open every new window maximized (full width, not fullscreen). This is
+    // the most generic rule, so the specific rules below can opt out via
+    // open-floating. Niri applies rules in order, later ones overriding
+    // earlier.
+    open-maximized true
 }
 
 window-rule {
@@ -151,8 +147,7 @@ binds {
     Mod+F { switch-preset-column-width; }
     Mod+Shift+F { switch-preset-column-width-back; }
     Mod+T { spawn "bash" "-c" "/home/yhattori/.config/niri/toggle_center.sh"; }
-    // Windows now open fullscreen, so Mod+M toggles fullscreen (i.e. restores
-    // the window) rather than toggling maximize-to-edges.
+    // Windows open maximized (full width); Mod+M toggles true fullscreen.
     Mod+M { fullscreen-window; }
     // Mod+C/Mod+V synthesize the literal Ctrl+C/Ctrl+V keys into the focused
     // window (copy/paste), like Mod+Left/Right do for Home/End.

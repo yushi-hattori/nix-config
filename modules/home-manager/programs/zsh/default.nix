@@ -31,11 +31,11 @@
       # NixOS
       update-fw-all = "update-fw && update-fw-hm";
       update-fw = "cd ~/nix-config && sudo nixos-rebuild switch --flake .#framework13";
-      update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup";
+      update-fw-hm = "cd ~/nix-config && home-manager switch --flake .#yhattori@framework13 -b backup && niri msg action load-config-file";
       "gc" = "sudo nix-collect-garbage -d";
       update-bios = "fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update";
 
-      restart-all = "walker-restart && wayle panel restart";
+      restart-all = "walker-restart && wayle panel restart && niri msg action load-config-file";
 
       wayle-convert = "cd ~/.config/wayle && nix-instantiate --eval --expr '(builtins.fromTOML (builtins.readFile ./config.toml)) // (builtins.fromTOML (builtins.readFile ./runtime.toml))' | nixfmt";
 
