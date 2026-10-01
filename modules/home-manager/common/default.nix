@@ -90,7 +90,6 @@
     unzip
     vlc
     celluloid
-    imv
     shotwell
     wl-clipboard
   ];

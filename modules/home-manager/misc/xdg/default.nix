@@ -16,7 +16,6 @@
         pkgs.celluloid
         pkgs.vlc
         pkgs.smplayer
-        pkgs.imv
         pkgs.zathura
         pkgs.shotwell
       ];
@@ -28,10 +27,10 @@
         "x-scheme-handler/https" = [ "zen-twilight.desktop" ];
         "x-scheme-handler/unknown" = [ "zen-twilight.desktop" ];
         "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-        "image/png" = [ "imv.desktop" ];
-        "image/jpeg" = [ "imv.desktop" ];
-        "image/gif" = [ "imv.desktop" ];
-        "image/webp" = [ "imv.desktop" ];
+        "image/png" = [ "org.gnome.Loupe.desktop" ];
+        "image/jpeg" = [ "org.gnome.Loupe.desktop" ];
+        "image/gif" = [ "org.gnome.Loupe.desktop" ];
+        "image/webp" = [ "org.gnome.Loupe.desktop" ];
         "video/mp4" = [ "io.github.celluloid_player.Celluloid.desktop" ];
         "video/mpeg" = [ "io.github.celluloid_player.Celluloid.desktop" ];
         "video/quicktime" = [ "io.github.celluloid_player.Celluloid.desktop" ];

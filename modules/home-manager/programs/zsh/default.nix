@@ -35,7 +35,7 @@
       "gc" = "sudo nix-collect-garbage -d";
       update-bios = "fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update";
 
-      restart-all = "walker-restart && wayle panel restart && niri msg action load-config-file";
+      restart-all = "walker-restart && wayle panel restart && niri msg action load-config-file && systemctl --user restart awww";
 
       wayle-convert = "cd ~/.config/wayle && nix-instantiate --eval --expr '(builtins.fromTOML (builtins.readFile ./config.toml)) // (builtins.fromTOML (builtins.readFile ./runtime.toml))' | nixfmt";
 

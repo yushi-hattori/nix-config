@@ -204,13 +204,40 @@
         # wallpapers below silently fail with "neither awww nor swww found
         # in PATH".
         engine-enabled = true;
+        # Each monitor is matched by connector name, which is NOT stable across
+        # reboots/replugs: the side monitor lands on DP-2/DP-6/DP-7/DP-8 and the
+        # main monitor on DP-10/DP-11 depending on cable/dock (see
+        # services/kanshi). Every name a monitor can take needs its own entry,
+        # otherwise that monitor silently gets a black background.
         monitors = [
+          # Side monitor (portrait): flips between DP-2/DP-6/DP-7/DP-8
+          {
+            fit-mode = "fill";
+            name = "DP-2";
+            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+          }
+          {
+            fit-mode = "fill";
+            name = "DP-6";
+            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+          }
+          {
+            fit-mode = "fill";
+            name = "DP-7";
+            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+          }
           {
             fit-mode = "fill";
             name = "DP-8";
             wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
-
           }
+          # Laptop screen (undocked)
+          {
+            fit-mode = "fill";
+            name = "eDP-1";
+            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+          }
+          # Main monitor: flips between DP-10/DP-11
           {
             fit-mode = "fill";
             name = "DP-10";
@@ -221,7 +248,6 @@
             name = "DP-11";
             wallpaper = toString ../../../../files/wallpapers/wedding-wallpaper.jpg;
           }
-
         ];
       };
     };
