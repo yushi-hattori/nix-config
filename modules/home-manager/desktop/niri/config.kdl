@@ -133,7 +133,7 @@ binds {
     Mod+E { spawn "nautilus"; }
 
     // Screenshots
-    Print { spawn-sh "grim - | swappy -f -"; }
+    Print { spawn-sh "grim -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename \"~/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png\" --actions-on-enter save-to-clipboard"; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
     // Region screenshot, opened in the satty annotation editor

@@ -1,4 +1,63 @@
 { pkgs, ... }:
+let
+  # Emits the current niri windows as a wayle custom-module JSON payload.
+  # `text` lists open apps in niri's scrolling-layout order, with a divider
+  # between monitors; `tooltip` shows the same grouped by monitor.
+  niri-windows = pkgs.writeShellApplication {
+    name = "niri-windows";
+    runtimeInputs = [
+      pkgs.niri
+      pkgs.jq
+    ];
+    text = ''
+      {
+        niri msg -j workspaces
+        niri msg -j windows
+      } | jq -s -r '
+        def pretty:
+          (.app_id // "?")
+          | split(".")
+          | last
+          | gsub("_"; " ")
+          | gsub("-twilight$"; "");
+        def dedup:
+          reduce .[] as $x ([]; if ([.[] | select(. == $x)] | length) == 0 then . + [$x] else . end);
+
+        .[0] as $ws
+        | .[1] as $wins
+        | ($ws | map({ (.id | tostring): .output }) | add) as $out
+        | ($ws | map({ (.id | tostring): .idx }) | add) as $wsidx
+        | ($ws | map(select(.is_focused) | .output) | first // "") as $focusout
+        | ($ws | map(select(.is_focused) | .active_window_id) | map(select(. != null)) | first // null) as $focusid
+        | ($wins | map({
+              id: .id,
+              out: ($out[.workspace_id | tostring] // "?"),
+              wsidx: ($wsidx[.workspace_id | tostring] // 0),
+              col: ((.layout.pos_in_scrolling_layout // [0, 0])[0]),
+              tile: ((.layout.pos_in_scrolling_layout // [0, 0])[1]),
+              app: pretty,
+              title: .title,
+              f: (.id == $focusid)
+            })) as $rows
+        | ($rows | sort_by((if .out == $focusout then 0 else 1 end), .out, .wsidx, .col, .tile)) as $sorted
+        | if ($sorted | length) == 0 then
+            { text: "", tooltip: "No open windows" }
+          else
+            ([$sorted[] | select(.f) | .app] | first // "") as $focusapp
+            | ($sorted | map(.out) | dedup) as $monitors
+            | ($monitors | map(. as $m | ($sorted | map(select(.out == $m) | .app) | dedup))) as $monapps
+            | ([$monitors, $monapps] | transpose | map(
+                  .[0] + "\n" + (.[1] | map("  " + (if . == $focusapp then "● " else "· " end) + .) | join("\n"))
+                )) as $blocks
+            | {
+                text: ($monapps | map(map(if . == $focusapp then "● " + . else . end) | join("  ")) | join("  │  ")),
+                tooltip: (["Windows"] + $blocks | join("\n\n"))
+              }
+          end
+      '
+    '';
+  };
+in
 # put this directly into your home-manager config or into a home-manager import
 {
   # awww panics instead of clearing a stale socket left behind by an unclean
@@ -8,6 +67,26 @@
   systemd.user.services.awww.Service.ExecStartPre = [
     "${pkgs.findutils}/bin/find %t -maxdepth 1 -name 'wayland-*-awww-daemon.sock' -delete"
   ];
+
+  # Style custom-module tooltips to match wayle's native dropdown panels
+  # (dark elevated card with rounded corners). The `tooltip` node is GTK4's
+  # standard tooltip widget; `tooltip.background` is its inner background box.
+  xdg.configFile."wayle/styles/index.scss".text = ''
+    // Custom Wayle styles. Anything here overrides the built-in styling.
+    // Use @import "name" to bring in _name.scss from this folder.
+
+    tooltip {
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    tooltip.background {
+      background-color: var(--palette-elevated);
+      color: var(--palette-fg);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 10px 14px;
+    }
+  '';
 
   services.wayle = {
     enable = true;
@@ -32,16 +111,13 @@
         layout = [
           {
             center = [
-              "media"
               "clock"
               "weather"
             ];
             left = [
-              "niri-workspaces"
-              "cpu"
-              "storage"
-              "ram"
-              "netstat"
+              "custom-launcher"
+              "custom-windows"
+              "media"
             ];
             monitor = "*";
             right = [
@@ -65,6 +141,31 @@
         font-sans = "JetBrainsMonoNL Nerd Font Propo";
       };
       modules = {
+        custom = [
+          {
+            id = "launcher";
+            icon-name = "view-app-grid-symbolic";
+            label-show = false;
+            left-click = "${pkgs.niri}/bin/niri msg action toggle-overview";
+            border-color = "accent";
+            border-show = true;
+            icon-bg-color = "accent";
+            icon-color = "accent";
+          }
+          {
+            id = "windows";
+            command = "${niri-windows}/bin/niri-windows";
+            mode = "poll";
+            interval-ms = 1000;
+            hide-if-empty = true;
+            label-max-length = 60;
+            icon-show = false;
+            left-click = "walker -m windows";
+            border-color = "accent";
+            border-show = true;
+            label-color = "accent";
+          }
+        ];
         battery = {
           border-color = "accent";
           border-show = true;
