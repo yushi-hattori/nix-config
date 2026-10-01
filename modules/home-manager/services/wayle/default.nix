@@ -57,6 +57,45 @@ let
       '
     '';
   };
+
+  # A GTK4 layer-shell dropdown that lists niri windows as a grid of cards
+  # (click-to-focus), styled to match wayle. Runs as a persistent daemon so
+  # opening it is instant; the toggle script signals it via SIGUSR1.
+  windowPopup = pkgs.writeShellApplication {
+    name = "wayle-window-popup";
+    runtimeInputs = [
+      (pkgs.python3.withPackages (ps: [ ps.pygobject3 ]))
+      pkgs.niri
+    ];
+    text = ''
+      export LD_PRELOAD="${pkgs.gtk4-layer-shell}/lib/libgtk4-layer-shell.so"
+      export GI_TYPELIB_PATH="${
+        pkgs.lib.makeSearchPathOutput "out" "lib/girepository-1.0" [
+          pkgs.gtk4
+          pkgs.gtk4-layer-shell
+          pkgs.gobject-introspection
+          pkgs.pango
+          pkgs.graphene
+          pkgs.harfbuzz
+          pkgs.gdk-pixbuf
+          pkgs.glib
+        ]
+      }:''${GI_TYPELIB_PATH:-}"
+      exec python ${./window_popup.py}
+    '';
+  };
+  windowPopupToggle = pkgs.writeShellApplication {
+    name = "wayle-window-popup-toggle";
+    runtimeInputs = [ pkgs.niri ];
+    text = ''
+      pidfile="$HOME/.cache/wayle-window-popup.pid"
+      if [ -r "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+        kill -USR1 "$(cat "$pidfile")"
+      else
+        systemctl --user start wayle-window-popup.service
+      fi
+    '';
+  };
 in
 # put this directly into your home-manager config or into a home-manager import
 {
@@ -67,6 +106,23 @@ in
   systemd.user.services.awww.Service.ExecStartPre = [
     "${pkgs.findutils}/bin/find %t -maxdepth 1 -name 'wayland-*-awww-daemon.sock' -delete"
   ];
+
+  # Keep the window-list popup running in the background so opening it is
+  # instant. The "windows" module's click toggles it via SIGUSR1.
+  systemd.user.services.wayle-window-popup = {
+    Unit = {
+      Description = "Wayle window-list popup (background)";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${windowPopup}/bin/wayle-window-popup";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 
   # Style custom-module tooltips to match wayle's native dropdown panels
   # (dark elevated card with rounded corners). The `tooltip` node is GTK4's
@@ -160,7 +216,7 @@ in
             hide-if-empty = true;
             label-max-length = 60;
             icon-show = false;
-            left-click = "walker -m windows";
+            left-click = "${windowPopupToggle}/bin/wayle-window-popup-toggle";
             border-color = "accent";
             border-show = true;
             label-color = "accent";
@@ -274,6 +330,8 @@ in
           label-color = "accent";
         };
         weather = {
+          location = "37.35411,-121.95549";
+          units = "imperial";
           border-color = "fg-default";
           border-show = true;
           icon-bg-color = "fg-default";
