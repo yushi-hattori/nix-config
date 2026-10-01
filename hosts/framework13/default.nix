@@ -92,19 +92,28 @@
     "nmi_watchdog=1"
   ];
 
-  # Safety net for the QCNCM865 (ath12k). A marginal card/slot contact can make
-  # the driver fault during probe and trigger an AMD data-fabric sync flood that
+  # Safety net for a marginal WiFi card. A bad card/slot contact can make the
+  # driver fault during probe and trigger an AMD data-fabric sync flood that
   # resets the machine in a loop ~5s into boot (reset reason 0x08000800), with no
   # way back into the OS. This specialisation adds a systemd-boot entry
-  # ("... (no-wifi)") that blacklists the ath12k modules, so if the normal entry
-  # is looping we can still boot and reseat/replace the card. Normal boots are
-  # unaffected and keep WiFi. Note: this only helps because the fault is triggered
-  # by the driver probing the card — a fault during PCIe enumeration itself can't
-  # be prevented from software.
+  # ("... (no-wifi)") that blacklists both in-tree WiFi drivers — mt7925e (the
+  # RZ717/MT7925) and ath12k (the QCNCM865) — so if the normal entry is looping we
+  # can still boot and reseat/replace the card. Normal boots are unaffected and
+  # keep WiFi. Note: this only helps because the fault is triggered by the driver
+  # probing the card — a fault during PCIe enumeration itself can't be prevented
+  # from software.
   specialisation.no-wifi.configuration = {
     system.nixos.tags = [ "no-wifi" ];
-    boot.blacklistedKernelModules = [ "ath12k_wifi7" "ath12k" ];
+    boot.blacklistedKernelModules = [
+      "mt7925e" "mt7925_common" "mt792x_lib" "mt76_connac_lib" "mt76"
+      "ath12k_wifi7" "ath12k"
+    ];
     boot.extraModprobeConfig = ''
+      install mt7925e /bin/false
+      install mt7925_common /bin/false
+      install mt792x_lib /bin/false
+      install mt76_connac_lib /bin/false
+      install mt76 /bin/false
       install ath12k_wifi7 /bin/false
       install ath12k /bin/false
     '';
