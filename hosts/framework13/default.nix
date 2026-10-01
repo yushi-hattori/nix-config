@@ -156,11 +156,25 @@
     };
   };
 
-  # USB wakeup: enable for input devices (HID class=03), disable for hubs/storage/BT/misc
-  # to prevent spontaneous sleep aborts/wakeups.
+  # USB wakeup for the thunderbolt dock's keyboard/mouse.
+  #
+  # A USB device can only wake the system if every device in the chain up to the
+  # host controller is armed as a wakeup source. The dock's keyboard/mouse sit
+  # behind several internal hubs, so those hubs MUST have wakeup enabled or a
+  # keypress/move won't propagate a remote-wakeup signal. (This is also why
+  # plugging the dock in while asleep can wake the machine: the dock's hub
+  # connect event fires on the already-armed XHC0 controller.)
+  #
+  # Root hubs (sysfs name "usbN", no dash) are excluded — their wakeup is owned
+  # by the host controller's ACPI wakeup (XHC0 above), not power/wakeup. Only
+  # intermediate/external hubs (name "N-M[...]") are matched.
+  #
+  # Storage (08), wireless (e0) and misc/AV (ef) stay disabled so an attached
+  # drive/radio/audio device can't spuriously abort sleep.
+  #
   # Rules re-fire on dock replug so re-enumerated devices are handled automatically.
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", KERNEL=="*-*", ATTR{power/wakeup}="enabled"
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="08", ATTR{power/wakeup}="disabled"
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="e0", ATTR{power/wakeup}="disabled"
     ACTION=="add", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="ef", ATTR{power/wakeup}="disabled"
