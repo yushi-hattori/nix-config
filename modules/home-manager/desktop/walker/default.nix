@@ -19,6 +19,9 @@
     "elephant/menus/power.lua" = {
       source = lib.mkForce ./elephant/menus/power.lua;
     };
+    "elephant/menus/printing.lua" = {
+      source = lib.mkForce ./elephant/menus/printing.lua;
+    };
     # Sort the app list by usage history when Walker opens with an empty query.
     "elephant/desktopapplications.toml" = {
       source = lib.mkForce ./elephant/desktopapplications.toml;

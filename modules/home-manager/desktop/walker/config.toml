@@ -55,8 +55,9 @@ default = [
   "calc",
   "websearch",
   "menus:power",
+  "menus:printing",
 ]
-empty = ["desktopapplications", "menus:power"]
+empty = ["desktopapplications", "menus:power", "menus:printing"]
 ignore_preview = []
 max_results = 50
 
