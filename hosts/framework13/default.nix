@@ -119,6 +119,16 @@
     '';
   };
 
+  # MT7925 (RZ717) power-management workaround. The card wedges in a low-power
+  # PCIe state across suspend/resume: on wake it either faults the AMD data
+  # fabric (sync flood reset, reason 0x08000800) or is left unresponsive so the
+  # next probe fails ("mt7925e: driver own failed", error -5) until a full
+  # power-off. Disabling the card's ASPM keeps it out of the L1.2 state that
+  # leaves it stuck. See https://community.frame.work/t/83690
+  boot.extraModprobeConfig = ''
+    options mt7925e disable_aspm=1
+  '';
+
   # Sunshine game streaming host
   services.sunshine = {
     enable = true;

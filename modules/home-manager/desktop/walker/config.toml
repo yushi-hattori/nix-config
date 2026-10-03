@@ -101,11 +101,6 @@ provider = "clipboard"
 prefix = "$"
 provider = "windows"
 
-# This maps "p " to your Lua menu
-[[providers.prefixes]]
-prefix = "p"
-provider = "menus:power"
-
 [providers.clipboard]
 time_format = "relative"
 

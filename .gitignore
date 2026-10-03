@@ -3,3 +3,5 @@ files/configs/nvim/lazyvim.json
 .DS_Store
 .aider*
 .env
+/result
+/result
