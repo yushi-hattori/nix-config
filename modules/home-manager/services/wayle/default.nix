@@ -373,7 +373,7 @@ in
           {
             fit-mode = "fill";
             name = "DP-2";
-            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+            wallpaper = toString ../../../../files/wallpapers/wedding-wallpaper.jpg;
           }
           {
             fit-mode = "fill";
