@@ -30,23 +30,18 @@
             # Side Monitor (The one that flips between DP-7 and DP-8)
             criteria = "Dell Inc. DELL S2721D 1PVGP43";
             status = "enable";
-            mode = "2560x1440@59.951";
+            mode = "2560x1440@74.971";
             scale = 1.25;
             transform = "90";
             position = "-1152,-253";
           }
           {
-            # Main Monitor, direct cable
-            criteria = "Unknown Unknown Unknown";
+            # Main Monitor (The one that flips between DP-10 and DP-11)
+            criteria = "Dell Inc. DELL S2721DGF FVM4093";
             status = "enable";
-            mode = "2560x1440@59.951";
+            mode = "2560x1440@143.912";
             scale = 1.25;
             position = "0,0";
-          }
-          {
-            # Same physical monitor via the dock; disable to avoid a duplicate
-            criteria = "Dell Inc. DELL S2721DGF FVM4093";
-            status = "disable";
           }
         ];
       }
@@ -66,7 +61,7 @@
             # Side Monitor (The one that flips between DP-7 and DP-8)
             criteria = "Dell Inc. DELL S2721D 1PVGP43";
             status = "enable";
-            mode = "2560x1440@59.951";
+            mode = "2560x1440@74.971";
             scale = 1.25;
             transform = "90";
             position = "-1152,-253";
@@ -75,45 +70,45 @@
             # Main Monitor (The one that flips between DP-10 and DP-11)
             criteria = "Dell Inc. DELL S2721DGF FVM4093";
             status = "enable";
-            mode = "2560x1440@59.951";
+            mode = "2560x1440@143.912";
             scale = 1.25;
             position = "0,0";
           }
         ];
       }
-      {
-        # Clamshell mode with the Main Monitor on the direct cable instead of
-        # through the dock (see "docked-direct" above). Must come before
-        # "clamshell" so kanshi prefers it whenever both cables are connected
-        # at once.
-        profile.name = "clamshell-direct";
-        profile.exec = [ "systemctl --user restart wayle" ];
-        profile.outputs = [
-          {
-            criteria = "BOE NE135A1M-NY1 Unknown";
-            status = "disable";
-          }
-          {
-            criteria = "Dell Inc. DELL S2721D 1PVGP43";
-            status = "enable";
-            mode = "2560x1440@59.951";
-            scale = 1.25;
-            transform = "90";
-            position = "-1152,-253";
-          }
-          {
-            criteria = "Unknown Unknown Unknown";
-            status = "enable";
-            mode = "2560x1440@59.951";
-            scale = 1.25;
-            position = "0,0";
-          }
-          {
-            criteria = "Dell Inc. DELL S2721DGF FVM4093";
-            status = "disable";
-          }
-        ];
-      }
+      # {
+      #   # Clamshell mode with the Main Monitor on the direct cable instead of
+      #   # through the dock (see "docked-direct" above). Must come before
+      #   # "clamshell" so kanshi prefers it whenever both cables are connected
+      #   # at once.
+      #   profile.name = "clamshell-direct";
+      #   profile.exec = [ "systemctl --user restart wayle" ];
+      #   profile.outputs = [
+      #     {
+      #       criteria = "BOE NE135A1M-NY1 Unknown";
+      #       status = "disable";
+      #     }
+      #     {
+      #       criteria = "Dell Inc. DELL S2721D 1PVGP43";
+      #       status = "enable";
+      #       mode = "2560x1440@59.951";
+      #       scale = 1.25;
+      #       transform = "90";
+      #       position = "-1152,-253";
+      #     }
+      #     {
+      #       criteria = "Unknown Unknown Unknown";
+      #       status = "enable";
+      #       mode = "2560x1440@59.951";
+      #       scale = 1.25;
+      #       position = "0,0";
+      #     }
+      #     {
+      #       criteria = "Dell Inc. DELL S2721DGF FVM4093";
+      #       status = "disable";
+      #     }
+      #   ];
+      # }
       {
         # Clamshell mode: Thunderbolt dock connected, laptop lid closed.
         # Laptop screen disabled; only external monitors active.
@@ -127,7 +122,7 @@
           {
             criteria = "Dell Inc. DELL S2721D 1PVGP43";
             status = "enable";
-            mode = "2560x1440@59.951";
+            mode = "2560x1440@74.971";
             scale = 1.25;
             transform = "90";
             position = "-1152,-253";
@@ -135,7 +130,7 @@
           {
             criteria = "Dell Inc. DELL S2721DGF FVM4093";
             status = "enable";
-            mode = "2560x1440@59.951";
+            mode = "2560x1440@143.912";
             scale = 1.25;
             position = "0,0";
           }
