@@ -169,7 +169,7 @@ binds {
     Mod+L { focus-column-right; }
     Mod+Tab { focus-column-right; }
     // Cycle the focused window/column through every connected monitor.
-    Mod+Shift+Tab { move-column-to-monitor-next; }
+    Mod+Shift+Tab { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh next"; }
     Mod+Right { spawn "wtype" "-k" "End"; }
     Mod+Home { focus-column-first; }
     Mod+End { focus-column-last; }
@@ -218,15 +218,15 @@ binds {
     // Native Directional
     Mod+Shift+Left { focus-monitor-left; }
     Mod+Shift+Right { focus-monitor-right; }
-    Mod+Ctrl+Shift+H { move-column-to-monitor-left; }
-    Mod+Ctrl+Shift+J { move-column-to-monitor-down; }
-    Mod+Ctrl+Shift+K { move-column-to-monitor-up; }
-    Mod+Ctrl+Shift+L { move-column-to-monitor-right; }
+    Mod+Ctrl+Shift+H { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh left"; }
+    Mod+Ctrl+Shift+J { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh down"; }
+    Mod+Ctrl+Shift+K { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh up"; }
+    Mod+Ctrl+Shift+L { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh right"; }
 
-    Mod+Shift+Ctrl+Left { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+Up { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+Left { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh left"; }
+    Mod+Shift+Ctrl+Down { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh down"; }
+    Mod+Shift+Ctrl+Up { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh up"; }
+    Mod+Shift+Ctrl+Right { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh right"; }
     Mod+Ctrl+H   { focus-monitor-left; }
     Mod+Ctrl+J   { focus-monitor-down; }
     Mod+Ctrl+K   { focus-monitor-up; }

@@ -100,6 +100,11 @@ in
     executable = true;
   };
 
+  xdg.configFile."niri/move_column.sh" = {
+    source = ./move_column.sh;
+    executable = true;
+  };
+
   xdg.configFile."niri/toggle_center.sh" = {
     source = ./toggle_center.sh;
     executable = true;

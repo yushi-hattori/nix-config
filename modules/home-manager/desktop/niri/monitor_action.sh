@@ -49,4 +49,8 @@ if [ "$ACTION" == "focus" ]; then
   niri msg action focus-monitor "$TARGET"
 elif [ "$ACTION" == "move" ]; then
   niri msg action move-column-to-monitor "$TARGET"
+  # Reset the window height to "automatic" (full height). See move_column.sh
+  # for the niri bug this works around when moving across monitors of
+  # different scale/resolution.
+  niri msg action reset-window-height
 fi
