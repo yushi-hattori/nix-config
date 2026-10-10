@@ -92,6 +92,24 @@
     "nmi_watchdog=1"
   ];
 
+  # Backport of the upstream amdgpu ISM dc_lock deadlock fix (CVE-2026-68364).
+  # Our 2026-07-01 nixpkgs lock gives linuxPackages_latest = 7.1.2, which sits
+  # inside the 7.1.0-7.1.5 window where amdgpu_dm_ism_disable() holds dc_lock
+  # while waiting on ISM delayed work that also takes dc_lock -> ABBA deadlock
+  # that hard-freezes the machine on s2idle (the journal stops dead at
+  # "PM: suspend entry (s2idle)" with no resume, no panic, recovery only by cold
+  # restart). Triggers especially when video was playing at suspend time.
+  # Fixed upstream in stable 7.1.6 / mainline 7.2-rc1. We vendor the single
+  # stable backport commit (95776812e6b8) so the rest of the pinned lock stays
+  # frozen -> a clean A/B test of just this one change.
+  # TODO: drop this once the pinned kernel is >= 7.1.6 (e.g. after a flake update).
+  boot.kernelPatches = [
+    {
+      name = "amdgpu-ism-dc-lock-deadlock-fix";
+      patch = ./patches/amdgpu-ism-dc-lock-deadlock-fix.patch;
+    }
+  ];
+
   # Safety net for a marginal WiFi card. A bad card/slot contact can make the
   # driver fault during probe and trigger an AMD data-fabric sync flood that
   # resets the machine in a loop ~5s into boot (reset reason 0x08000800), with no
