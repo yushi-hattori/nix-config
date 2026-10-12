@@ -85,10 +85,9 @@ in
   # self-contained: repo wallpaper/avatar, an installed font (Roboto in place of
   # SF Pro), playerctl for now-playing (in place of the repo's script), and our
   # concurrent auth block added (upstream Style-9 has no fingerprint support).
-  xdg.configFile."hypr/hyprlock.conf".text = builtins.replaceStrings
-    [ "@WALLPAPER@" "@AVATAR@" ]
-    [ "${config.wallpaper}" "${squareAvatar}" ]
-    (builtins.readFile ./hyprlock.conf);
+  xdg.configFile."hypr/hyprlock.conf".text =
+    builtins.replaceStrings [ "@WALLPAPER@" "@AVATAR@" ] [ "${config.wallpaper}" "${squareAvatar}" ]
+      (builtins.readFile ./hyprlock.conf);
 
   services.hypridle = {
     enable = true;
@@ -110,16 +109,16 @@ in
     executable = true;
   };
 
-  # hyprlock lock-screen widgets (weather + hourly joke/fun-fact quote).
-  xdg.configFile."niri/weather.sh" = {
-    source = ./weather.sh;
-    executable = true;
-  };
-
-  xdg.configFile."niri/quote.sh" = {
-    source = ./quote.sh;
-    executable = true;
-  };
+  # # hyprlock lock-screen widgets (weather + hourly joke/fun-fact quote).
+  # xdg.configFile."niri/weather.sh" = {
+  #   source = ./weather.sh;
+  #   executable = true;
+  # };
+  #
+  # xdg.configFile."niri/quote.sh" = {
+  #   source = ./quote.sh;
+  #   executable = true;
+  # };
 
   # Set GNOME-like desktop settings
   dconf.settings = {
