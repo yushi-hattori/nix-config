@@ -394,7 +394,7 @@ in
           {
             fit-mode = "fill";
             name = "eDP-1";
-            wallpaper = toString ../../../../files/wallpapers/apollo-wallpaper.jpg;
+            wallpaper = toString ../../../../files/wallpapers/wedding-wallpaper.jpg;
           }
           # Main monitor: flips between DP-10/DP-11
           {
