@@ -8,6 +8,7 @@
     ./ai
     ./apps
     ./theme
+    ./desktop
     ./scripts
     ./services
   ];

@@ -1,6 +1,7 @@
 { constants, ... }:
 {
   imports = [
+    ../../shared/desktop
     ../../shared/services
     ./hardware
     ./boot

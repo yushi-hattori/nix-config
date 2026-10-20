@@ -10,4 +10,5 @@
   opencode-latest = import ./opencode-latest.nix;
   zellij-latest = import ./zellij-latest.nix;
   yazi-latest = import ./yazi-latest.nix;
+  libdisplay-info = import ./libdisplay-info.nix { inherit inputs; };
 }
