@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# ocr — screenshot a region and copy its text.
+#
+# grim+slurp selects a region, tesseract OCRs it, wl-copy puts the text on the
+# clipboard (needs grim, slurp, tesseract, wl-clipboard).
+
+set -eo pipefail
+
+grim -t png -g "$(slurp)" - |
+	tesseract stdin stdout -l "eng" |
+	tr -d '\f' | wl-copy

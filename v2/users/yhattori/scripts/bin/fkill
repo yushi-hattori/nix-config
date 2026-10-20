@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# fkill — fuzzy-kill a process.
+#
+# Lists running processes, fzf-picks one, and kills it (SIGKILL by default;
+# pass a signal number to override).
+
+pid=$(ps -ef | sed 1d | fzf | awk '{print $2}')
+
+if [ "x$pid" != "x" ]; then
+	sudo kill -"${1:-9}" "$pid"
+fi

@@ -1,6 +1,7 @@
 { constants, ... }:
 {
   imports = [
+    ../../shared/services
     ./hardware
     ./boot
     ./power

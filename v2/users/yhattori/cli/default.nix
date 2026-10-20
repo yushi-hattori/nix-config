@@ -1,0 +1,19 @@
+{
+  imports = [
+    ./eza.nix
+    ./fd.nix
+    ./ripgrep.nix
+    ./dust.nix
+    ./jq.nix
+    ./yazi.nix
+    ./wget.nix
+    ./unzip.nix
+    ./playerctl.nix
+    ./wl-clipboard.nix
+    ./tesseract.nix
+    ./bluetui.nix
+    ./nmtui-go.nix
+    ./nh.nix
+    ./btop.nix
+  ];
+}

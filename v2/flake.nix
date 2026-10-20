@@ -7,6 +7,7 @@
     { nixpkgs, home-manager, ... }@inputs:
     let
       constants = import ./constants.nix;
+      overlays = import ./overlays { inherit inputs; };
     in
     {
       nixosConfigurations.${constants.hostname} = nixpkgs.lib.nixosSystem {
@@ -20,6 +21,15 @@
           pkgs = import nixpkgs {
             system = constants.system;
             config.allowUnfree = true;
+            overlays = [
+              overlays.stable-packages
+              overlays.nmtui-go
+              inputs.opencode.overlays.default
+              overlays.opencode-latest
+              overlays.zellij-latest
+              overlays.yazi-latest
+              inputs.antigravity-nix.overlays.default
+            ];
           };
           extraSpecialArgs = { inherit inputs constants; };
           modules = [ ./users/${constants.user.name} ];
