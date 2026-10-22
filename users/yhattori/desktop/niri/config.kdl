@@ -1,0 +1,206 @@
+// Niri configuration file (KDL)
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            options "caps:ctrl_modifier"
+        }
+        numlock
+        repeat-delay 200
+        repeat-rate 60
+    }
+
+    touchpad {
+        tap
+        dwt
+    }
+
+    warp-mouse-to-focus
+}
+
+layout {
+    gaps 0
+
+    preset-column-widths {
+        proportion 0.25
+        proportion 0.5
+        proportion 0.75
+        proportion 1.0
+    }
+
+    default-column-width { proportion 1.0; }
+
+    border { off; }
+    shadow { off; }
+    struts { }
+}
+
+// DMS runs as a systemd user service, so it's not spawned here.
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
+spawn-at-startup "systemctl" "--user" "start" "graphical-session.target"
+
+environment {
+    DISPLAY ":0"
+}
+
+hotkey-overlay { }
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+animations { }
+
+window-rule {
+    open-maximized true
+}
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+    open-fullscreen false
+}
+
+window-rule {
+    match title="btop"
+    open-floating true
+    open-fullscreen false
+    default-column-width { proportion 0.8; }
+    default-window-height { proportion 0.8; }
+}
+
+window-rule {
+    match app-id="^Autodesk Fusion 360$" title="already open"
+    open-floating true
+    open-fullscreen false
+}
+
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // Apps
+    Mod+Return { spawn "ghostty"; }
+    Mod+E { spawn "nautilus"; }
+
+    // Screenshots
+    Print { spawn-sh "grim -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename \"~/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png\" --actions-on-enter save-to-clipboard"; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+    Ctrl+Shift+S { spawn-sh "grim -g \"$(slurp)\" -t ppm - | satty --filename - --fullscreen --copy-command wl-copy --output-filename \"~/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png\" --actions-on-enter save-to-clipboard"; }
+
+    // Window management
+    Mod+S { expel-window-from-column; }
+    Mod+Shift+S { consume-window-into-column; }
+    Mod+O { toggle-overview; }
+    Mod+Q { close-window; }
+    Mod+F { switch-preset-column-width; }
+    Mod+Shift+F { switch-preset-column-width-back; }
+    Mod+M { fullscreen-window; }
+    Mod+Ctrl+C { center-visible-columns; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+
+    // Focus
+    Mod+Left { spawn "wtype" "-k" "Home"; }
+    Mod+Down { focus-window-down; }
+    Mod+Up { focus-window-up; }
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-or-workspace-down; }
+    Mod+K { focus-window-or-workspace-up; }
+    Mod+L { focus-column-right; }
+    Mod+Tab { focus-column-right; }
+    Mod+Shift+Tab { spawn "bash" "-c" "/home/yhattori/.config/niri/move_column.sh next"; }
+    Mod+Right { spawn "wtype" "-k" "End"; }
+    Mod+Home { focus-column-first; }
+    Mod+End { focus-column-last; }
+
+    // Movement
+    Mod+Ctrl+Left { move-column-left; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+L { move-column-right; }
+    Mod+Shift+J { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K { move-window-up-or-to-workspace-up; }
+    Mod+Shift+Down { move-window-down-or-to-workspace-down; }
+    Mod+Shift+Up { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End { move-column-to-last; }
+    Mod+W { toggle-column-tabbed-display; }
+
+    // Column width
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { reset-window-height; }
+    Mod+Ctrl+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+Period { expel-window-from-column; }
+    Mod+BracketLeft { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // Monitor actions (slot-based)
+    Mod+1 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh focus 1"; }
+    Mod+2 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh focus 2"; }
+    Mod+3 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh focus 3"; }
+    Mod+Shift+1 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh move 1"; }
+    Mod+Shift+2 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh move 2"; }
+    Mod+Shift+3 { spawn "bash" "-c" "/home/yhattori/.config/niri/monitor_action.sh move 3"; }
+
+    // Directional
+    Mod+Shift+Left { focus-monitor-left; }
+    Mod+Shift+Right { focus-monitor-right; }
+    Mod+Ctrl+H { focus-monitor-left; }
+    Mod+Ctrl+J { focus-monitor-down; }
+    Mod+Ctrl+K { focus-monitor-up; }
+    Mod+Ctrl+L { focus-monitor-right; }
+
+    // Workspaces
+    Mod+Page_Down { focus-workspace-down; }
+    Mod+Page_Up { focus-workspace-up; }
+    Mod+U { focus-workspace-down; }
+    Mod+I { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up { move-column-to-workspace-up; }
+    Mod+Ctrl+U { move-column-to-workspace-down; }
+    Mod+Ctrl+I { move-column-to-workspace-up; }
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up { move-workspace-up; }
+    Mod+Shift+U { move-workspace-down; }
+    Mod+Shift+I { move-workspace-up; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+WheelScrollRight { focus-column-right; }
+    Mod+WheelScrollLeft { focus-column-left; }
+
+    // System
+    Mod+Shift+E { quit; }
+    Ctrl+Alt+Delete { quit; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+P { power-off-monitors; }
+}
+
+// DMS-generated config (written at runtime; optional so niri tolerates a
+// first boot before DMS has created them).
+include optional=true "dms/colors.kdl"
+include optional=true "dms/cursor.kdl"
+include optional=true "dms/layout.kdl"
+include optional=true "dms/outputs.kdl"
+include optional=true "dms/windowrules.kdl"
+include optional=true "dms/wpblur.kdl"
+include optional=true "dms/alttab.kdl"
+include optional=true "dms/binds.kdl"

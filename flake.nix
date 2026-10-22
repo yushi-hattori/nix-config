@@ -1,137 +1,95 @@
 {
-  description = "NixOS configs for my machines";
-  inputs = {
-    # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+  description = "yhattori's NixOS configuration (v2)";
 
-    # Home manager
+  # Flake inputs. NOTE: the flake evaluator requires `inputs` to be a *literal*
+  # attrset — an `import` (of individual files or a computed set) is rejected as
+  # a lazy thunk. So specs live inline here, not in inputs/*.nix.
+  inputs = {
+    # primary package set (unstable); `stable` is nixpkgs-stable below
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # pinned stable channel, backs the stable-packages overlay (pkgs.stable.*)
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+
+    # TEMP kernel pin. nixpkgs' linuxPackages_latest moved to 7.2.11, which
+    # kernel-panics on this Framework 13 ~1 min after boot. This rev is the last
+    # known-good snapshot (its linuxPackages_latest = 7.1.2, the kernel that boots
+    # stable with working WiFi + DMS). Pinned to an exact rev so it never drifts;
+    # intentionally does NOT follow nixpkgs. Drop once 7.2.x boots cleanly.
+    nixpkgs-kernel.url = "github:nixos/nixpkgs/65179426c83bb3f6bc14898b42ea1c6f01d374b0";
+
+    # per-user config
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # NixOS profiles to optimize settings for different hardware
+    # Framework 13 AMD + common cpu/gpu/ssd profiles
     hardware.url = "github:nixos/nixos-hardware";
 
-    # Global catppuccin theme
-    catppuccin.url = "github:catppuccin/nix";
-
-    # Declarative flatpak manager
+    # declarative flatpak (Zoom, Bambu Studio)
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=v0.6.0";
 
-    # Extras
-
-    claude-code.url = "github:sadjow/claude-code-nix";
-
+    # opencode AI coding agent (+ opencode-latest overlay)
     opencode.url = "github:dan-online/opencode-nix";
 
+    # Google Antigravity agentic IDE (google-antigravity-cli via overlay)
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Zen browser (twilight home module)
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
-      # to have it up-to-date or simply don't specify the nixpkgs input
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # OpenChamber web UI for OpenCode (nixosModules.openchamber)
+    # openchamber.url = "github:openchamber/openchamber";  # disabled: stale bun-deps hash
 
-    herdr = {
-      url = "github:ogulcancelik/herdr";
+    # DankMaterialShell — desktop shell for niri (stable branch)
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Save/restore the niri window layout across sessions
-    nirinit = {
-      url = "github:amaanq/nirinit";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.fenix.inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
-    {
-      self,
-      catppuccin,
-      home-manager,
-      nixpkgs,
-      claude-code,
-      opencode,
-      antigravity-nix,
-      herdr,
-      ...
-    }@inputs:
+    { nixpkgs, home-manager, ... }@inputs:
     let
-      inherit (self) outputs;
-
-      # Define user configurations
-      users = {
-        "yhattori" = {
-          avatar = ./files/avatar/Apollo.jpg;
-          email = "yushi.t.hattori@gmail.com";
-          fullName = "Yushi Hattori";
-          gitKey = "0x6333B18ED1EDED4D";
-          name = "yhattori";
-        };
-      };
-
-      # Function for NixOS system configuration
-      mkNixosConfiguration =
-        hostname: username:
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = users.${username};
-            nixosModules = "${self}/modules/nixos";
-          };
-          modules = [ ./hosts/${hostname} ];
-        };
-
-      # Function for Home Manager configuration
-      mkHomeConfiguration =
-        system: username: hostname:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [
-              outputs.overlays.stable-packages
-              outputs.overlays.nmtui-go
-              claude-code.overlays.default
-              opencode.overlays.default
-              outputs.overlays.opencode-latest
-              outputs.overlays.zellij-latest
-              outputs.overlays.yazi-latest
-              antigravity-nix.overlays.default
-              herdr.overlays.default
-            ];
-          };
-          extraSpecialArgs = {
-            inherit inputs outputs;
-            userConfig = users.${username};
-            nhModules = "${self}/modules/home-manager";
-          };
-          modules = [
-            ./home/${username}/${hostname}
-            catppuccin.homeModules.catppuccin
-          ];
-        };
+      constants = import ./constants.nix;
+      overlays = import ./overlays { inherit inputs; };
     in
     {
-      nixosConfigurations = {
-        framework13 = mkNixosConfiguration "framework13" "yhattori";
+      nixosConfigurations.${constants.hostname} = nixpkgs.lib.nixosSystem {
+        system = constants.system;
+        specialArgs = { inherit inputs constants; };
+        modules = [
+          ./nixos/machines/${constants.hostname}
+          {
+            nixpkgs.config.allowUnfree = true;
+          }
+        ];
       };
 
-      homeConfigurations = {
-        "yhattori@framework13" = mkHomeConfiguration "x86_64-linux" "yhattori" "framework13";
-      };
-
-      overlays = import ./overlays { inherit inputs; };
+      homeConfigurations."${constants.user.name}@${constants.hostname}" =
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = constants.system;
+            config.allowUnfree = true;
+            overlays = [
+              overlays.stable-packages
+              overlays.nmtui-go
+              inputs.opencode.overlays.default
+              overlays.opencode-latest
+              overlays.zellij-latest
+              overlays.yazi-latest
+              inputs.antigravity-nix.overlays.default
+            ];
+          };
+          extraSpecialArgs = { inherit inputs constants; };
+          modules = [ ./users/${constants.user.name} ];
+        };
     };
 }
