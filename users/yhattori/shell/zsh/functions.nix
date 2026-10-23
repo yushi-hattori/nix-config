@@ -6,8 +6,18 @@
 { constants, lib, ... }:
 {
   programs.zsh.initContent = lib.mkAfter ''
+    # Copy the live DMS settings into the repo so home-manager can keep it
+    # declarative (see users/yhattori/desktop/dms.nix). Run before every uphm.
+    dms-pull() {
+      local dst="${constants.nixConfigDir}/users/${constants.user.name}/desktop/dms/settings.json"
+      if [ -f "$HOME/.config/dms/settings.json" ]; then
+        cp "$HOME/.config/dms/settings.json" "$dst"
+      elif [ -f "$HOME/.config/DankMaterialShell/settings.json" ]; then
+        cp "$HOME/.config/DankMaterialShell/settings.json" "$dst"
+      fi
+    }
     upfw() { cd ${constants.nixConfigDir} && sudo nixos-rebuild switch --flake .#framework13; }
-    uphm() { cd ${constants.nixConfigDir} && home-manager switch --flake .#yhattori@framework13 -b backup && niri msg action load-config-file; }
+    uphm() { cd ${constants.nixConfigDir} && dms-pull && home-manager switch --flake .#yhattori@framework13 -b backup && niri msg action load-config-file; }
     upall() { upfw && uphm; }
     update-bios() { fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update; }
 
@@ -42,8 +52,9 @@
       echo "  ..              cd .."
       echo ""
       echo "functions:"
+      echo "  dms-pull        copy live DMS settings into the repo"
       echo "  upfw            rebuild system (nixos-rebuild)"
-      echo "  uphm            rebuild home-manager"
+      echo "  uphm            rebuild home-manager (runs dms-pull first)"
       echo "  upall           upfw + uphm"
       echo "  update-bios     fwupdmgr update"
     }

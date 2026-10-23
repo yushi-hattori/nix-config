@@ -26,6 +26,7 @@
 #     ..            cd ..                               (this file)
 #
 # Functions (multi-step, not aliases):
+#   dms-pull     copy live DMS settings into repo     shell/zsh/functions.nix
 #   upfw         rebuild system                        shell/zsh/functions.nix
 #   uphm         rebuild home-manager                  shell/zsh/functions.nix
 #   upall        upfw + uphm                           shell/zsh/functions.nix
