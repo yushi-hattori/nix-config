@@ -20,6 +20,12 @@
 
   services.blueman.enable = true;
   services.fprintd.enable = true;
+  # fprintd injects pam_fprintd.so into every PAM service by default, which
+  # makes DMS's lock screen (using the login PAM) require fingerprint *and*
+  # password. Disable the chaining here so the PAM auth is password-only; DMS
+  # can do fingerprint via fprintd's D-Bus API instead (concurrent, either one
+  # unlocks) from its own Lock Screen settings.
+  security.pam.services.login.fprintAuth = false;
 
   # Security, keyring, and file services (DMS needs polkit for its auth agent).
   services.gnome.gnome-keyring.enable = true;
