@@ -3,7 +3,7 @@
 # Powers most of the scripts (fif, fkill, cd-to-project) and general fuzzy
 # selection. Ctrl-R history search is disabled here (atuin owns it); the bind
 # sends selection to nvim (ctrl-e) or the clipboard (ctrl-y).
-{ ... }:
+{ pkgs, ... }:
 {
   programs.fzf = {
     enable = true;
@@ -24,4 +24,7 @@
       "--prompt='~ ' --pointer='▶' --marker='✓'"
     ];
   };
+
+  # The preview uses `tree` for directories.
+  home.packages = [ pkgs.tree ];
 }

@@ -10,7 +10,7 @@
     settings = {
       add_newline = false;
       directory = {
-        style = "bold lavender";
+        style = "bold #d0bcff";
       };
       docker_context = { symbol = " "; };
       golang = { symbol = " "; };

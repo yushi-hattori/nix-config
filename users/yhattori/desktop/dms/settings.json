@@ -278,5 +278,8 @@
       "trigger": "qrg"
     }
   },
-  "configVersion": 18
+  "configVersion": 18,
+  "lockBeforeSuspend": true,
+  "acSuspendTimeout": 900,
+  "batterySuspendTimeout": 900
 }

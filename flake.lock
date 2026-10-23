@@ -60,6 +60,26 @@
         "type": "github"
       }
     },
+    "dsearch": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792684013,
+        "narHash": "sha256-JRiqnNHPyXhZiR/RuFksCrX0768S+PVsSOmux6a2lYU=",
+        "owner": "duxlabs-dev",
+        "repo": "dux-search",
+        "rev": "646b0e046f4c806de9501892b9c38fd11612092e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "duxlabs-dev",
+        "repo": "dux-search",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -287,6 +307,7 @@
       "inputs": {
         "antigravity-nix": "antigravity-nix",
         "dms": "dms",
+        "dsearch": "dsearch",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",

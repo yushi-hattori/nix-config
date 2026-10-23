@@ -191,6 +191,17 @@ binds {
     Mod+WheelScrollRight { focus-column-right; }
     Mod+WheelScrollLeft { focus-column-left; }
 
+    // Media keys
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "--increase" "10"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "--decrease" "10"; }
+    XF86AudioMute allow-when-locked=true { spawn "pamixer" "--toggle-mute"; }
+    XF86AudioMicMute allow-when-locked=true { spawn "pamixer" "--default-source" "--toggle-mute"; }
+    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "10%-"; }
+
     // System
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }

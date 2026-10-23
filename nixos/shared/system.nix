@@ -9,7 +9,10 @@
   time.timeZone = "America/Los_Angeles";
 
   # Nix flakes + new CLI (required by `nixos-rebuild --flake`/`home-manager --flake`)
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
+  };
 
   # Passwordless sudo (wheel group)
   security.sudo.wheelNeedsPassword = false;
@@ -93,6 +96,7 @@
     killall
     mesa
     usbutils
+    pciutils
     claude-code
   ];
 }

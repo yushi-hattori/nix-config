@@ -7,7 +7,6 @@
     ./tlp.nix
     ./ollama.nix
     ./sunshine.nix
-    ./kdeconnect.nix
     ./waydroid.nix
     ./nix-ld.nix
   ];

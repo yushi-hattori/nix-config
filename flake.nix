@@ -53,6 +53,12 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # dsearch — indexed filesystem search (backs DMS's launcher file search)
+    dsearch = {
+      url = "github:duxlabs-dev/dux-search";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

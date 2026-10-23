@@ -3,7 +3,7 @@
 # Material theme (materia) so GTK apps match DankMaterialShell's Material 3 look.
 # Icon/cursor/font are carried over (Tela icons, Yaru cursor, Roboto).
 # TODO: confirm the theme name/variant against the DMS palette once that lands.
-{ constants, pkgs, ... }:
+{ config, constants, pkgs, ... }:
 {
   gtk = {
     enable = true;
@@ -11,6 +11,7 @@
       name = "Materia-dark";
       package = pkgs.materia-theme;
     };
+    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;

@@ -6,7 +6,19 @@
 # copies the live file into ./dms/settings.json before every `uphm`, and the
 # activation below writes it back out as a real (writable) file. We can't use a
 # home-manager symlink here because DMS needs to write to it at runtime.
+#
+# Power/lock settings are overlaid on top of the pulled settings so they survive
+# the live->repo round-trip (DMS only writes them when changed in its UI, and
+# its defaults are lock-before-suspend=false and never suspend).
 { inputs, pkgs, lib, ... }:
+let
+  settings = builtins.fromJSON (builtins.readFile ./dms/settings.json);
+  mergedSettings = settings // {
+    lockBeforeSuspend = true;
+    acSuspendTimeout = 900; # seconds; 15 min (old hypridle idle timeout)
+    batterySuspendTimeout = 900;
+  };
+in
 {
   imports = [ inputs.dms.homeModules.dank-material-shell ];
 
@@ -25,6 +37,7 @@
 
   home.activation.dms-settings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ${pkgs.coreutils}/bin/install -D -m644 \
-      ${./dms/settings.json} "$HOME/.config/dms/settings.json"
+      ${pkgs.writeText "dms-settings.json" (builtins.toJSON mergedSettings)} \
+      "$HOME/.config/dms/settings.json"
   '';
 }
