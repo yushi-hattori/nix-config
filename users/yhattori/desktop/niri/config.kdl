@@ -1,5 +1,8 @@
 // Niri configuration file (KDL)
 
+// center-focused-column toggle (see toggle_center.sh). Toggled at runtime.
+include "centering.kdl"
+
 input {
     keyboard {
         xkb {
@@ -103,11 +106,13 @@ binds {
     Mod+S { expel-window-from-column; }
     Mod+Shift+S { consume-window-into-column; }
     Mod+O { toggle-overview; }
+    Ctrl+Shift+Space { toggle-overview; }
     Mod+Q { close-window; }
     Mod+F { switch-preset-column-width; }
     Mod+Shift+F { switch-preset-column-width-back; }
     Mod+M { fullscreen-window; }
     Mod+Ctrl+C { center-visible-columns; }
+    Mod+T { spawn "bash" "-c" "/home/yhattori/.config/niri/toggle_center.sh"; }
     Mod+Ctrl+F { expand-column-to-available-width; }
 
     // Focus

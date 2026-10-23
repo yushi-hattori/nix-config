@@ -6,6 +6,15 @@
 {
   xdg.configFile = {
     "niri/config.kdl".source = ./niri/config.kdl;
+    # toggle_center.sh rewrites this at runtime; force reclaims it on rebuild.
+    "niri/centering.kdl" = {
+      source = ./niri/centering.kdl;
+      force = true;
+    };
+    "niri/toggle_center.sh" = {
+      source = ./niri/toggle_center.sh;
+      executable = true;
+    };
     "niri/monitor_action.sh" = {
       source = ./niri/monitor_action.sh;
       executable = true;
