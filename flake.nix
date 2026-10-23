@@ -45,8 +45,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # OpenChamber web UI for OpenCode (nixosModules.openchamber)
-    # openchamber.url = "github:openchamber/openchamber";  # disabled: stale bun-deps hash
+    # OpenChamber web UI for OpenCode (nixosModules.openchamber). Pinned to the
+    # last commit whose flake opencode pin matches packages/electron's opencode
+    # CLI (v2.1.3). HEAD currently drifts (packages/electron bumped to 2.1.4
+    # before the flake tag/hashes were re-baked), which fails the flake's
+    # throwIf assertion. Bump to a newer rev once upstream re-bakes.
+    openchamber.url = "github:openchamber/openchamber/713ed779adb9ff91e6a8bfec11b317893d52ca8d";
 
     # DankMaterialShell — desktop shell for niri (stable branch)
     dms = {

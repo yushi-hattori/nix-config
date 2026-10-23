@@ -1,7 +1,7 @@
 {
   imports = [
     ./framework-control.nix
-    # ./openchamber.nix  # disabled: stale bun-deps hash in the openchamber flake
+    ./openchamber.nix
     ./auto-timezone.nix
     ./printing.nix
     ./tlp.nix
