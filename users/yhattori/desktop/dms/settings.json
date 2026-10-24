@@ -377,6 +377,9 @@
       "widgetTransparency": 1
     }
   ],
+  "batteryAutoPowerSaver": true,
+  "batteryLowThreshold": 20,
+  "batteryNotifyLow": true,
   "batterySuspendTimeout": 900,
   "blurBorderEnabled": false,
   "blurBorderSeeded": true,
@@ -446,6 +449,7 @@
     }
   ],
   "displayNameMode": "model",
+  "displayPreviousRefreshModes": {},
   "displayShowDisconnected": false,
   "dmsWindowsFloatingSeeded": [
     "niri"
@@ -744,8 +748,9 @@
       "widgetType": "lockPower"
     }
   ],
+  "lowerDisplayRefreshRateOnBattery": false,
   "motionEffect": 0,
-  "mouseNaturalScroll": true,
+  "mouseNaturalScroll": false,
   "mouseScrollFactor": 1,
   "muxType": "zellij",
   "networkPreference": "wifi",

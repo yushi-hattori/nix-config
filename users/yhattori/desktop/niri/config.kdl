@@ -40,7 +40,8 @@ layout {
 }
 
 // DMS runs as a systemd user service, so it's not spawned here.
-spawn-at-startup "xwayland-satellite"
+// xwayland-satellite is spawned by niri's built-in Xwayland integration on :0
+// (no manual spawn-at-startup needed; a second one just adds an unused :1).
 spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "systemctl" "--user" "start" "graphical-session.target"
@@ -93,7 +94,6 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Apps
-    Mod+Return { spawn "ghostty"; }
     Mod+E { spawn "nautilus"; }
 
     // Screenshots

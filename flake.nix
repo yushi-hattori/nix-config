@@ -79,7 +79,7 @@
           ./nixos/machines/${constants.hostname}
           {
             nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = [ overlays.openchamber ];
+            nixpkgs.overlays = [ overlays.openchamber overlays.xwayland-satellite-dark ];
           }
         ];
       };
@@ -95,6 +95,7 @@
               overlays.openchamber
               overlays.zellij-latest
               overlays.yazi-latest
+              overlays.qtengine
               inputs.antigravity-nix.overlays.default
             ];
           };

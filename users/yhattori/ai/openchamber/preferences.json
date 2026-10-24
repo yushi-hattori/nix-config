@@ -147,7 +147,7 @@
       }
     },
     "recentModels": {
-      "updatedAt": 1792870506891,
+      "updatedAt": 1792885748098,
       "value": [
         {
           "modelID": "deepseek-flash",
@@ -180,8 +180,8 @@
       "value": "dark"
     },
     "workStatusPanelEnabled": {
-      "updatedAt": 1792821864846,
-      "value": true
+      "updatedAt": 1792878616552,
+      "value": false
     }
   },
   "version": 1

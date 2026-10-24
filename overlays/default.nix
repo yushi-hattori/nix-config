@@ -10,4 +10,6 @@
   openchamber = import ./openchamber.nix { inherit inputs; };
   zellij-latest = import ./zellij-latest.nix;
   yazi-latest = import ./yazi-latest.nix;
+  qtengine = import ./qtengine.nix;
+  xwayland-satellite-dark = import ./xwayland-satellite-dark.nix;
 }
