@@ -1,0 +1,169 @@
+{
+  "fields": {
+    "allowPromptingSubagentSessions": {
+      "updatedAt": 1792822756367,
+      "value": true
+    },
+    "autoSaveEnabled": {
+      "updatedAt": 1792822655263,
+      "value": true
+    },
+    "collapsedModelProviders": {
+      "updatedAt": 1792820006032,
+      "value": []
+    },
+    "customProviderIcons": {
+      "updatedAt": 1792820006032,
+      "value": {}
+    },
+    "darkThemeId": {
+      "surfaces": {
+        "desktop": {
+          "updatedAt": 1792821908667,
+          "value": "tokyonight-dark"
+        }
+      },
+      "updatedAt": 1792818392091,
+      "value": "openchamber-dark"
+    },
+    "defaultAgent": {
+      "updatedAt": 1792822799908,
+      "value": "build"
+    },
+    "defaultModel": {
+      "updatedAt": 1792822792992,
+      "value": "deepseek/deepseek-v4-pro"
+    },
+    "enterToSend": {
+      "updatedAt": 1792826583587,
+      "value": true
+    },
+    "enterToSendConfigured": {
+      "updatedAt": 1792822760231,
+      "value": true
+    },
+    "favoriteAgents": {
+      "updatedAt": 1792820006032,
+      "value": []
+    },
+    "favoriteModels": {
+      "updatedAt": 1792820006032,
+      "value": []
+    },
+    "fileEditorKeymap": {
+      "updatedAt": 1792822652748,
+      "value": "vim"
+    },
+    "fileTreeSide": {
+      "updatedAt": 1792822657487,
+      "value": "right"
+    },
+    "filesViewShowGitignored": {
+      "updatedAt": 1792822865338,
+      "value": true
+    },
+    "gitmojiEnabled": {
+      "updatedAt": 1792822862952,
+      "value": true
+    },
+    "hiddenModels": {
+      "updatedAt": 1792820006032,
+      "value": []
+    },
+    "largeTextPasteBehavior": {
+      "updatedAt": 1792822735580,
+      "value": "attach"
+    },
+    "lastSelectedModel": {
+      "updatedAt": 1792820006032,
+      "value": "deepseek/deepseek-v4-pro"
+    },
+    "lightThemeId": {
+      "updatedAt": 1792818392091,
+      "value": "openchamber-light"
+    },
+    "nativeNotificationsEnabled": {
+      "updatedAt": 1792822776567,
+      "value": true
+    },
+    "notificationTemplates": {
+      "updatedAt": 1792818392091,
+      "value": {
+        "completion": {
+          "message": "",
+          "title": ""
+        },
+        "error": {
+          "message": "",
+          "title": ""
+        },
+        "question": {
+          "message": "",
+          "title": ""
+        },
+        "subtask": {
+          "message": "",
+          "title": ""
+        }
+      }
+    },
+    "notifyOnCompletion": {
+      "updatedAt": 1792818392091,
+      "value": true
+    },
+    "notifyOnError": {
+      "updatedAt": 1792818392091,
+      "value": true
+    },
+    "notifyOnQuestion": {
+      "updatedAt": 1792818392091,
+      "value": true
+    },
+    "notifyOnSubtasks": {
+      "updatedAt": 1792818392091,
+      "value": true
+    },
+    "recentAgents": {
+      "updatedAt": 1792820006032,
+      "value": []
+    },
+    "recentEfforts": {
+      "updatedAt": 1792820008429,
+      "value": {
+        "deepseek/deepseek-v4-pro": [
+          "default"
+        ]
+      }
+    },
+    "recentModels": {
+      "updatedAt": 1792820006032,
+      "value": [
+        {
+          "modelID": "deepseek-v4-pro",
+          "providerID": "deepseek"
+        }
+      ]
+    },
+    "reportUsage": {
+      "updatedAt": 1792822682839,
+      "value": false
+    },
+    "savePastedImagesAsFiles": {
+      "updatedAt": 1792822753557,
+      "value": true
+    },
+    "showDeletionDialog": {
+      "updatedAt": 1792822916258,
+      "value": true
+    },
+    "themeVariant": {
+      "updatedAt": 1792821908667,
+      "value": "dark"
+    },
+    "workStatusPanelEnabled": {
+      "updatedAt": 1792821864846,
+      "value": true
+    }
+  },
+  "version": 1
+}

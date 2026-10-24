@@ -21,8 +21,21 @@
       tmp="$dst.tmp"
       jq -S . "$src" > "$tmp" && mv "$tmp" "$dst"
     }
+    # Copy the live OpenChamber user profile into the repo so home-manager can
+    # keep it declarative (see users/yhattori/ai/openchamber.nix). Run before
+    # every uphm. Only preferences.json is pulled; settings.json and the
+    # relay/git-credential identity files stay live-only (secrets + instance
+    # state).
+    openchamber-pull() {
+      local src dst tmp
+      dst="${constants.nixConfigDir}/users/${constants.user.name}/ai/openchamber/preferences.json"
+      src="$HOME/.config/openchamber/preferences.json"
+      [ -f "$src" ] || return 0
+      tmp="$dst.tmp"
+      jq -S . "$src" > "$tmp" && mv "$tmp" "$dst"
+    }
     upfw() { cd ${constants.nixConfigDir} && sudo nixos-rebuild switch --flake .#framework13; }
-    uphm() { cd ${constants.nixConfigDir} && dms-pull && home-manager switch --flake .#yhattori@framework13 -b backup && niri msg action load-config-file; }
+    uphm() { cd ${constants.nixConfigDir} && dms-pull && openchamber-pull && home-manager switch --flake .#yhattori@framework13 -b backup && niri msg action load-config-file; }
     upall() { upfw && uphm; }
     update-bios() { fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update; }
 
@@ -57,9 +70,10 @@
       echo "  ..              cd .."
       echo ""
       echo "functions:"
-      echo "  dms-pull        copy live DMS settings into the repo"
-      echo "  upfw            rebuild system (nixos-rebuild)"
-      echo "  uphm            rebuild home-manager (runs dms-pull first)"
+      echo "  dms-pull         copy live DMS settings into the repo"
+      echo "  openchamber-pull copy live OpenChamber prefs into the repo"
+      echo "  upfw             rebuild system (nixos-rebuild)"
+      echo "  uphm             rebuild home-manager (runs dms-pull + openchamber-pull first)"
       echo "  upall           upfw + uphm"
       echo "  update-bios     fwupdmgr update"
     }
