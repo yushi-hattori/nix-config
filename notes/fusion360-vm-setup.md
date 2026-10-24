@@ -21,8 +21,8 @@ Windows VM (KVM/QEMU). Two display methods documented here:
   `default` NAT network is up on boot
 - `moonlight-qt` installed via `modules/home-manager/programs/moonlight`
   (framework13 host only)
-- Firewall ports for Sunshine (from the *host*'s Sunshine service, kept open):
-  TCP 47984, 47989, 47990, 48010 / UDP 47998, 47999, 48000, 48002, 48010
+- The NixOS host does not run Sunshine. Moonlight connects directly to Sunshine
+  running inside the VM over libvirt's `default` NAT network.
 
 ---
 

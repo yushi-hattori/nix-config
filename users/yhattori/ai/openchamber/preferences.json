@@ -79,8 +79,12 @@
       "value": "attach"
     },
     "lastSelectedModel": {
-      "updatedAt": 1792867481379,
-      "value": "deepseek/deepseek-v4-pro"
+      "updatedAt": 1792870295362,
+      "value": "deepseek/deepseek-flash"
+    },
+    "layoutAnimations": {
+      "updatedAt": 1792870491157,
+      "value": false
     },
     "lightThemeId": {
       "updatedAt": 1792818392091,
@@ -143,14 +147,14 @@
       }
     },
     "recentModels": {
-      "updatedAt": 1792867481379,
+      "updatedAt": 1792870506891,
       "value": [
         {
-          "modelID": "deepseek-v4-pro",
+          "modelID": "deepseek-flash",
           "providerID": "deepseek"
         },
         {
-          "modelID": "deepseek-flash",
+          "modelID": "deepseek-v4-pro",
           "providerID": "deepseek"
         },
         {

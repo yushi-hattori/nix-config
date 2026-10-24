@@ -6,7 +6,6 @@
     ./printing.nix
     ./tlp.nix
     ./ollama.nix
-    ./sunshine.nix
     ./waydroid.nix
     ./nix-ld.nix
   ];

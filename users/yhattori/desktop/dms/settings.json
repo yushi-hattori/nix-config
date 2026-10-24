@@ -526,6 +526,7 @@
     }
   ],
   "enableFprint": true,
+  "focusFollowsMouse": 0,
   "generateThemeAtStartup": true,
   "greeterWidgetInstances": [
     {
@@ -744,6 +745,8 @@
     }
   ],
   "motionEffect": 0,
+  "mouseNaturalScroll": true,
+  "mouseScrollFactor": 1,
   "muxType": "zellij",
   "networkPreference": "wifi",
   "notificationPopupPosition": 0,
@@ -781,6 +784,9 @@
   },
   "springBounce": 1,
   "terminalsAlwaysDark": true,
+  "touchpadAccelProfile": "default",
+  "touchpadNaturalScroll": false,
+  "touchpadScrollFactor": 0.4,
   "useAutoLocation": true,
   "useFahrenheit": true
 }

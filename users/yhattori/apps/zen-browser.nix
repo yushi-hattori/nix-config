@@ -2,7 +2,7 @@
 #
 # Primary browser. Twilight build via the zen-browser flake; hardened with
 # tracking-protection + telemetry/pocket disabled, plus firefoxpwa for
-# installed web apps (e.g. sunshine-ui).
+# installed web apps.
 { pkgs, inputs, ... }:
 {
   imports = [
@@ -31,6 +31,4 @@
       };
     };
   };
-
-  programs.zsh.shellAliases.sunshine-ui = "zen https://localhost:47990 &>/dev/null &";
 }

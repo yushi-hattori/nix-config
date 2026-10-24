@@ -18,8 +18,6 @@
 #   python:
 #     conda / mamba micromamba                          dev/mamba.nix
 #     deeplearning  conda activate deeplearning         dev/mamba.nix
-#   apps:
-#     sunshine-ui   zen → sunshine web UI               apps/zen-browser.nix
 #   navigation:
 #     repo          cd ~/Documents/repositories         (this file)
 #     temp          cd ~/Downloads/temp                 (this file)
