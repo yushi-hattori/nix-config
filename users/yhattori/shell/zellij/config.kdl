@@ -572,7 +572,12 @@ load_plugins {
 //   - detach (Default)
 //   - quit
 //
-// on_force_close "quit"
+// `quit` (instead of the default `detach`) so zellij actually exits on SIGTERM.
+// Otherwise, when ghostty's per-surface systemd scope is stopped at shutdown,
+// zellij detaches and leaves the server + shells running in the scope's cgroup,
+// and the user manager's stop job blocks ~90s before SIGKILLing them (the
+// "A stop job is running for User Manager for UID 1000" delay).
+on_force_close "quit"
 
 //  Send a request for a simplified ui (without arrow fonts) to plugins
 //  Options:

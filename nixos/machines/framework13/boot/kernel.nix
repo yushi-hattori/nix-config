@@ -30,9 +30,23 @@ in
     "nmi_watchdog=1"
   ];
 
-  # NOTE: the amdgpu ISM dc_lock deadlock backport (CVE-2026-68364) was dropped
-  # here — it was a temporary fix for kernel 7.1.0-7.1.5, now upstream, and it
-  # no longer applies to the current kernel.
+  # Backport of the upstream amdgpu ISM dc_lock deadlock fix (CVE-2026-68364).
+  # The pinned nixpkgs-kernel input gives linuxPackages_latest = 7.1.2, which
+  # sits inside the 7.1.0-7.1.5 window where amdgpu_dm_ism_disable() holds
+  # dc_lock while waiting on ISM delayed work that also takes dc_lock -> ABBA
+  # deadlock that hard-freezes the machine on s2idle (the journal stops dead at
+  # "PM: suspend entry (s2idle)" with no resume, no panic, recovery only by cold
+  # restart). Triggers especially when video was playing at suspend time.
+  # Fixed upstream in stable 7.1.6 / mainline 7.2-rc1; we vendor the single
+  # stable backport commit (95776812e6b8) so the rest of the pinned lock stays
+  # frozen. TODO: drop this once the pinned kernel is >= 7.1.6 (e.g. after a
+  # flake update).
+  boot.kernelPatches = [
+    {
+      name = "amdgpu-ism-dc-lock-deadlock-fix";
+      patch = ./patches/amdgpu-ism-dc-lock-deadlock-fix.patch;
+    }
+  ];
 
   # MT7925 (RZ717) power-management workaround. The card wedges in a low-power
   # PCIe state across suspend/resume: on wake it either faults the AMD data
