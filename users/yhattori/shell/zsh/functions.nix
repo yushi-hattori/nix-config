@@ -9,12 +9,17 @@
     # Copy the live DMS settings into the repo so home-manager can keep it
     # declarative (see users/yhattori/desktop/dms.nix). Run before every uphm.
     dms-pull() {
-      local dst="${constants.nixConfigDir}/users/${constants.user.name}/desktop/dms/settings.json"
+      local src dst tmp
+      dst="${constants.nixConfigDir}/users/${constants.user.name}/desktop/dms/settings.json"
       if [ -f "$HOME/.config/dms/settings.json" ]; then
-        cp "$HOME/.config/dms/settings.json" "$dst"
+        src="$HOME/.config/dms/settings.json"
       elif [ -f "$HOME/.config/DankMaterialShell/settings.json" ]; then
-        cp "$HOME/.config/DankMaterialShell/settings.json" "$dst"
+        src="$HOME/.config/DankMaterialShell/settings.json"
+      else
+        return 0
       fi
+      tmp="$dst.tmp"
+      jq -S . "$src" > "$tmp" && mv "$tmp" "$dst"
     }
     upfw() { cd ${constants.nixConfigDir} && sudo nixos-rebuild switch --flake .#framework13; }
     uphm() { cd ${constants.nixConfigDir} && dms-pull && home-manager switch --flake .#yhattori@framework13 -b backup && niri msg action load-config-file; }

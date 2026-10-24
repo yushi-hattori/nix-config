@@ -45,12 +45,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # OpenChamber web UI for OpenCode (nixosModules.openchamber). Pinned to the
-    # last commit whose flake opencode pin matches packages/electron's opencode
-    # CLI (v2.1.3). HEAD currently drifts (packages/electron bumped to 2.1.4
-    # before the flake tag/hashes were re-baked), which fails the flake's
-    # throwIf assertion. Bump to a newer rev once upstream re-bakes.
-    openchamber.url = "github:openchamber/openchamber/713ed779adb9ff91e6a8bfec11b317893d52ca8d";
+    # OpenChamber web UI for OpenCode (nixosModules.openchamber). Upstream HEAD
+    # drifts (flake pins opencode v2.1.3 while packages/electron requires 2.1.4,
+    # and the baked bun-deps/node-modules hashes are stale), so we override the
+    # opencode input here and re-bake the hashes in the module itself (see
+    # nixos/shared/services/openchamber.nix).
+    openchamber = {
+      url = "github:openchamber/openchamber";
+      inputs.opencode.url = "github:anomalyco/opencode/v2.1.4";
+    };
 
     # DankMaterialShell — desktop shell for niri (stable branch)
     dms = {
@@ -79,6 +82,7 @@
           ./nixos/machines/${constants.hostname}
           {
             nixpkgs.config.allowUnfree = true;
+            nixpkgs.overlays = [ overlays.openchamber ];
           }
         ];
       };
@@ -93,6 +97,7 @@
               overlays.nmtui-go
               inputs.opencode.overlays.default
               overlays.opencode-latest
+              overlays.openchamber
               overlays.zellij-latest
               overlays.yazi-latest
               inputs.antigravity-nix.overlays.default
