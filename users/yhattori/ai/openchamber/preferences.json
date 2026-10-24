@@ -34,6 +34,10 @@
       "updatedAt": 1792822792992,
       "value": "deepseek/deepseek-v4-pro"
     },
+    "diffWrapLines": {
+      "updatedAt": 1792827594963,
+      "value": true
+    },
     "enterToSend": {
       "updatedAt": 1792826583587,
       "value": true
@@ -75,7 +79,7 @@
       "value": "attach"
     },
     "lastSelectedModel": {
-      "updatedAt": 1792820006032,
+      "updatedAt": 1792867481379,
       "value": "deepseek/deepseek-v4-pro"
     },
     "lightThemeId": {
@@ -128,19 +132,30 @@
       "value": []
     },
     "recentEfforts": {
-      "updatedAt": 1792820008429,
+      "updatedAt": 1792867097347,
       "value": {
+        "deepseek/deepseek-flash": [
+          "default"
+        ],
         "deepseek/deepseek-v4-pro": [
           "default"
         ]
       }
     },
     "recentModels": {
-      "updatedAt": 1792820006032,
+      "updatedAt": 1792867481379,
       "value": [
         {
           "modelID": "deepseek-v4-pro",
           "providerID": "deepseek"
+        },
+        {
+          "modelID": "deepseek-flash",
+          "providerID": "deepseek"
+        },
+        {
+          "modelID": "deepseek-v4.1-flash-free",
+          "providerID": "opencode"
         }
       ]
     },

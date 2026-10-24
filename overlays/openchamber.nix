@@ -85,13 +85,14 @@ let
     inherit electron;
     # Force native Wayland + hardware GPU rendering. Chromium otherwise falls
     # back to software (`--use-gl=disabled`) on the Radeon 890M, which is the
-    # "everything feels laggy / typing is delayed" symptom. Vulkan-backed ANGLE
-    # (radv) is the most reliable GL path on this iGPU; ignore-gpu-blocklist
-    # keeps Chromium from refusing GPU on such a new device.
+    # "everything feels laggy / typing is delayed" symptom. GL-backed ANGLE
+    # (radeonsi) gives smoother scrolling/animations than the Vulkan backend
+    # (radv), which micro-stutters on this iGPU; ignore-gpu-blocklist keeps
+    # Chromium from refusing GPU on such a new device.
     ozonePlatformHint = "wayland";
     extraCommandLineFlags = [
       "--use-gl=angle"
-      "--use-angle=vulkan"
+      "--use-angle=gl"
       "--ignore-gpu-blocklist"
     ];
   };
