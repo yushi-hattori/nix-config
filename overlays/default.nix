@@ -7,7 +7,6 @@
 {
   stable-packages = import ./stable-packages.nix { inherit inputs; };
   nmtui-go = import ./nmtui-go.nix;
-  opencode-latest = import ./opencode-latest.nix;
   openchamber = import ./openchamber.nix { inherit inputs; };
   zellij-latest = import ./zellij-latest.nix;
   yazi-latest = import ./yazi-latest.nix;

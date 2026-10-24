@@ -69,7 +69,12 @@ let
   electronSpec =
     (builtins.fromJSON (builtins.readFile "${inputs.openchamber}/packages/electron/package.json")).devDependencies.electron;
   electronMajor = ocPkgs.lib.versions.major (ocPkgs.lib.removePrefix "^" electronSpec);
-  electron = ocPkgs.${"electron_${electronMajor}"} or (throw "openchamber pins electron ${electronSpec}, but nixpkgs has no electron_${electronMajor}");
+  # Electron from `final` (our nixpkgs-unstable, glibc 2.44) rather than ocPkgs
+  # (openchamber's pinned nixpkgs, glibc 2.42). The GPU driver in
+  # /run/opengl-driver (mesa 26.2.5) is built against glibc 2.44; an electron
+  # process running glibc 2.42 can't dlopen mesa's libgallium (missing
+  # GLIBC_2.43 in libm), so Chromium silently falls back to software rendering.
+  electron = final.${"electron_${electronMajor}"} or (throw "openchamber pins electron ${electronSpec}, but nixpkgs has no electron_${electronMajor}");
 
   openchamber-desktop = ocPkgs.callPackage "${patchedSrc}/nix/gui.nix" {
     self = patchedSrc;
@@ -78,9 +83,24 @@ let
     src = openchamber.passthru.src;
     openchamberCore = openchamber.passthru.core;
     inherit electron;
+    # Force native Wayland + hardware GPU rendering. Chromium otherwise falls
+    # back to software (`--use-gl=disabled`) on the Radeon 890M, which is the
+    # "everything feels laggy / typing is delayed" symptom. Vulkan-backed ANGLE
+    # (radv) is the most reliable GL path on this iGPU; ignore-gpu-blocklist
+    # keeps Chromium from refusing GPU on such a new device.
+    ozonePlatformHint = "wayland";
+    extraCommandLineFlags = [
+      "--use-gl=angle"
+      "--use-angle=vulkan"
+      "--ignore-gpu-blocklist"
+    ];
   };
 in
 {
+  # Single opencode at v2.1.4: the same derivation bundled into the desktop
+  # app is also exposed as `pkgs.opencode` for the standalone CLI (`oc` alias),
+  # replacing the old 1.19.3 pin from the removed opencode-latest overlay.
+  opencode = opencode-cli;
   openchamber = openchamber;
   openchamber-desktop = openchamber-desktop;
 }

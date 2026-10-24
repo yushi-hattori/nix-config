@@ -30,9 +30,6 @@
     # declarative flatpak (Zoom, Bambu Studio)
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=v0.6.0";
 
-    # opencode AI coding agent (+ opencode-latest overlay)
-    opencode.url = "github:dan-online/opencode-nix";
-
     # Google Antigravity agentic IDE (google-antigravity-cli via overlay)
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
@@ -95,8 +92,6 @@
             overlays = [
               overlays.stable-packages
               overlays.nmtui-go
-              inputs.opencode.overlays.default
-              overlays.opencode-latest
               overlays.openchamber
               overlays.zellij-latest
               overlays.yazi-latest
