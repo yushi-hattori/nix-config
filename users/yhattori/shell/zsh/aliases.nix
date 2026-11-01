@@ -9,6 +9,7 @@
 #     ls/ll/la/lt   eza (icons / long / all / tree)    cli/eza.nix
 #   network:
 #     wifi          nmtui-go                            cli/nmtui-go.nix
+#     login         open captive-portal login page      cli/nmtui-go.nix
 #     bt            bluetui                             cli/bluetui.nix
 #   dev:
 #     lg            lazygit                             dev/lazygit.nix

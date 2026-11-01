@@ -754,10 +754,11 @@
   "mouseScrollFactor": 1,
   "muxType": "zellij",
   "networkPreference": "wifi",
+  "notificationCompactMode": false,
   "notificationPopupPosition": 0,
   "osdAlwaysShowValue": true,
   "osdMediaPlaybackEnabled": true,
-  "osdPosition": 0,
+  "osdPosition": 5,
   "osdPowerProfileEnabled": true,
   "padHours12Hour": false,
   "popupTransparency": 0.9,
@@ -784,6 +785,7 @@
   },
   "showSeconds": true,
   "showWeekNumber": false,
+  "soundNewNotification": false,
   "spotlightSectionViewModes": {
     "apps": "list"
   },

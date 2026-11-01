@@ -48,6 +48,7 @@
       echo ""
       echo "network:"
       echo "  wifi            nmtui-go"
+      echo "  login           open captive-portal login page"
       echo "  bt              bluetui"
       echo ""
       echo "dev:"
