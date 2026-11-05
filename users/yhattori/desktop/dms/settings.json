@@ -425,6 +425,57 @@
   "dankLauncherV2IncludeFilesInAll": true,
   "dankLauncherV2IncludeFoldersInAll": true,
   "dankLauncherV2Size": "medium",
+  "dashCards": [
+    {
+      "col": 0,
+      "h": 1,
+      "id": "clock",
+      "row": 0,
+      "w": 2
+    },
+    {
+      "col": 2,
+      "h": 1,
+      "id": "weather",
+      "row": 0,
+      "w": 1
+    },
+    {
+      "col": 3,
+      "h": 4,
+      "id": "notifications",
+      "row": 0,
+      "w": 3
+    },
+    {
+      "col": 0,
+      "h": 3,
+      "id": "calendar",
+      "row": 1,
+      "w": 3
+    },
+    {
+      "col": 3,
+      "h": 1,
+      "id": "media",
+      "row": 4,
+      "w": 3
+    },
+    {
+      "col": 0,
+      "h": 1,
+      "id": "battery",
+      "row": 4,
+      "w": 2
+    },
+    {
+      "col": 2,
+      "h": 1,
+      "id": "wellbeing",
+      "row": 4,
+      "w": 1
+    }
+  ],
   "desktopWidgetInstances": [
     {
       "config": {
