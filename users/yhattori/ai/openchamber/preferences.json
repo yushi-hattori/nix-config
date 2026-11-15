@@ -147,14 +147,14 @@
       }
     },
     "recentModels": {
-      "updatedAt": 1793861474419,
+      "updatedAt": 1793917736046,
       "value": [
         {
-          "modelID": "deepseek-flash",
+          "modelID": "deepseek-v4-pro",
           "providerID": "deepseek"
         },
         {
-          "modelID": "deepseek-v4-pro",
+          "modelID": "deepseek-flash",
           "providerID": "deepseek"
         },
         {
