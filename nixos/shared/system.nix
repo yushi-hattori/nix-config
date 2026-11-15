@@ -3,6 +3,14 @@
 # Locale, timezone, audio (PipeWire), sudo, bluetooth, docker, ssh, xwayland,
 # fonts, and system packages.
 { config, pkgs, ... }:
+let
+  # Fonts vendored into files/fonts/ (not packaged in nixpkgs). See
+  # files/fonts/README.md for sources and licences.
+  vendoredFonts = pkgs.runCommand "vendored-fonts" { } ''
+    mkdir -p $out/share/fonts/truetype/vendored
+    cp ${./../../files/fonts}/*.ttf $out/share/fonts/truetype/vendored/
+  '';
+in
 {
   # Locale + timezone
   i18n.defaultLocale = "en_US.UTF-8";
@@ -81,6 +89,10 @@
       nerd-fonts.jetbrains-mono
       nerd-fonts.meslo-lg
       roboto
+      corefonts # Times New Roman (msttcorefonts)
+      cormorant # Cormorant Garamond
+      libre-baskerville # Libre Baskerville
+      vendoredFonts # Sacramento, Alex Brush, Playfair Display, Brittany Signature, Amsterdam Two/Four
     ];
   };
 
