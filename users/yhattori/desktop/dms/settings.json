@@ -844,7 +844,7 @@
   "terminalsAlwaysDark": true,
   "touchpadAccelProfile": "default",
   "touchpadNaturalScroll": false,
-  "touchpadScrollFactor": 0.4,
+  "touchpadScrollFactor": 1.0,
   "useAutoLocation": true,
   "useFahrenheit": true
 }
