@@ -17,6 +17,7 @@ input {
     touchpad {
         tap
         dwt
+        scroll-factor 3.0
     }
 
     warp-mouse-to-focus
