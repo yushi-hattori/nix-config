@@ -6,6 +6,7 @@
     ./discord.nix
     ./spotify.nix
     ./chrome.nix
+    ./imagemeter.nix
     ./obsidian.nix
     ./inkscape.nix
     ./inkcut.nix
